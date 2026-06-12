@@ -4,10 +4,10 @@
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1080px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}
 </style></head><body><main>
 <h1 id="title">Eikichi Racing Simulator</h1>
-<div class="small">CSV/TSV貼り付け対応。能力0.45・タイム0.10・血統0.35・調教0.05・騎手0.05＋生き物ブレ。</div>
+<div class="small">CSV/TSV貼り付け対応。左回り/右回りをコース別に再現。能力0.45・タイム0.10・血統0.35・調教0.05・騎手0.05＋生き物ブレ。</div>
 <div class="panel"><h3>出走表貼り付け</h3><div class="controls">
 <div><label>レース名</label><input id="raceName" value="函館6R 未勝利"></div>
-<div><label>コース</label><select id="course"><option value="hakodate_d1700" selected>函館ダ1700</option><option value="hanshin_t2200">阪神芝2200</option><option value="tokyo_t1600">東京芝1600</option><option value="tokyo_t2400">東京芝2400</option><option value="nakayama_t2500">中山芝2500</option><option value="kyoto_t2200">京都芝2200</option><option value="kyoto_d1800">京都ダ1800</option><option value="tokyo_d1600">東京ダ1600</option></select></div>
+<div><label>コース</label><select id="course"><option value="hakodate_d1700" selected>函館ダ1700</option><option value="hakodate_t1200">函館芝1200</option><option value="kokura_t1200">小倉芝1200</option><option value="fukushima_d1700">福島ダ1700</option><option value="fukushima_t1200">福島芝1200</option><option value="hanshin_t2200">阪神芝2200</option><option value="tokyo_t1600">東京芝1600</option><option value="tokyo_t2400">東京芝2400</option><option value="tokyo_d1600">東京ダ1600</option><option value="nakayama_t2500">中山芝2500</option><option value="kyoto_t2200">京都芝2200</option><option value="kyoto_d1800">京都ダ1800</option></select></div>
 <div><label>タイム列</label><select id="timeCol"><option value="近3走タイム評価" selected>近3走タイム評価</option><option value="最高タイム評価">最高タイム評価</option><option value="推定タイム評価">推定タイム評価</option><option value="タイム指数">タイム指数</option></select></div><button id="load" class="green">出走表読込</button>
 </div><textarea id="csvInput">日付	場所	レース	コース	芝ダ	距離	レース名	馬名	馬番	騎手	種牡馬	父タイプ名	母父タイプ名	父母父タイプ名	母母父タイプ名	前走脚質	斤量	推定タイム評価	最高タイム評価	近3走タイム評価	同コース	同距離	同場所	１走前	2走前	3走前	能力	調教
 613	函館	函6		ダ	1700	未勝利	 トーセンアミューズ	1	小崎綾也	ダイワメジャー	サンデーサイレンス系	キングマンボ系	ニアークティック系	ニアークティック系	後	57	113	113	108		-	-	109	113	101	D	A
@@ -33,9 +33,47 @@ const E=id=>document.getElementById(id);let horses=[],timer=null,divs=[],path=[]
 const grade={S:100,AA:95,A:88,B:76,C:64,D:52};
 const jockey={"ルメール":10,"レーン":9,"川田将雅":8,"武豊":5,"戸崎圭太":4,"坂井瑠星":4,"松山弘平":3,"横山武史":3,"岩田望来":3,"横山和生":3,"丹内祐次":2};
 const colors=["#ff5a5f","#ffd166","#06d6a0","#4cc9f0","#f72585","#b8f2e6","#c77dff","#90be6d","#f8961e","#adb5bd"];
-const courses={hakodate_d1700:{name:"函館ダ1700",bias:"小回り・先行持続",kind:"dirt"},hanshin_t2200:{name:"阪神芝2200",bias:"内回り・持続力",kind:"turf"},tokyo_t1600:{name:"東京芝1600",bias:"長い直線・差し",kind:"turf"},tokyo_t2400:{name:"東京芝2400",bias:"長い直線・総合力",kind:"turf"},nakayama_t2500:{name:"中山芝2500",bias:"小回り・先行スタミナ",kind:"turf"},kyoto_t2200:{name:"京都芝2200",bias:"下り坂・ロングスパート",kind:"turf"},kyoto_d1800:{name:"京都ダ1800",bias:"先行・持続",kind:"dirt"},tokyo_d1600:{name:"東京ダ1600",bias:"外枠・持続差し",kind:"dirt"}};
-const oval=[[815,365],[705,398],[540,410],[360,405],[245,382],[95,335],[70,240],[115,158],[265,112],[500,100],[730,120],[885,190],[895,300],[820,365],[670,392],[480,402],[315,395],[245,382]];
-function setCourse(){const c=courses[E("course").value]||courses.hakodate_d1700;path=oval;seg=[];total=0;for(let i=0;i<path.length-1;i++){let dx=path[i+1][0]-path[i][0],dy=path[i+1][1]-path[i][1],l=Math.hypot(dx,dy);seg.push(l);total+=l}let d=path.map((p,i)=>(i?'L':'M')+p[0]+' '+p[1]).join(' ');E("courseSvg").innerHTML=`<rect width="1000" height="520" fill="#10263e"/><path d="${d}" fill="none" stroke="#3c9a50" stroke-width="76" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="#8cec7d" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="500" cy="255" rx="285" ry="90" fill="#071f10"/><line x1="${path[0][0]}" y1="${path[0][1]+55}" x2="${path[0][0]}" y2="${path[0][1]-30}" stroke="#f4d94f" stroke-width="5"/><line x1="${path[path.length-1][0]}" y1="${path[path.length-1][1]+45}" x2="${path[path.length-1][0]}" y2="${path[path.length-1][1]-45}" stroke="#fff" stroke-width="4" stroke-dasharray="8 7"/><text x="500" y="248" fill="#e1c766" font-size="25" font-weight="700" text-anchor="middle">${c.name}</text><text x="500" y="282" fill="#9fd4ff" font-size="18" font-weight="700" text-anchor="middle">${c.bias}</text>`}
+const baseShapes={
+  rightSmall:[[815,365],[705,398],[540,410],[360,405],[245,382],[95,335],[70,240],[115,158],[265,112],[500,100],[730,120],[885,190],[895,300],[820,365],[670,392],[480,402],[315,395],[245,382]],
+  rightHanshin:[[815,365],[740,395],[575,405],[395,405],[250,392],[90,350],[70,245],[110,165],[235,115],[430,100],[620,105],[740,118],[880,185],[900,285],[815,365],[685,382],[525,390],[365,390],[250,392]],
+  leftTokyo:[[220,365],[345,398],[520,408],[705,390],[850,330],[890,230],[835,155],[670,115],[435,105],[245,130],[105,220],[120,315],[260,375],[430,398],[610,400],[760,382],[835,360]],
+  leftTokyoLong:[[205,360],[335,400],[520,410],[720,392],[875,325],[910,220],[845,145],[650,105],[390,105],[185,155],[95,250],[135,330],[285,382],[455,402],[630,397],[790,370],[850,345]]
+};
+const courses={
+  hakodate_d1700:{name:"函館ダ1700",bias:"右回り・小回り・先行持続",kind:"dirt",dir:"右回り",shape:"rightSmall"},
+  hakodate_t1200:{name:"函館芝1200",bias:"右回り・洋芝・先行スピード",kind:"turf",dir:"右回り",shape:"rightSmall"},
+  kokura_t1200:{name:"小倉芝1200",bias:"右回り・平坦・逃げ先行",kind:"turf",dir:"右回り",shape:"rightSmall"},
+  fukushima_d1700:{name:"福島ダ1700",bias:"右回り・小回り・先行持続",kind:"dirt",dir:"右回り",shape:"rightSmall"},
+  fukushima_t1200:{name:"福島芝1200",bias:"右回り・小回り・先行持続",kind:"turf",dir:"右回り",shape:"rightSmall"},
+  hanshin_t2200:{name:"阪神芝2200",bias:"右回り・内回り・持続力",kind:"turf",dir:"右回り",shape:"rightHanshin"},
+  tokyo_t1600:{name:"東京芝1600",bias:"左回り・長い直線・差し",kind:"turf",dir:"左回り",shape:"leftTokyo"},
+  tokyo_t2400:{name:"東京芝2400",bias:"左回り・長い直線・総合力",kind:"turf",dir:"左回り",shape:"leftTokyoLong"},
+  nakayama_t2500:{name:"中山芝2500",bias:"右回り・小回り・先行スタミナ",kind:"turf",dir:"右回り",shape:"rightSmall"},
+  kyoto_t2200:{name:"京都芝2200",bias:"右回り・下り坂・ロングスパート",kind:"turf",dir:"右回り",shape:"rightSmall"},
+  kyoto_d1800:{name:"京都ダ1800",bias:"右回り・先行・持続",kind:"dirt",dir:"右回り",shape:"rightSmall"},
+  tokyo_d1600:{name:"東京ダ1600",bias:"左回り・外枠・持続差し",kind:"dirt",dir:"左回り",shape:"leftTokyo"}
+};
+function setCourse(){
+ const c=courses[E("course").value]||courses.hakodate_d1700;
+ path=baseShapes[c.shape]||baseShapes.rightSmall;
+ seg=[]; total=0;
+ for(let i=0;i<path.length-1;i++){let dx=path[i+1][0]-path[i][0],dy=path[i+1][1]-path[i][1],l=Math.hypot(dx,dy);seg.push(l);total+=l}
+ let d=path.map((p,i)=>(i?'L':'M')+p[0]+' '+p[1]).join(' ');
+ let arrow = c.dir==="左回り" ? "← 左回り" : "右回り →";
+ let arrowX = c.dir==="左回り" ? 185 : 815;
+ E("courseSvg").innerHTML=`<rect width="1000" height="520" fill="#10263e"/>
+ <path d="${d}" fill="none" stroke="#3c9a50" stroke-width="76" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="${d}" fill="none" stroke="#8cec7d" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+ <ellipse cx="500" cy="255" rx="285" ry="90" fill="#071f10"/>
+ <line x1="${path[0][0]}" y1="${path[0][1]+55}" x2="${path[0][0]}" y2="${path[0][1]-30}" stroke="#f4d94f" stroke-width="5"/>
+ <line x1="${path[path.length-1][0]}" y1="${path[path.length-1][1]+45}" x2="${path[path.length-1][0]}" y2="${path[path.length-1][1]-45}" stroke="#fff" stroke-width="4" stroke-dasharray="8 7"/>
+ <text x="${path[0][0]}" y="${path[0][1]+82}" fill="#f4d94f" font-size="17" text-anchor="middle">START</text>
+ <text x="${path[path.length-1][0]}" y="${path[path.length-1][1]+78}" fill="#fff" font-size="17" text-anchor="middle">GOAL</text>
+ <text x="500" y="238" fill="#e1c766" font-size="25" font-weight="700" text-anchor="middle">${c.name}</text>
+ <text x="500" y="272" fill="#9fd4ff" font-size="18" font-weight="700" text-anchor="middle">${c.bias}</text>
+ <text x="500" y="310" fill="#ffd166" font-size="22" font-weight="700" text-anchor="middle">${arrow}</text>
+ <text x="${arrowX}" y="85" fill="#ffd166" font-size="15" text-anchor="middle">${c.dir}</text>`;
+}
 function parseTable(text){text=text.trim();if(!text)throw new Error("出走表が空です");const delim=text.includes("\t")?"\t":",";const lines=text.split(/\r?\n/).filter(x=>x.trim());const headers=lines[0].split(delim).map(x=>x.trim());return lines.slice(1).map(line=>{const cols=line.split(delim),r={};headers.forEach((h,j)=>r[h]=(cols[j]||"").trim());return r})}
 function num(v,d=0){v=String(v||"").replace(/[▲☆★]/g,"").replace("-","").trim();let n=parseFloat(v);return isNaN(n)?d:n}
 function style(s){s=String(s||"").trim();if(s.includes("逃"))return"逃げ";if(s.includes("先"))return"先行";if(s.includes("中"))return"中団";if(s.includes("後"))return"後方";if(s.includes("差"))return"差し";return"中団"}
