@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!-- saved from url=(0082)file:///C:/Users/admin/Downloads/takarazuka_simulator_position_adjusted%20(3).html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>宝塚記念シミュレーター 隊列補正版</title>
+<style>
+body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}
+main{max-width:980px;margin:auto;padding:12px}h1{font-size:22px;margin:8px 0}
+.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
+select,button,input{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff}
+button{background:#e8465f;border:0;font-weight:800}.gray{background:#2b3f59}
+#track{position:relative;height:380px;background:#10263e;border-radius:14px;overflow:hidden}
+svg{position:absolute;inset:0;width:100%;height:100%}
+.horse{position:absolute;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5}
+table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}
+.small{font-size:12px;color:#9fb0c7;line-height:1.5}
+</style></head><body><main>
+<h1>宝塚記念 GⅠ シミュレーター 隊列補正版</h1>
+<div class="small">能力0.45・タイム0.10・血統0.35・調教0.05・騎手0.05。さらに隊列補正を追加し、7〜8割はミステリーウェイ逃げ、メイショウタバル番手になる設定。</div>
+<div class="panel controls">
+<div><label>ペース</label><select id="pace"><option value="slow">スロー</option><option value="middle" selected="">ミドル</option><option value="high">ハイ</option></select></div>
+<div><label>馬場</label><select id="going"><option value="firm" selected="">良・高速寄り</option><option value="normal">良・標準</option><option value="soft">稍重〜重</option></select></div>
+<div><label>予想反映度 <span id="wtxt">70</span>%</label><input id="weight" type="range" min="20" max="95" value="70"></div>
+<div><label>乱数</label><select id="noise"><option value="0.6">少なめ</option><option value="1" selected="">標準</option><option value="1.4">多め</option><option value="2.0">荒れ気味</option></select></div>
+<div><label>生き物ブレ</label><select id="life"><option value="0.8">小</option><option value="1.3" selected="">標準</option><option value="2.0">大</option></select></div>
+<button id="one">▶ 1回再生</button><button id="many" class="gray">📊 300回検証</button><button id="reset" class="gray">↻ リセット</button>
+</div>
+<div class="panel"><div id="track">
+<svg viewBox="0 0 1000 520" preserveAspectRatio="none">
+<rect width="1000" height="520" fill="#10263e"></rect>
+<path d="M815 365 C915 350 925 160 740 118 C565 78 235 78 110 165 C20 228 40 350 250 392 C395 420 635 420 815 365" fill="none" stroke="#3c9a50" stroke-width="76" stroke-linecap="round"></path>
+<path d="M815 365 C915 350 925 160 740 118 C565 78 235 78 110 165 C20 228 40 350 250 392 C395 420 635 420 815 365" fill="none" stroke="#8cec7d" stroke-width="11" stroke-linecap="round"></path>
+<ellipse cx="500" cy="255" rx="285" ry="90" fill="#071f10"></ellipse>
+<line x1="815" y1="420" x2="815" y2="335" stroke="#f4d94f" stroke-width="5"></line>
+<line x1="250" y1="430" x2="250" y2="350" stroke="#fff" stroke-width="4" stroke-dasharray="8 7"></line>
+<text x="500" y="248" fill="#e1c766" font-size="25" font-weight="700" text-anchor="middle">阪神芝2200m 内回り</text>
+<text x="500" y="282" fill="#9fd4ff" font-size="18" font-weight="700" text-anchor="middle">3〜4角下り / 最後の直線</text>
+<text x="815" y="450" fill="#f4d94f" font-size="18" text-anchor="middle">START</text>
+<text x="250" y="458" fill="#fff" font-size="18" text-anchor="middle">GOAL</text>
+</svg><div class="horse" style="background: rgb(255, 90, 95); left: 769.359px; top: 263.442px;">1</div><div class="horse" style="background: rgb(255, 209, 102); left: 773.163px; top: 265.635px;">2</div><div class="horse" style="background: rgb(6, 214, 160); left: 776.967px; top: 267.827px;">3</div><div class="horse" style="background: rgb(76, 201, 240); left: 780.771px; top: 270.019px;">4</div><div class="horse" style="background: rgb(247, 37, 133); left: 769.359px; top: 263.442px;">5</div><div class="horse" style="background: rgb(184, 242, 230); left: 773.163px; top: 265.635px;">6</div><div class="horse" style="background: rgb(199, 125, 255); left: 776.967px; top: 267.827px;">7</div><div class="horse" style="background: rgb(144, 190, 109); left: 780.771px; top: 270.019px;">8</div><div class="horse" style="background: rgb(248, 150, 30); left: 769.359px; top: 263.442px;">9</div><div class="horse" style="background: rgb(173, 181, 189); left: 773.163px; top: 265.635px;">10</div><div class="horse" style="background: rgb(255, 90, 95); left: 776.967px; top: 267.827px;">11</div><div class="horse" style="background: rgb(255, 209, 102); left: 780.771px; top: 270.019px;">12</div><div class="horse" style="background: rgb(6, 214, 160); left: 769.359px; top: 263.442px;">13</div><div class="horse" style="background: rgb(76, 201, 240); left: 773.163px; top: 265.635px;">14</div><div class="horse" style="background: rgb(247, 37, 133); left: 776.967px; top: 267.827px;">15</div><div class="horse" style="background: rgb(184, 242, 230); left: 780.771px; top: 270.019px;">16</div><div class="horse" style="background: rgb(199, 125, 255); left: 769.359px; top: 263.442px;">17</div><div class="horse" style="background: rgb(144, 190, 109); left: 773.163px; top: 265.635px;">18</div></div></div>
+<div class="panel"><h3>順位</h3><div id="rank"><table><tbody><tr><th>順</th><th>馬番</th><th>馬名</th><th>状態</th></tr><tr><td>1</td><td>1</td><td>ダノンデサイル</td><td>0%</td></tr><tr><td>2</td><td>2</td><td>ミュージアムマイル</td><td>0%</td></tr><tr><td>3</td><td>3</td><td>シュガークン</td><td>0%</td></tr><tr><td>4</td><td>4</td><td>ミクニインスパイア</td><td>0%</td></tr><tr><td>5</td><td>5</td><td>クロワデュノール</td><td>0%</td></tr><tr><td>6</td><td>6</td><td>ビザンチンドリーム</td><td>0%</td></tr><tr><td>7</td><td>7</td><td>ファミリータイム</td><td>0%</td></tr><tr><td>8</td><td>8</td><td>タガノデュード</td><td>0%</td></tr><tr><td>9</td><td>9</td><td>コスモキュランダ</td><td>0%</td></tr><tr><td>10</td><td>10</td><td>ジューンテイク</td><td>0%</td></tr><tr><td>11</td><td>11</td><td>シンエンペラー</td><td>0%</td></tr><tr><td>12</td><td>12</td><td>マイネルエンペラー</td><td>0%</td></tr><tr><td>13</td><td>13</td><td>シェイクユアハート</td><td>0%</td></tr><tr><td>14</td><td>14</td><td>スティンガーグラス</td><td>0%</td></tr><tr><td>15</td><td>15</td><td>マイユニバース</td><td>0%</td></tr><tr><td>16</td><td>16</td><td>メイショウタバル</td><td>0%</td></tr><tr><td>17</td><td>17</td><td>レガレイラ</td><td>0%</td></tr><tr><td>18</td><td>18</td><td>ミステリーウェイ</td><td>0%</td></tr></tbody></table></div></div>
+<div class="panel"><h3>300回検証結果</h3><div id="result">未実行</div></div>
+<script>
+(function(){
+const horses=[{"レース名": "宝塚記念G1", "馬名": "ダノンデサイル", "馬番": 1, "騎手": "戸崎圭太", "種牡馬": "エピファネイア", "父タイプ名": "ロイヤルチャージャー系", "母父タイプ名": "ナスルーラ系", "父母父タイプ名": "サンデーサイレンス系", "母母父タイプ名": "ストームキャット系", "脚質": "先行", "能力": "A", "調教": "A", "タイム指数": 174}, {"レース名": "宝塚記念G1", "馬名": "ミュージアムマイル", "馬番": 2, "騎手": "レーン", "種牡馬": "リオンディーズ", "父タイプ名": "キングマンボ系", "母父タイプ名": "サンデーサイレンス系", "父母父タイプ名": "サンデーサイレンス系", "母母父タイプ名": "ニアークティック系", "脚質": "先行～差し", "能力": "A", "調教": "B", "タイム指数": 183}, {"レース名": "宝塚記念G1", "馬名": "シュガークン", "馬番": 3, "騎手": "吉村誠之", "種牡馬": "ドゥラメンテ", "父タイプ名": "キングマンボ系", "母父タイプ名": "ナスルーラ系", "父母父タイプ名": "サンデーサイレンス系", "母母父タイプ名": "ナスルーラ系", "脚質": "先行", "能力": "D", "調教": "B", "タイム指数": 164}, {"レース名": "宝塚記念G1", "馬名": "ミクニインスパイア", "馬番": 4, "騎手": "丹内祐次", "種牡馬": "アドマイヤマーズ", "父タイプ名": "サンデーサイレンス系", "母父タイプ名": "ネイティヴダンサー系", "父母父タイプ名": "ネイティヴダンサー系", "母母父タイプ名": "ダンチヒ系", "脚質": "先行", "能力": "A", "調教": "AA", "タイム指数": 178}, {"レース名": "宝塚記念G1", "馬名": "クロワデュノール", "馬番": 5, "騎手": "北村友一", "種牡馬": "キタサンブラック", "父タイプ名": "サンデーサイレンス系", "母父タイプ名": "ダンチヒ系", "父母父タイプ名": "ナスルーラ系", "母母父タイプ名": "その他のエクリプス系", "脚質": "先行", "能力": "S", "調教": "A", "タイム指数": 175}, {"レース名": "宝塚記念G1", "馬名": "ビザンチンドリーム", "馬番": 6, "騎手": "西村淳也", "種牡馬": "エピファネイア", "父タイプ名": "ロイヤルチャージャー系", "母父タイプ名": "トニービン系", "父母父タイプ名": "サンデーサイレンス系", "母母父タイプ名": "ニアークティック系", "脚質": "差し", "能力": "B", "調教": "B", "タイム指数": 173}, {"レース名": "宝塚記念G1", "馬名": "ファミリータイム", "馬番": 7, "騎手": "幸英明", "種牡馬": "リアルスティール", "父タイプ名": "サンデーサイレンス系", "母父タイプ名": "ニアークティック系", "父母父タイプ名": "ストームキャット系", "母母父タイプ名": "ニアークティック系", "脚質": "差し", "能力": "D", "調教": "B", "タイム指数": 163}, {"レース名": "宝塚記念G1", "馬名": "タガノデュード", "馬番": 8, "騎手": "高杉吏麒", "種牡馬": "ヤマカツエース", "父タイプ名": "キングマンボ系", "母父タイプ名": "サンデーサイレンス系", "父母父タイプ名": "ロイヤルチャージャー系", "母母父タイプ名": "ニアークティック系", "脚質": "差し", "能力": "B", "調教": "A", "タイム指数": 172}, {"レース名": "宝塚記念G1", "馬名": "コスモキュランダ", "馬番": 9, "騎手": "横山武史", "種牡馬": "アルアイン", "父タイプ名": "サンデーサイレンス系", "母父タイプ名": "ロイヤルチャージャー系", "父母父タイプ名": "ナスルーラ系", "母母父タイプ名": "ロイヤルチャージャー系", "脚質": "先行", "能力": "C", "調教": "A", "タイム指数": 174}, {"レース名": "宝塚記念G1", "馬名": "ジューンテイク", "馬番": 10, "騎手": "松山弘平", "種牡馬": "キズナ", "父タイプ名": "サンデーサイレンス系", "母父タイプ名": "ロイヤルチャージャー系", "父母父タイプ名": "ストームキャット系", "母母父タイプ名": "サンデーサイレンス系", "脚質": "差し", "能力": "B", "調教": "A", "タイム指数": 168}, {"レース名": "宝塚記念G1", "馬名": "シンエンペラー", "馬番": 11, "騎手": "坂井瑠星", "種牡馬": "Siyouni", "父タイプ名": "ニアークティック系", "母父タイプ名": "ニアークティック系", "父母父タイプ名": "ダンチヒ系", "母母父タイプ名": "ニアークティック系", "脚質": "差し", "能力": "B", "調教": "A", "タイム指数": 169}, {"レース名": "宝塚記念G1", "馬名": "マイネルエンペラー", "馬番": 12, "騎手": "川田将雅", "種牡馬": "ゴールドシップ", "父タイプ名": "サンデーサイレンス系", "母父タイプ名": "ロイヤルチャージャー系", "父母父タイプ名": "トゥルビヨン系", "母母父タイプ名": "ロイヤルチャージャー系", "脚質": "先行", "能力": "C", "調教": "A", "タイム指数": 168}, {"レース名": "宝塚記念G1", "馬名": "シェイクユアハート", "馬番": 13, "騎手": "古川吉洋", "種牡馬": "ハーツクライ", "父タイプ名": "サンデーサイレンス系", "母父タイプ名": "ロイヤルチャージャー系", "父母父タイプ名": "トニービン系", "母母父タイプ名": "ニアークティック系", "脚質": "差し", "能力": "B", "調教": "A", "タイム指数": 169}, {"レース名": "宝塚記念G1", "馬名": "スティンガーグラス", "馬番": 14, "騎手": "岩田望来", "種牡馬": "キズナ", "父タイプ名": "サンデーサイレンス系", "母父タイプ名": "ナスルーラ系", "父母父タイプ名": "ストームキャット系", "母母父タイプ名": "ニアークティック系", "脚質": "差し", "能力": "B", "調教": "B", "タイム指数": 156}, {"レース名": "宝塚記念G1", "馬名": "マイユニバース", "馬番": 15, "騎手": "横山典弘", "種牡馬": "レイデオロ", "父タイプ名": "キングマンボ系", "母父タイプ名": "サンデーサイレンス系", "父母父タイプ名": "ロイヤルチャージャー系", "母母父タイプ名": "ニアークティック系", "脚質": "差し", "能力": "B", "調教": "A", "タイム指数": 180}, {"レース名": "宝塚記念G1", "馬名": "メイショウタバル", "馬番": 16, "騎手": "武豊", "種牡馬": "ゴールドシップ", "父タイプ名": "サンデーサイレンス系", "母父タイプ名": "ニアークティック系", "父母父タイプ名": "トゥルビヨン系", "母母父タイプ名": "サンデーサイレンス系", "脚質": "逃げ", "能力": "A", "調教": "S", "タイム指数": 174}, {"レース名": "宝塚記念G1", "馬名": "レガレイラ", "馬番": 17, "騎手": "ルメール", "種牡馬": "スワーヴリチャード", "父タイプ名": "サンデーサイレンス系", "母父タイプ名": "ダンチヒ系", "父母父タイプ名": "ネイティヴダンサー系", "母母父タイプ名": "サンデーサイレンス系", "脚質": "差し", "能力": "A", "調教": "B", "タイム指数": 183}, {"レース名": "宝塚記念G1", "馬名": "ミステリーウェイ", "馬番": 18, "騎手": "松本大輝", "種牡馬": "ジャスタウェイ", "父タイプ名": "サンデーサイレンス系", "母父タイプ名": "ニアークティック系", "父母父タイプ名": "ニアークティック系", "母母父タイプ名": "ダンチヒ系", "脚質": "逃げ", "能力": "D", "調教": "A", "タイム指数": 164}];
+const grade={S:100,AA:95,A:88,B:76,C:64,D:52};
+const jockey={"ルメール":10,"レーン":9,"川田将雅":8,"武豊":5,"戸崎圭太":4,"坂井瑠星":4,"松山弘平":3,"横山武史":3,"岩田望来":3};
+const colors=["#ff5a5f","#ffd166","#06d6a0","#4cc9f0","#f72585","#b8f2e6","#c77dff","#90be6d","#f8961e","#adb5bd"];
+const E=id=>document.getElementById(id);let divs=[],timer=null;
+const path=[[815,365],[740,395],[575,405],[395,405],[250,392],[90,350],[70,245],[110,165],[235,115],[430,100],[620,105],[740,118],[880,185],[900,285],[815,365],[685,382],[525,390],[365,390],[250,392]];
+let seg=[],total=0;for(let i=0;i<path.length-1;i++){let dx=path[i+1][0]-path[i][0],dy=path[i+1][1]-path[i][1],l=Math.hypot(dx,dy);seg.push(l);total+=l;}
+function point(p,lane){p=Math.max(0,Math.min(1,p));let d=p*total,acc=0,i=0;for(;i<seg.length;i++){if(acc+seg[i]>=d)break;acc+=seg[i];}if(i>=seg.length)i=seg.length-1;let f=(d-acc)/seg[i];let a=path[i],b=path[i+1];let x=a[0]+(b[0]-a[0])*f,y=a[1]+(b[1]-a[1])*f;return [x+lane*4,y+lane*3];}
+function blood(h){let all=h.父タイプ名+h.母父タイプ名+h.父母父タイプ名+h.母母父タイプ名+h.種牡馬;let s=70;if(all.includes("サンデー"))s+=6;if(all.includes("キングマンボ"))s+=5;if(all.includes("ロイヤル"))s+=4;if(all.includes("トニービン"))s+=4;if(all.includes("ゴールドシップ")||all.includes("キタサンブラック")||all.includes("ハーツクライ"))s+=5;if(all.includes("エピファネイア")||all.includes("キズナ"))s+=4;return Math.min(100,s)}
+function base(h){let ab=grade[h.能力]||65,tr=grade[h.調教]||70,ti=Math.max(50,Math.min(100,50+(h.タイム指数-155)*1.45));return ab*0.45 + ti*0.10 + blood(h)*0.35 + tr*0.05 + ((jockey[h.騎手]||0)*0.05)}
+function adj(h,p){let pace=E("pace").value,going=E("going").value,st=h.脚質,s=0;if(pace==="slow"&&(st.includes("逃げ")||st.includes("先行")))s+=4;if(pace==="high"&&st.includes("逃げ")&&p>.55)s-=7;if(pace==="high"&&st.includes("差し")&&p>.55)s+=5;if(pace==="middle"&&st.includes("先行"))s+=2;if(pace==="middle"&&st.includes("差し")&&p>.65)s+=2;if(going==="firm"&&h.タイム指数>=180)s+=3;if(going==="soft"&&(h.種牡馬.includes("ゴールドシップ")||h.母父タイプ名.includes("トニービン")))s+=4;return s}
+function rnd(){return Math.random()+Math.random()+Math.random()-1.5}
+function setup(){if(timer)clearInterval(timer);E("track").querySelectorAll(".horse").forEach(x=>x.remove());divs=[];horses.forEach((h,i)=>{let d=document.createElement("div");d.className="horse";d.textContent=h.馬番;d.style.background=colors[i%colors.length];E("track").appendChild(d);divs.push(d)});render(horses.map((h,i)=>-i*.004),[]);}
+function render(prog,order){const box=E("track").getBoundingClientRect();prog.forEach((p,i)=>{let q=point(p,(i%4)-1.5);divs[i].style.left=(q[0]/1000*box.width)+"px";divs[i].style.top=(q[1]/520*box.height)+"px";});let rows=[];order.forEach(i=>rows.push({i,done:true,p:prog[i]}));horses.forEach((h,i)=>{if(!order.includes(i))rows.push({i,done:false,p:prog[i]})});rows.sort((a,b)=>a.done&&b.done?order.indexOf(a.i)-order.indexOf(b.i):a.done?-1:b.done?1:b.p-a.p);E("rank").innerHTML="<table><tr><th>順</th><th>馬番</th><th>馬名</th><th>状態</th></tr>"+rows.map((r,k)=>"<tr><td>"+(k+1)+"</td><td>"+horses[r.i].馬番+"</td><td>"+horses[r.i].馬名+"</td><td>"+(r.done?"FINISH":Math.max(0,Math.min(100,Math.round(r.p*100)))+"%")+"</td></tr>").join("")+"</table>";}
+
+function positionState(){
+  // 逃げ・番手・好位・中団・後方をレースごとに決める
+  let pos = {};
+  horses.forEach(h=>pos[h.馬番]="中団");
+
+  // 70〜80%でミステリーウェイが逃げ、メイショウタバルが番手
+  if(Math.random()<0.75){
+    pos[18]="逃げ";
+    pos[16]="番手";
+  }else{
+    pos[16]="逃げ";
+    pos[18]="番手";
+  }
+
+  horses.forEach(h=>{
+    if(pos[h.馬番]!=="中団") return;
+    if(h.脚質.includes("先行")){
+      pos[h.馬番]=Math.random()<0.65 ? "好位" : "中団";
+    }else if(h.脚質.includes("差し")){
+      pos[h.馬番]=Math.random()<0.70 ? "中団" : "後方";
+    }else{
+      pos[h.馬番]="中団";
+    }
+  });
+
+  return pos;
+}
+function positionAdj(h, phase, pos){
+  let p = pos[h.馬番] || "中団";
+  let pace = E("pace").value;
+  let s = 0;
+
+  // 序盤の位置取り
+  if(phase < .45){
+    if(p==="逃げ") s += 4;
+    if(p==="番手") s += 3;
+    if(p==="好位") s += 2;
+    if(p==="後方") s -= 2;
+  }
+
+  // ミステリーウェイ逃げは作るが、能力Dなので終盤は捕まりやすい
+  if(h.馬番===18 && p==="逃げ" && phase>.58) s -= 5;
+  if(h.馬番===18 && p==="逃げ" && phase>.76) s -= 5;
+
+  // メイショウタバル番手は消耗減。逃げより番手の方がプラス
+  if(h.馬番===16 && p==="番手"){
+    if(phase < .65) s += 2;
+    if(phase > .62) s += 4;
+  }
+  if(h.馬番===16 && p==="逃げ" && pace==="high" && phase>.60) s -= 5;
+
+  // 阪神内回り2200mは後方一気を少し難しく
+  if(p==="後方" && phase>.70) s -= 1.5;
+
+  return s;
+}
+
+function raceState(){
+let life=Number(E("life").value);
+let pos=positionState();
+return horses.map(h=>{
+  let condition=rnd()*life*3.2;                 // 当日の出来
+  let trip=0;
+  let r=Math.random();
+  if(r<0.045*life) trip-=8+Math.random()*7;     // 出遅れ・不利
+  else if(r<0.10*life) trip-=3+Math.random()*4; // 仕掛け遅れ・折り合い
+  else if(r>1-0.035*life) trip+=3+Math.random()*4; // 噛み合う
+  let stamina=rnd()*life*1.8;
+  return {condition,trip,stamina,pos:pos[h.馬番]};
+});
+}
+let currentState=null;
+function speed(h,phase,i){
+let w=Number(E("weight").value)/100,n=Number(E("noise").value),st=currentState?currentState[i]:{condition:0,trip:0,stamina:0};
+let posMap={}; horses.forEach((hh,ii)=>{posMap[hh.馬番]=currentState?currentState[ii].pos:"中団"});
+let raw=base(h)+adj(h,phase)+positionAdj(h,phase,posMap)+st.condition+st.trip;
+let sp=.0042+((raw-70)/9000)*w+rnd()*n*(1.30-w)/360;
+if(h.脚質.includes("逃げ")&&phase<.45)sp+=.00016;
+if(h.脚質.includes("差し")&&phase>.70)sp+=.00022;
+if(phase>.72)sp+=st.stamina/18000;
+return Math.max(.0018,sp);
+}
+function runOne(){setup();currentState=raceState();let prog=horses.map((h,i)=>-i*.004),order=[],count=0;timer=setInterval(()=>{let phase=Math.max(...prog);horses.forEach((h,i)=>{if(prog[i]<1)prog[i]+=speed(h,phase,i);if(prog[i]>=1&&!order.includes(i))order.push(i);});render(prog,order);count++;if(order.length===horses.length||count>900)clearInterval(timer);},30);}
+function oneRaceOrder(){
+let life=Number(E("life").value),noiseLv=Number(E("noise").value),posMap=positionState();
+let score=horses.map((h,i)=>{
+  let b=base(h),p=0.70,a=adj(h,p),noise=rnd()*noiseLv*7.5,paceBonus=0;
+  if(h.脚質.includes("逃げ"))paceBonus+=E("pace").value==="slow"?2:E("pace").value==="high"?-5:0;
+  if(h.脚質.includes("差し"))paceBonus+=E("pace").value==="high"?4:0;
+  let condition=rnd()*life*4.2;
+  let accident=0;
+  let r=Math.random();
+  if(r<0.055*life) accident-=8+Math.random()*9;      // 出遅れ・道中不利
+  else if(r<0.13*life) accident-=3+Math.random()*5;  // 軽いロス
+  else if(r>1-0.04*life) accident+=3+Math.random()*5;// 展開がハマる
+  let capPenalty=0;
+  if(b>92 && Math.random()<0.18*life) capPenalty-=3+Math.random()*5; // 強い馬でも凡走
+  let posBonus=positionAdj(h,0.70,posMap);
+return {i:i,score:b+a+posBonus+paceBonus+noise+condition+accident+capPenalty};
+});
+score.sort((a,b)=>b.score-a.score);
+return score.map(x=>x.i);
+}
+function runMany(){let n=300,st=horses.map(h=>({h,w:0,p2:0,p3:0,rs:0}));for(let m=0;m<n;m++){let o=oneRaceOrder();o.forEach((idx,j)=>{st[idx].rs+=j+1;if(j===0)st[idx].w++;if(j<2)st[idx].p2++;if(j<3)st[idx].p3++;})}st.sort((a,b)=>b.w-a.w||b.p3-a.p3);E("result").innerHTML="<table><tr><th>順</th><th>馬番</th><th>馬名</th><th>勝率</th><th>連対</th><th>複勝</th><th>平均</th></tr>"+st.map((s,i)=>"<tr><td>"+(i+1)+"</td><td>"+s.h.馬番+"</td><td>"+s.h.馬名+"</td><td>"+(s.w/n*100).toFixed(1)+"%</td><td>"+(s.p2/n*100).toFixed(1)+"%</td><td>"+(s.p3/n*100).toFixed(1)+"%</td><td>"+(s.rs/n).toFixed(2)+"</td></tr>").join("")+"</table>";}
+E("one").addEventListener("click",runOne);E("many").addEventListener("click",runMany);E("reset").addEventListener("click",setup);E("weight").addEventListener("input",e=>E("wtxt").textContent=e.target.value);setup();
+})();
+</script></main></body></html>
