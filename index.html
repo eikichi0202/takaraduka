@@ -1,10 +1,10 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eikichi Racing Simulator v2.2</title>
+<title>Eikichi Racing Simulator v2.3</title>
 <style>
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1080px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}
 </style></head><body><main>
 <h1 id="title">Eikichi Racing Simulator</h1>
-<div class="small">CSV/TSV貼り付け対応。左回り/右回り対応。下位馬にも激走余地が出るよう、生き物ブレ・穴馬上振れ・強者凡走を強化。</div>
+<div class="small">CSV/TSV貼り付け対応。左回り/右回り対応。好不調・気性難・かかり血統・折り合いロスを追加。</div>
 <div class="panel"><h3>出走表貼り付け</h3><div class="controls">
 <div><label>レース名</label><input id="raceName" value="函館6R 未勝利"></div>
 <div><label>コース</label><select id="course"><option value="hakodate_d1700" selected>函館ダ1700</option><option value="hakodate_t1200">函館芝1200</option><option value="kokura_t1200">小倉芝1200</option><option value="fukushima_d1700">福島ダ1700</option><option value="fukushima_t1200">福島芝1200</option><option value="hanshin_t2200">阪神芝2200</option><option value="tokyo_t1600">東京芝1600</option><option value="tokyo_t2400">東京芝2400</option><option value="tokyo_d1600">東京ダ1600</option><option value="nakayama_t2500">中山芝2500</option><option value="kyoto_t2200">京都芝2200</option><option value="kyoto_d1800">京都ダ1800</option></select></div>
@@ -84,7 +84,55 @@ function courseAdj(h,p){const c=courses[E("course").value]||courses.hakodate_d17
 function adj(h,p){let pace=E("pace").value,going=E("going").value,st=h.脚質,s=courseAdj(h,p);if(pace==="slow"&&(st==="逃げ"||st==="先行"))s+=4;if(pace==="high"&&st==="逃げ"&&p>.55)s-=7;if(pace==="high"&&(st==="差し"||st==="後方")&&p>.55)s+=5;if(pace==="middle"&&st==="先行")s+=2;if(pace==="middle"&&(st==="差し"||st==="中団")&&p>.65)s+=2;if(going==="firm"&&h.タイム指数>=130)s+=2;if(going==="soft"&&(h.種牡馬.includes("ゴールドシップ")||h.母父タイプ名.includes("トニービン")||h.父タイプ名.includes("ロイヤル")))s+=3;if(going==="bad"&&E("course").value.includes("_d")&&st==="先行")s+=3;return s}
 function rnd(){return Math.random()+Math.random()+Math.random()-1.5}
 function point(p,lane){p=Math.max(0,Math.min(1,p));let d=p*total,acc=0,i=0;for(;i<seg.length;i++){if(acc+seg[i]>=d)break;acc+=seg[i]}if(i>=seg.length)i=seg.length-1;let f=(d-acc)/seg[i],a=path[i],b=path[i+1];return [a[0]+(b[0]-a[0])*f+lane*4,a[1]+(b[1]-a[1])*f+lane*3]}
-function raceState(){let life=Number(E("life").value);return horses.map(h=>{let condition=rnd()*life*4.8,trip=0,r=Math.random();if(r<0.045*life)trip-=8+Math.random()*7;else if(r<0.10*life)trip-=3+Math.random()*4;else if(r>1-0.035*life)trip+=3+Math.random()*4;return{condition,trip,stamina:rnd()*life*1.8}})}
+
+function temperamentRisk(h){
+  let risk=0;
+  const sire=h.種牡馬||"";
+  const all=(h.父タイプ名||"")+(h.母父タイプ名||"")+(h.父母父タイプ名||"")+(h.母母父タイプ名||"")+sire;
+
+  // 気性・かかりリスク。あくまで傾向補正。
+  if(sire.includes("エピファネイア")) risk+=3.8;
+  if(sire.includes("モーリス")) risk+=3.0;
+  if(sire.includes("ドゥラメンテ")) risk+=2.7;
+  if(sire.includes("リオンディーズ")) risk+=2.4;
+  if(sire.includes("キズナ")) risk+=1.8;
+  if(sire.includes("ミッキーアイル")) risk+=2.8;
+  if(sire.includes("サートゥルナーリア")) risk+=2.4;
+  if(sire.includes("シルバーステート")) risk+=1.8;
+
+  // 短距離スピード血統・Storm Cat/ND/Danzig色は前向きさを加味
+  if(all.includes("ストームキャット")) risk+=2.3;
+  if(all.includes("ニアークティック")) risk+=1.2;
+  if(all.includes("ダンチヒ")) risk+=1.0;
+
+  // 距離が長いほど折り合いリスクが響きやすい
+  if(h.距離>=2000) risk*=1.25;
+  if(h.距離<=1400) risk*=0.75;
+
+  // 逃げ・先行は気性難がペースに直結。差しは折り合えば軽減。
+  if(h.脚質==="逃げ") risk*=1.20;
+  if(h.脚質==="先行") risk*=1.10;
+  if(h.脚質==="差し"||h.脚質==="後方") risk*=0.90;
+
+  return Math.max(0,risk);
+}
+function temperamentEvent(h,life){
+  const risk=temperamentRisk(h);
+  let event=0, label="";
+  // かかる・力む・折り合い欠き
+  if(Math.random() < (risk/100)*life){
+    event -= 4 + Math.random()*risk*1.4;
+    label="かかり";
+  }
+  // 返し馬から落ち着く/折り合う日
+  if(Math.random() < 0.025*life){
+    event += 2 + Math.random()*4;
+    label=label||"折合○";
+  }
+  return {event,label,risk};
+}
+
+function raceState(){let life=Number(E("life").value);return horses.map(h=>{let condition=rnd()*life*4.8,trip=0,r=Math.random(),temp=temperamentEvent(h,life);if(r<0.045*life)trip-=8+Math.random()*7;else if(r<0.10*life)trip-=3+Math.random()*4;else if(r>1-0.035*life)trip+=3+Math.random()*4;return{condition,trip:trip+temp.event,stamina:rnd()*life*1.8,tempLabel:temp.label,tempRisk:temp.risk}})}
 function setup(){if(timer)clearInterval(timer);setCourse();E("track").querySelectorAll(".horse").forEach(x=>x.remove());divs=[];horses.forEach((h,i)=>{let d=document.createElement("div");d.className="horse";d.textContent=h.馬番;d.title=h.馬名;d.style.background=colors[i%colors.length];E("track").appendChild(d);divs.push(d)});render(horses.map((h,i)=>-i*.004),[])}
 function render(prog,order){const box=E("track").getBoundingClientRect();prog.forEach((p,i)=>{let q=point(p,(i%4)-1.5);if(divs[i]){divs[i].style.left=(q[0]/1000*box.width)+"px";divs[i].style.top=(q[1]/520*box.height)+"px"}});let rows=[];order.forEach(i=>rows.push({i,done:true,p:prog[i]}));horses.forEach((h,i)=>{if(!order.includes(i))rows.push({i,done:false,p:prog[i]})});rows.sort((a,b)=>a.done&&b.done?order.indexOf(a.i)-order.indexOf(b.i):a.done?-1:b.done?1:b.p-a.p);E("rank").innerHTML="<table><tr><th>順</th><th>馬番</th><th>馬名</th><th>脚質</th><th>状態</th></tr>"+rows.map((r,k)=>"<tr><td>"+(k+1)+"</td><td><span class='badge'>"+horses[r.i].馬番+"</span></td><td>"+horses[r.i].馬名+"</td><td>"+horses[r.i].脚質+"</td><td>"+(r.done?"FINISH":Math.max(0,Math.min(100,Math.round(r.p*100)))+"%")+"</td></tr>").join("")+"</table>"}
 function speed(h,p,i){let w=Number(E("weight").value)/100,n=Number(E("noise").value),st=currentState?currentState[i]:{condition:0,trip:0,stamina:0};let raw=base(h)+adj(h,p)+st.condition*1.25+st.trip*1.15;let sp=.0042+((raw-70)/9000)*w+rnd()*n*(1.30-w)/360;if(h.脚質==="逃げ"&&p<.45)sp+=.00016;if((h.脚質==="差し"||h.脚質==="後方")&&p>.70)sp+=.00022;if(p>.72)sp+=st.stamina/18000;return Math.max(.0018,sp)}
@@ -120,7 +168,7 @@ function oneRaceOrder(){
    if((h.脚質==="逃げ"||h.脚質==="先行") && E("pace").value==="slow" && Math.random()<0.025*life) styleBomb+=8+Math.random()*9;
    if((h.脚質==="差し"||h.脚質==="後方") && E("pace").value==="high" && Math.random()<0.025*life) styleBomb+=8+Math.random()*9;
 
-   return {i,score:b+a+noise+condition+accident+cap+bomb+styleBomb};
+   let temp=temperamentEvent(h,life); return {i,score:b+a+noise+condition+accident+cap+bomb+styleBomb+temp.event};
  });
 
  // さらに超低確率の事故レース。完全な能力順固定を防ぐ。
@@ -134,7 +182,7 @@ function oneRaceOrder(){
 }
 function drawResult(st,done,n,finished){
  let sorted=[...st].sort((a,b)=>b.w-a.w||b.p3-a.p3);
- E("result").innerHTML=(finished?"":"<div class='small'>検証中... "+done+" / "+n+"回</div>")+"<table><tr><th>順</th><th>馬番</th><th>馬名</th><th>勝率</th><th>連対</th><th>複勝</th><th>平均</th><th>基礎</th></tr>"+sorted.map((s,i)=>"<tr><td>"+(i+1)+"</td><td>"+s.h.馬番+"</td><td>"+s.h.馬名+"</td><td>"+(s.w/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p2/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p3/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.rs/Math.max(1,done)).toFixed(2)+"</td><td>"+base(s.h).toFixed(1)+"</td></tr>").join("")+"</table>";
+ E("result").innerHTML=(finished?"":"<div class='small'>検証中... "+done+" / "+n+"回</div>")+"<table><tr><th>順</th><th>馬番</th><th>馬名</th><th>勝率</th><th>連対</th><th>複勝</th><th>平均</th><th>基礎</th><th>気性</th></tr>"+sorted.map((s,i)=>"<tr><td>"+(i+1)+"</td><td>"+s.h.馬番+"</td><td>"+s.h.馬名+"</td><td>"+(s.w/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p2/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p3/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.rs/Math.max(1,done)).toFixed(2)+"</td><td>"+base(s.h).toFixed(1)+"</td><td>"+temperamentRisk(s.h).toFixed(1)+"</td></tr>").join("")+"</table>";
 }
 let manyRunning=false;
 function runMany(){
