@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eikichi Racing Simulator</title>
+<title>Eikichi Racing Simulator v2.1</title>
 <style>
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1080px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}
 </style></head><body><main>
@@ -21,11 +21,11 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 <div><label>予想反映度 <span id="wtxt">70</span>%</label><input id="weight" type="range" min="20" max="95" value="70"></div>
 <div><label>乱数</label><select id="noise"><option value="0.6">少なめ</option><option value="1" selected>標準</option><option value="1.4">多め</option><option value="2.0">荒れ気味</option></select></div>
 <div><label>生き物ブレ</label><select id="life"><option value="0.8">小</option><option value="1.3" selected>標準</option><option value="2.0">大</option></select></div>
-<button id="one">▶ 1回再生</button><button id="many" class="gray">📊 300回検証</button><button id="reset" class="gray">↻ リセット</button>
+<div><label>検証回数</label><select id="simCount"><option value="300">300回</option><option value="1000" selected>1000回</option><option value="5000">5000回</option></select></div><button id="one">▶ 1回再生</button><button id="many" class="gray">📊 検証</button><button id="reset" class="gray">↻ リセット</button>
 </div>
 <div class="panel"><div id="track"><svg id="courseSvg" viewBox="0 0 1000 520" preserveAspectRatio="none"></svg></div></div>
 <div class="panel"><h3>順位</h3><div id="rank">未実行</div></div>
-<div class="panel"><h3>300回検証結果</h3><div id="result">未実行</div></div>
+<div class="panel"><h3>検証結果</h3><div id="result">未実行</div></div>
 </main>
 <script>
 (function(){
@@ -90,7 +90,35 @@ function render(prog,order){const box=E("track").getBoundingClientRect();prog.fo
 function speed(h,p,i){let w=Number(E("weight").value)/100,n=Number(E("noise").value),st=currentState?currentState[i]:{condition:0,trip:0,stamina:0};let raw=base(h)+adj(h,p)+st.condition+st.trip;let sp=.0042+((raw-70)/9000)*w+rnd()*n*(1.30-w)/360;if(h.脚質==="逃げ"&&p<.45)sp+=.00016;if((h.脚質==="差し"||h.脚質==="後方")&&p>.70)sp+=.00022;if(p>.72)sp+=st.stamina/18000;return Math.max(.0018,sp)}
 function runOne(){if(!horses.length)loadData();setup();currentState=raceState();let prog=horses.map((h,i)=>-i*.004),order=[],count=0;timer=setInterval(()=>{let p=Math.max(...prog);horses.forEach((h,i)=>{if(prog[i]<1)prog[i]+=speed(h,p,i);if(prog[i]>=1&&!order.includes(i))order.push(i)});render(prog,order);count++;if(order.length===horses.length||count>900)clearInterval(timer)},30)}
 function oneRaceOrder(){let life=Number(E("life").value),noiseLv=Number(E("noise").value);let score=horses.map((h,i)=>{let b=base(h),p=.70,a=adj(h,p),noise=rnd()*noiseLv*7.5,condition=rnd()*life*4.2,accident=0,r=Math.random();if(r<0.055*life)accident-=8+Math.random()*9;else if(r<0.13*life)accident-=3+Math.random()*5;else if(r>1-0.04*life)accident+=3+Math.random()*5;let cap=0;if(b>92&&Math.random()<0.18*life)cap-=3+Math.random()*5;return{i,score:b+a+noise+condition+accident+cap}});score.sort((a,b)=>b.score-a.score);return score.map(x=>x.i)}
-function runMany(){if(!horses.length)loadData();let n=300,st=horses.map(h=>({h,w:0,p2:0,p3:0,rs:0}));for(let m=0;m<n;m++){let o=oneRaceOrder();o.forEach((idx,j)=>{st[idx].rs+=j+1;if(j===0)st[idx].w++;if(j<2)st[idx].p2++;if(j<3)st[idx].p3++})}st.sort((a,b)=>b.w-a.w||b.p3-a.p3);E("result").innerHTML="<table><tr><th>順</th><th>馬番</th><th>馬名</th><th>勝率</th><th>連対</th><th>複勝</th><th>平均</th><th>基礎</th></tr>"+st.map((s,i)=>"<tr><td>"+(i+1)+"</td><td>"+s.h.馬番+"</td><td>"+s.h.馬名+"</td><td>"+(s.w/n*100).toFixed(1)+"%</td><td>"+(s.p2/n*100).toFixed(1)+"%</td><td>"+(s.p3/n*100).toFixed(1)+"%</td><td>"+(s.rs/n).toFixed(2)+"</td><td>"+base(s.h).toFixed(1)+"</td></tr>").join("")+"</table>"}
+function drawResult(st,done,n,finished){
+ let sorted=[...st].sort((a,b)=>b.w-a.w||b.p3-a.p3);
+ E("result").innerHTML=(finished?"":"<div class='small'>検証中... "+done+" / "+n+"回</div>")+"<table><tr><th>順</th><th>馬番</th><th>馬名</th><th>勝率</th><th>連対</th><th>複勝</th><th>平均</th><th>基礎</th></tr>"+sorted.map((s,i)=>"<tr><td>"+(i+1)+"</td><td>"+s.h.馬番+"</td><td>"+s.h.馬名+"</td><td>"+(s.w/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p2/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p3/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.rs/Math.max(1,done)).toFixed(2)+"</td><td>"+base(s.h).toFixed(1)+"</td></tr>").join("")+"</table>";
+}
+let manyRunning=false;
+function runMany(){
+ if(!horses.length)loadData();
+ if(manyRunning)return;
+ manyRunning=true;
+ let n=parseInt(E("simCount").value||"1000",10);
+ let st=horses.map(h=>({h,w:0,p2:0,p3:0,rs:0}));
+ let done=0;
+ E("result").innerHTML="<div class='small'>検証中... 0 / "+n+"回</div>";
+ function chunk(){
+   let chunkSize=n>=5000?100:50;
+   let end=Math.min(done+chunkSize,n);
+   for(;done<end;done++){
+     let o=oneRaceOrder();
+     o.forEach((idx,j)=>{st[idx].rs+=j+1;if(j===0)st[idx].w++;if(j<2)st[idx].p2++;if(j<3)st[idx].p3++;});
+   }
+   drawResult(st,done,n,done>=n);
+   if(done<n){
+     setTimeout(chunk,0);
+   }else{
+     manyRunning=false;
+   }
+ }
+ chunk();
+}
 E("load").addEventListener("click",loadData);E("one").addEventListener("click",runOne);E("many").addEventListener("click",runMany);E("reset").addEventListener("click",setup);E("course").addEventListener("change",()=>{E("title").textContent=E("raceName").value+" / "+(courses[E("course").value]?.name||"");setup()});E("raceName").addEventListener("input",()=>E("title").textContent=E("raceName").value+" / "+(courses[E("course").value]?.name||""));E("weight").addEventListener("input",e=>E("wtxt").textContent=e.target.value);loadData();
 })();
 </script></body></html>
