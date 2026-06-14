@@ -1,10 +1,10 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eikichi Racing Simulator v5.0</title>
+<title>Eikichi Racing Simulator v5.1</title>
 <style>
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1080px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5;transition:left .18s linear,top .18s linear,box-shadow .2s}.horse.move{box-shadow:0 0 14px 5px rgba(255,255,255,.55)}.horse.fade{opacity:.55}.liveBox{background:#081525;border:1px solid #2c4664;border-radius:12px;padding:10px;margin-top:8px}.liveLine{font-size:14px;line-height:1.6}.meter{height:8px;background:#1c3048;border-radius:99px;overflow:hidden;margin:7px 0}.meter>div{height:100%;background:#e1c766;width:0%}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}
 </style></head><body><main>
 <h1 id="title">Eikichi Racing Simulator</h1>
-<div class="small">CSV/TSV貼り付け対応。v5.0：坂路＋ウッド調教タイム対応。追切本数・併せ馬・オッズ期待値は未搭載。</div>
+<div class="small">CSV/TSV貼り付け対応。v5.1：坂路4F/坂路４F両対応。坂路・ウッドともラスト加速ラップ評価を強化。</div>
 <div class="panel"><h3>出走表貼り付け</h3><div class="controls">
 <div><label>レース名</label><input id="raceName" value="函館6R 未勝利"></div>
 <div><label>コース</label><select id="course"><optgroup label="東京">
@@ -138,9 +138,18 @@ function setCourse(){
  <text x="${arrowX}" y="85" fill="#ffd166" font-size="15" text-anchor="middle">${c.dir}</text>`;
 }
 function parseTable(text){text=text.trim();if(!text)throw new Error("出走表が空です");const delim=text.includes("\t")?"\t":",";const lines=text.split(/\r?\n/).filter(x=>x.trim());const headers=lines[0].split(delim).map(x=>x.trim());return lines.slice(1).map(line=>{const cols=line.split(delim),r={};headers.forEach((h,j)=>r[h]=(cols[j]||"").trim());return r})}
-function num(v,d=0){v=String(v??"").replace(/[▲☆★]/g,"").replace("#N/A","").replace("-","").trim();let n=parseFloat(v);return isNaN(n)?d:n}
+function num(v,d=0){
+  v=String(v??"")
+    .replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0)-0xFEE0))
+    .replace(/[▲☆★]/g,"")
+    .replace("#N/A","")
+    .replace("-","")
+    .trim();
+  let n=parseFloat(v);
+  return isNaN(n)?d:n;
+}
 function style(s){s=String(s||"").trim();if(s.includes("逃"))return"逃げ";if(s.includes("先"))return"先行";if(s.includes("中"))return"中団";if(s.includes("後"))return"後方";if(s.includes("差"))return"差し";return"中団"}
-function loadData(){try{const rows=parseTable(E("csvInput").value),tc=E("timeCol").value;horses=rows.map(r=>({レース名:r["レース名"]||E("raceName").value,場所:r["場所"]||"",芝ダ:r["芝ダ"]||"",距離:num(r["距離"],0),馬名:(r["馬名"]||"").trim().replace("$",""),馬番:parseInt(r["馬番"]||"0",10),騎手:r["騎手"]||"",種牡馬:r["種牡馬"]||"",父タイプ名:r["父タイプ名"]||"",母父タイプ名:r["母父タイプ名"]||"",父母父タイプ名:r["父母父タイプ名"]||"",母母父タイプ名:r["母母父タイプ名"]||"",脚質:style(r["脚質"]||r["前走脚質"]),能力:r["能力"]||"C",調教:r["調教"]||"C",タイム指数:num(r[tc]||r["タイム指数"]||r["推定タイム"]||r["推定タイム評価"],100),斤量:r["斤量"]||57,Time1:num(r["Time1"],null),Time2:num(r["Time2"],null),Time3:num(r["Time3"],null),Time4:num(r["Time4"],null),Lap4:num(r["Lap4"],null),Lap3:num(r["Lap3"],null),Lap2:num(r["Lap2"],null),Lap1:num(r["Lap1"],null),ウッド6F:num(r["ウッド6F"],null),ウッド5F:num(r["ウッド5F"],null),ウッド4F:num(r["ウッド4F"],null),ウッド3F:num(r["ウッド3F"],null),ウッド2F:num(r["ウッド2F"],null),ウッド1F:num(r["ウッド1F"],null)})).filter(h=>h.馬名&&h.馬番);if(!horses.length)throw new Error("馬名・馬番が読み込めません");const first=horses[0];E("raceName").value=(first.場所?first.場所+" ":"")+(first.レース名||"");E("title").textContent=E("raceName").value+" / "+(courses[E("course").value]?.name||"");E("loadMsg").innerHTML=`<span class="ok">読込成功：</span>${horses.length}頭 / タイム列=${tc} / 脚質=前走脚質`;setup()}catch(e){E("loadMsg").innerHTML=`<span class="warn">読込失敗：</span>${e.message}`}}
+function loadData(){try{const rows=parseTable(E("csvInput").value),tc=E("timeCol").value;horses=rows.map(r=>({レース名:r["レース名"]||E("raceName").value,場所:r["場所"]||"",芝ダ:r["芝ダ"]||"",距離:num(r["距離"],0),馬名:(r["馬名"]||"").trim().replace("$",""),馬番:parseInt(r["馬番"]||"0",10),騎手:r["騎手"]||"",種牡馬:r["種牡馬"]||"",父タイプ名:r["父タイプ名"]||"",母父タイプ名:r["母父タイプ名"]||"",父母父タイプ名:r["父母父タイプ名"]||"",母母父タイプ名:r["母母父タイプ名"]||"",脚質:style(r["脚質"]||r["前走脚質"]),能力:r["能力"]||"C",調教:r["調教"]||"C",タイム指数:num(r[tc]||r["タイム指数"]||r["推定タイム"]||r["推定タイム評価"],100),斤量:r["斤量"]||57,Time1:num(r["坂路4F"]||r["坂路４F"]||r["Time1"],null),Time2:num(r["坂路3F"]||r["坂路３F"]||r["Time2"],null),Time3:num(r["坂路2F"]||r["坂路２F"]||r["Time3"],null),Time4:num(r["坂路1F"]||r["坂路１F"]||r["Time4"],null),Lap4:num(r["Lap4"],null),Lap3:num(r["Lap3"],null),Lap2:num(r["Lap2"],null),Lap1:num(r["Lap1"],null),ウッド6F:num(r["ウッド6F"],null),ウッド5F:num(r["ウッド5F"],null),ウッド4F:num(r["ウッド4F"],null),ウッド3F:num(r["ウッド3F"],null),ウッド2F:num(r["ウッド2F"],null),ウッド1F:num(r["ウッド1F"],null)})).filter(h=>h.馬名&&h.馬番);if(!horses.length)throw new Error("馬名・馬番が読み込めません");const first=horses[0];E("raceName").value=(first.場所?first.場所+" ":"")+(first.レース名||"");E("title").textContent=E("raceName").value+" / "+(courses[E("course").value]?.name||"");E("loadMsg").innerHTML=`<span class="ok">読込成功：</span>${horses.length}頭 / タイム列=${tc} / 脚質=前走脚質`;setup()}catch(e){E("loadMsg").innerHTML=`<span class="warn">読込失敗：</span>${e.message}`}}
 function blood(h){
  const c=courses[E("course").value]||{};
  const going=E("going").value;
@@ -260,70 +269,89 @@ function timeScore(h){
 function slopeTrainingScore(h){
   const t1=parseFloat(h.Time1), t2=parseFloat(h.Time2), t3=parseFloat(h.Time3), t4=parseFloat(h.Time4);
   const l4=parseFloat(h.Lap4), l3=parseFloat(h.Lap3), l2=parseFloat(h.Lap2), l1=parseFloat(h.Lap1);
-  if(isNaN(t2)||isNaN(t3)||isNaN(t4)||isNaN(l1)) return null;
+  if(isNaN(t2)||isNaN(t3)||isNaN(t4)) return null;
 
-  let s=70;
+  let s=68;
 
-  // Time1がない形式にも対応。Time2/3/4中心。
+  // 坂路4F/3F/2F/1F。全体35%、終い25%、加速40%のイメージ。
   if(!isNaN(t1)){
-    if(t1<=51.8) s+=14;
-    else if(t1<=52.8) s+=11;
-    else if(t1<=53.8) s+=8;
-    else if(t1<=54.8) s+=5;
+    if(t1<=51.8) s+=12;
+    else if(t1<=52.8) s+=10;
+    else if(t1<=53.8) s+=7;
+    else if(t1<=54.8) s+=4;
     else if(t1<=56.0) s+=2;
-    else if(t1>=65.0) s-=8;
+    else if(t1>=65.0) s-=7;
     else if(t1>=59.0) s-=4;
   }
 
-  if(t2<=37.8) s+=8;
-  else if(t2<=38.8) s+=6;
-  else if(t2<=40.0) s+=3;
+  if(t2<=37.8) s+=6;
+  else if(t2<=38.8) s+=4;
+  else if(t2<=40.0) s+=2;
   else if(t2>=48.0) s-=5;
   else if(t2>=43.0) s-=3;
 
-  if(t3<=24.6) s+=7;
-  else if(t3<=25.4) s+=5;
-  else if(t3<=26.4) s+=2;
+  if(t3<=24.5) s+=6;
+  else if(t3<=25.2) s+=4;
+  else if(t3<=26.2) s+=2;
   else if(t3>=31.0) s-=5;
   else if(t3>=28.0) s-=3;
 
+  // 終い1F
   if(t4<=12.0) s+=10;
-  else if(t4<=12.3) s+=8;
-  else if(t4<=12.6) s+=5;
-  else if(t4<=12.9) s+=2;
+  else if(t4<=12.2) s+=8;
+  else if(t4<=12.5) s+=6;
+  else if(t4<=12.8) s+=3;
   else if(t4>=14.0) s-=5;
   else if(t4>=13.4) s-=2;
 
+  // ラスト加速ラップ評価を強化
   if(!isNaN(l4)&&!isNaN(l3)&&!isNaN(l2)&&!isNaN(l1)){
-    if(l4>=l3 && l3>=l2 && l2>=l1) s+=7;
-    else if(l2>=l1 && l3>=l1) s+=4;
-    if(l1<=12.2 && l2<=12.8) s+=3;
-    if(l4-l1>=3.0) s+=2;
-    if(l1>l2+0.4) s-=4;
+    let accelSteps=0;
+    if(l4>=l3) accelSteps++;
+    if(l3>=l2) accelSteps++;
+    if(l2>=l1) accelSteps++;
+
+    if(accelSteps===3) s+=11;       // 完全加速
+    else if(accelSteps===2) s+=7;
+    else if(accelSteps===1) s+=3;
+
+    if(l1<=12.1 && l2<=12.7) s+=5;  // ラスト2F優秀
+    else if(l1<=12.4 && l2<=13.0) s+=3;
+
+    if(l4-l1>=3.5) s+=4;
+    else if(l4-l1>=2.5) s+=2;
+
+    // ラスト失速は明確に下げる
+    if(l1>l2+0.4) s-=6;
+    if(l2>l3+0.5) s-=3;
+  }else{
+    // Lap列がなくても Time2→Time3→Time4 の加速を見る
+    if(t2-t3>=12.5 && t3-t4>=12.0 && t4<=12.5) s+=5;
+    if(t4<=12.2) s+=2;
   }
+
   return Math.max(50,Math.min(100,s));
 }
 
 function woodTrainingScore(h){
   const w6=parseFloat(h.ウッド6F), w5=parseFloat(h.ウッド5F), w4=parseFloat(h.ウッド4F), w3=parseFloat(h.ウッド3F), w2=parseFloat(h.ウッド2F), w1=parseFloat(h.ウッド1F);
-  // #N/Aや0は無効扱い
   const vals=[w6,w5,w4,w3,w2,w1];
   if(vals.every(v=>isNaN(v)||v<=0)) return null;
 
-  let s=70;
+  let s=68;
 
-  // 6F/5Fの全体時計。中距離以上はここを評価
+  // ウッドは6F20%、4F20%、終い2F30%、終い1F30%イメージ
   if(!isNaN(w6)&&w6>0){
-    if(w6<=80.0) s+=10;
-    else if(w6<=82.5) s+=8;
+    if(w6<=80.0) s+=9;
+    else if(w6<=82.5) s+=7;
     else if(w6<=84.5) s+=5;
     else if(w6<=86.0) s+=2;
     else if(w6>=90.0) s-=5;
   }
   if(!isNaN(w5)&&w5>0){
-    if(w5<=64.0) s+=8;
-    else if(w5<=66.5) s+=6;
-    else if(w5<=68.5) s+=3;
+    if(w5<=64.0) s+=6;
+    else if(w5<=66.5) s+=4;
+    else if(w5<=68.5) s+=2;
     else if(w5>=72.0) s-=4;
   }
   if(!isNaN(w4)&&w4>0){
@@ -333,32 +361,49 @@ function woodTrainingScore(h){
     else if(w4>=56.0) s-=4;
   }
   if(!isNaN(w3)&&w3>0){
-    if(w3<=36.0) s+=6;
-    else if(w3<=37.5) s+=4;
+    if(w3<=36.0) s+=5;
+    else if(w3<=37.5) s+=3;
     else if(w3<=38.5) s+=2;
     else if(w3>=40.0) s-=3;
   }
 
-  // 終い2F/1F
+  // 終い2F/1Fを強化
   if(!isNaN(w2)&&w2>0){
-    if(w2<=22.8) s+=7;
-    else if(w2<=23.5) s+=5;
-    else if(w2<=24.3) s+=3;
-    else if(w2>=25.5) s-=3;
+    if(w2<=22.6) s+=10;
+    else if(w2<=23.2) s+=8;
+    else if(w2<=23.8) s+=5;
+    else if(w2<=24.5) s+=3;
+    else if(w2>=25.5) s-=4;
   }
   if(!isNaN(w1)&&w1>0){
-    if(w1<=11.0) s+=11;
-    else if(w1<=11.3) s+=9;
-    else if(w1<=11.6) s+=6;
-    else if(w1<=12.0) s+=3;
-    else if(w1>=12.8) s-=4;
+    if(w1<=10.9) s+=14;
+    else if(w1<=11.2) s+=11;
+    else if(w1<=11.5) s+=8;
+    else if(w1<=11.8) s+=5;
+    else if(w1<=12.1) s+=3;
+    else if(w1>=12.8) s-=5;
   }
 
-  // 4F→3F→2F→1Fの加速・伸び
+  // ウッドのラスト加速評価を強化
   if(!isNaN(w4)&&!isNaN(w3)&&!isNaN(w2)&&!isNaN(w1)&&w4>0&&w3>0&&w2>0&&w1>0){
-    if(w1<=11.3 && w2<=23.3) s+=4;
-    if(w3-w2>=13.0 && w2-w1>=11.0) s+=2; // 終い重点で伸びる
-    if(w1>12.5 && w2>24.8) s-=3;
+    const seg43=w4-w3;  // 4F→3F
+    const seg32=w3-w2;  // 3F→2F
+    const seg21=w2-w1;  // 2F→1F
+    let accel=0;
+    if(seg43>=seg32-0.3) accel++;
+    if(seg32>=seg21-0.3) accel++;
+    if(w1<=11.4 && w2<=23.5) accel++;
+
+    if(accel>=3) s+=10;
+    else if(accel===2) s+=6;
+    else if(accel===1) s+=3;
+
+    if(w1<=11.2 && w2<=23.3) s+=6;
+    if(w1<=11.0 && w2<=22.8) s+=8;
+
+    // ラストが甘い場合
+    if(w1>12.4 && w2>24.8) s-=5;
+    if(w1>12.8) s-=5;
   }
 
   return Math.max(50,Math.min(100,s));
