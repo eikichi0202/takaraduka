@@ -1,10 +1,10 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eikichi Racing Simulator v4.1</title>
+<title>Eikichi Racing Simulator v4.3</title>
 <style>
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1080px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}
 </style></head><body><main>
 <h1 id="title">Eikichi Racing Simulator</h1>
-<div class="small">CSV/TSV貼り付け対応。v4.1：勝ち切り補正・安定補正・ピンパー補正を追加。勝率順と複勝率順が自然にズレるように改修。</div>
+<div class="small">CSV/TSV貼り付け対応。v4.3：TARGET調教タイム対応。Time1〜4/Lap4〜1から調教スコアを自動算出。</div>
 <div class="panel"><h3>出走表貼り付け</h3><div class="controls">
 <div><label>レース名</label><input id="raceName" value="函館6R 未勝利"></div>
 <div><label>コース</label><select id="course"><optgroup label="東京">
@@ -119,9 +119,9 @@ function setCourse(){
  <text x="${arrowX}" y="85" fill="#ffd166" font-size="15" text-anchor="middle">${c.dir}</text>`;
 }
 function parseTable(text){text=text.trim();if(!text)throw new Error("出走表が空です");const delim=text.includes("\t")?"\t":",";const lines=text.split(/\r?\n/).filter(x=>x.trim());const headers=lines[0].split(delim).map(x=>x.trim());return lines.slice(1).map(line=>{const cols=line.split(delim),r={};headers.forEach((h,j)=>r[h]=(cols[j]||"").trim());return r})}
-function num(v,d=0){v=String(v||"").replace(/[▲☆★]/g,"").replace("-","").trim();let n=parseFloat(v);return isNaN(n)?d:n}
+function num(v,d=0){v=String(v??"").replace(/[▲☆★]/g,"").replace("-","").trim();let n=parseFloat(v);return isNaN(n)?d:n}
 function style(s){s=String(s||"").trim();if(s.includes("逃"))return"逃げ";if(s.includes("先"))return"先行";if(s.includes("中"))return"中団";if(s.includes("後"))return"後方";if(s.includes("差"))return"差し";return"中団"}
-function loadData(){try{const rows=parseTable(E("csvInput").value),tc=E("timeCol").value;horses=rows.map(r=>({レース名:r["レース名"]||E("raceName").value,場所:r["場所"]||"",芝ダ:r["芝ダ"]||"",距離:num(r["距離"],0),馬名:(r["馬名"]||"").trim().replace("$",""),馬番:parseInt(r["馬番"]||"0",10),騎手:r["騎手"]||"",種牡馬:r["種牡馬"]||"",父タイプ名:r["父タイプ名"]||"",母父タイプ名:r["母父タイプ名"]||"",父母父タイプ名:r["父母父タイプ名"]||"",母母父タイプ名:r["母母父タイプ名"]||"",脚質:style(r["脚質"]||r["前走脚質"]),能力:r["能力"]||"C",調教:r["調教"]||"C",タイム指数:num(r[tc]||r["タイム指数"]||r["推定タイム"]||r["推定タイム評価"],100),斤量:r["斤量"]||57})).filter(h=>h.馬名&&h.馬番);if(!horses.length)throw new Error("馬名・馬番が読み込めません");const first=horses[0];E("raceName").value=(first.場所?first.場所+" ":"")+(first.レース名||"");E("title").textContent=E("raceName").value+" / "+(courses[E("course").value]?.name||"");E("loadMsg").innerHTML=`<span class="ok">読込成功：</span>${horses.length}頭 / タイム列=${tc} / 脚質=前走脚質`;setup()}catch(e){E("loadMsg").innerHTML=`<span class="warn">読込失敗：</span>${e.message}`}}
+function loadData(){try{const rows=parseTable(E("csvInput").value),tc=E("timeCol").value;horses=rows.map(r=>({レース名:r["レース名"]||E("raceName").value,場所:r["場所"]||"",芝ダ:r["芝ダ"]||"",距離:num(r["距離"],0),馬名:(r["馬名"]||"").trim().replace("$",""),馬番:parseInt(r["馬番"]||"0",10),騎手:r["騎手"]||"",種牡馬:r["種牡馬"]||"",父タイプ名:r["父タイプ名"]||"",母父タイプ名:r["母父タイプ名"]||"",父母父タイプ名:r["父母父タイプ名"]||"",母母父タイプ名:r["母母父タイプ名"]||"",脚質:style(r["脚質"]||r["前走脚質"]),能力:r["能力"]||"C",調教:r["調教"]||"C",タイム指数:num(r[tc]||r["タイム指数"]||r["推定タイム"]||r["推定タイム評価"],100),斤量:r["斤量"]||57,Time1:num(r["Time1"],null),Time2:num(r["Time2"],null),Time3:num(r["Time3"],null),Time4:num(r["Time4"],null),Lap4:num(r["Lap4"],null),Lap3:num(r["Lap3"],null),Lap2:num(r["Lap2"],null),Lap1:num(r["Lap1"],null)})).filter(h=>h.馬名&&h.馬番);if(!horses.length)throw new Error("馬名・馬番が読み込めません");const first=horses[0];E("raceName").value=(first.場所?first.場所+" ":"")+(first.レース名||"");E("title").textContent=E("raceName").value+" / "+(courses[E("course").value]?.name||"");E("loadMsg").innerHTML=`<span class="ok">読込成功：</span>${horses.length}頭 / タイム列=${tc} / 脚質=前走脚質`;setup()}catch(e){E("loadMsg").innerHTML=`<span class="warn">読込失敗：</span>${e.message}`}}
 function blood(h){
  const c=courses[E("course").value]||{};
  const going=E("going").value;
@@ -239,7 +239,58 @@ function timeScore(h){
   return Math.max(50,Math.min(100,50+(t-100)*0.65));
 }
 function trainingScore(h){
-  return grade[h.調教]||70;
+  // TARGET坂路データ対応：Time1/2/3/4 + Lap4/3/2/1 から自動スコア化
+  const t1=parseFloat(h.Time1), t2=parseFloat(h.Time2), t3=parseFloat(h.Time3), t4=parseFloat(h.Time4);
+  const l4=parseFloat(h.Lap4), l3=parseFloat(h.Lap3), l2=parseFloat(h.Lap2), l1=parseFloat(h.Lap1);
+
+  // Time列がない場合は従来の調教評価を使用
+  if(isNaN(t1)||isNaN(t2)||isNaN(t3)||isNaN(t4)||isNaN(l1)){
+    return grade[h.調教]||70;
+  }
+
+  let s=70;
+
+  // 4F時計評価：短すぎる猛時計だけでなく、標準域も評価
+  if(t1<=51.8) s+=14;
+  else if(t1<=52.8) s+=11;
+  else if(t1<=53.8) s+=8;
+  else if(t1<=54.8) s+=5;
+  else if(t1<=56.0) s+=2;
+  else if(t1>=65.0) s-=8;   // キャンター・軽め
+  else if(t1>=59.0) s-=4;
+
+  // 3F〜2Fの中身
+  if(t2<=38.0) s+=5;
+  else if(t2<=39.0) s+=3;
+  else if(t2>=42.0) s-=3;
+
+  if(t3<=24.6) s+=5;
+  else if(t3<=25.4) s+=3;
+  else if(t3>=27.5) s-=4;
+
+  // 終い1F
+  if(t4<=12.0) s+=9;
+  else if(t4<=12.3) s+=7;
+  else if(t4<=12.6) s+=5;
+  else if(t4<=12.9) s+=2;
+  else if(t4>=14.0) s-=5;
+  else if(t4>=13.4) s-=2;
+
+  // 加速ラップ評価：Lap4→Lap1で終いが速くなっているか
+  if(!isNaN(l4)&&!isNaN(l3)&&!isNaN(l2)&&!isNaN(l1)){
+    if(l4>=l3 && l3>=l2 && l2>=l1) s+=7;       // 右肩下がり
+    else if(l2>=l1 && l3>=l1) s+=4;             // 終い重点
+    if(l1<=12.2 && l2<=12.8) s+=3;              // ラスト2F優秀
+    if(l4-l1>=3.0) s+=2;                        // 大きく加速
+    if(l1>l2+0.4) s-=4;                         // ラスト失速
+    if(l2>l3+0.5) s-=2;                         // 途中で鈍る
+  }
+
+  // 併用：元の調教評価も少しだけ残す
+  const gradeScore=grade[h.調教]||70;
+  s = s*0.82 + gradeScore*0.18;
+
+  return Math.max(50,Math.min(100,s));
 }
 function jockeyScore(h){
   return Math.max(50,Math.min(100,70+(jockey[h.騎手]||0)*3));
@@ -422,8 +473,98 @@ function moodSwingAdj(h,life){
   return s;
 }
 
+
+function frameNo(h){
+  const n=parseInt(h.馬番||0,10);
+  if(n<=0) return 0;
+  if(n<=2) return 1;
+  if(n<=4) return 2;
+  if(n<=6) return 3;
+  if(n<=8) return 4;
+  if(n<=10) return 5;
+  if(n<=12) return 6;
+  if(n<=15) return 7;
+  return 8;
+}
+function frameAdj(h){
+  const c=courses[E("course").value]||{};
+  const profile=c.profile||"";
+  const f=frameNo(h);
+  const st=h.脚質;
+  let s=0;
+
+  // 東京ダ1600・東京ダ1400：外め有利
+  if(profile.includes("tokyo_dirt")){
+    if(f<=2) s-=2.5;
+    if(f>=6) s+=2.5;
+    if((st==="逃げ"||st==="先行") && f>=7) s-=0.8; // 外先行のロス
+    if((st==="差し"||st==="後方") && f>=6) s+=1.0;
+  }
+
+  // 東京芝：基本フラット〜中外差しややプラス
+  if(profile.includes("tokyo_") && c.kind==="turf"){
+    if(f>=5) s+=0.8;
+    if((st==="差し"||st==="後方") && f>=5) s+=0.8;
+    if(profile.includes("tokyo_stamina") && f>=7) s-=0.5; // 2400大外は少しロス
+  }
+
+  // 函館芝1200・小倉芝1200・福島芝1200：内先行有利
+  if(profile.includes("hakodate_sprint")||profile.includes("kokura_sprint")||profile.includes("fukushima_sprint")){
+    if(f<=2) s+=3.0;
+    else if(f<=4) s+=1.5;
+    else if(f>=7) s-=1.5;
+    if((st==="逃げ"||st==="先行") && f<=3) s+=2.0;
+    if((st==="逃げ"||st==="先行") && f>=7) s-=2.0;
+    if((st==="差し"||st==="後方") && f>=7) s+=0.6; // 外差しの進路分
+  }
+
+  // 函館・小倉・福島ダ1700：小回り内先行
+  if(profile.includes("hakodate_dirt_mid")||profile.includes("kokura_dirt_mid")||profile.includes("fukushima_dirt_mid")){
+    if(f<=2) s+=2.8;
+    else if(f<=4) s+=1.2;
+    else if(f>=7) s-=1.4;
+    if((st==="逃げ"||st==="先行") && f<=3) s+=2.2;
+    if((st==="逃げ"||st==="先行") && f>=7) s-=2.0;
+  }
+
+  // ダ1000/1150：外も揉まれず悪くないが、内逃げは強い
+  if(profile.includes("dirt_sprint")){
+    if(f<=2 && (st==="逃げ"||st==="先行")) s+=2.0;
+    if(f>=7) s+=0.8;
+  }
+
+  // 阪神芝2200/2000など内回り：内〜中枠＋、外先行は少しロス
+  if(profile.includes("hanshin_inner")||profile.includes("hanshin_stamina")){
+    if(f<=2) s+=1.8;
+    else if(f<=4) s+=1.0;
+    if(f>=7) s-=0.8;
+    if((st==="逃げ"||st==="先行") && f>=7) s-=1.2;
+  }
+
+  // 阪神ダ1400/1800：内先行〜中枠
+  if(profile.includes("hanshin_dirt")){
+    if(f<=3 && (st==="逃げ"||st==="先行")) s+=1.8;
+    if(f>=7 && (st==="逃げ"||st==="先行")) s-=1.0;
+  }
+
+  // 1800〜2000小回り芝：内〜中枠の器用さ
+  if(profile.includes("hakodate_mid")||profile.includes("kokura_mid")||profile.includes("fukushima_mid")){
+    if(f<=4) s+=1.4;
+    if(f>=7) s-=0.8;
+    if((st==="逃げ"||st==="先行") && f<=3) s+=1.2;
+  }
+
+  // 長距離小回り：内で脚を溜める馬に少しプラス
+  if(profile.includes("fukushima_stamina")){
+    if(f<=4) s+=1.5;
+    if(f>=7) s-=1.0;
+  }
+
+  return s;
+}
+
 function totalExtraAdj(h,life){
-  return jockeyTemperamentAdj(h)+turnAptitudeAdj(h)+mudAptitudeAdj(h)+distanceChangeAdj(h)+moodSwingAdj(h,life);
+  return jockeyTemperamentAdj(h)+turnAptitudeAdj(h)+mudAptitudeAdj(h)+distanceChangeAdj(h)+moodSwingAdj(h,life)+frameAdj(h);
 }
 
 function raceState(){let life=Number(E("life").value);return horses.map(h=>{let condition=rnd()*life*4.8,trip=0,r=Math.random(),temp=temperamentEvent(h,life);if(r<0.045*life)trip-=8+Math.random()*7;else if(r<0.10*life)trip-=3+Math.random()*4;else if(r>1-0.035*life)trip+=3+Math.random()*4;return{condition,trip:trip+temp.event,stamina:rnd()*life*1.8,tempLabel:temp.label,tempRisk:temp.risk,extra:totalExtraAdj(h,life)}})}
@@ -581,7 +722,7 @@ function raceScores(){
     if((h.脚質==="逃げ"||h.脚質==="先行")&&E("pace").value==="slow"&&Math.random()<0.025*life) styleBomb+=8+Math.random()*9;
     if((h.脚質==="差し"||h.脚質==="後方")&&E("pace").value==="high"&&Math.random()<0.025*life) styleBomb+=8+Math.random()*9;
     let temp=temperamentEvent(h,life);
-    let extra=(typeof totalExtraAdj==="function") ? totalExtraAdj(h,life) : 0;
+    let extra=(typeof totalExtraAdj==="function") ? totalExtraAdj(h,life) : frameAdj(h);
     let raw=b+a+extra+noise+condition+accident+cap+bomb+styleBomb+temp.event;
     return {i,raw};
   });
@@ -596,7 +737,7 @@ function oneRaceOrder(){
 }
 function drawResult(st,done,n,finished){
  let sorted=[...st].sort((a,b)=>b.w-a.w||b.p3-a.p3);
- E("result").innerHTML=(finished?"":"<div class='small'>検証中... "+done+" / "+n+"回</div>")+"<table><tr><th>順</th><th>馬番</th><th>馬名</th><th>勝率</th><th>連対</th><th>複勝</th><th>平均</th><th>総合</th><th>能力</th><th>タイム</th><th>血統</th><th>調教</th><th>騎手</th><th>気性</th><th>勝切</th><th>安定</th><th>ピンパー</th></tr>"+sorted.map((s,i)=>"<tr><td>"+(i+1)+"</td><td>"+s.h.馬番+"</td><td>"+s.h.馬名+"</td><td>"+(s.w/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p2/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p3/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.rs/Math.max(1,done)).toFixed(2)+"</td><td>"+base(s.h).toFixed(1)+"</td><td>"+abilityScore(s.h).toFixed(1)+"</td><td>"+timeScore(s.h).toFixed(1)+"</td><td>"+blood(s.h).toFixed(1)+"</td><td>"+trainingScore(s.h).toFixed(1)+"</td><td>"+jockeyScore(s.h).toFixed(1)+"</td><td>"+temperamentRisk(s.h).toFixed(1)+"</td><td>"+winProfile(s.h).toFixed(1)+"</td><td>"+stableProfile(s.h).toFixed(1)+"</td><td>"+pinpaProfile(s.h).toFixed(1)+"</td></tr>").join("")+"</table>";
+ E("result").innerHTML=(finished?"":"<div class='small'>検証中... "+done+" / "+n+"回</div>")+"<table><tr><th>順</th><th>馬番</th><th>馬名</th><th>勝率</th><th>連対</th><th>複勝</th><th>平均</th><th>総合</th><th>能力</th><th>タイム</th><th>血統</th><th>調教</th><th>終い</th><th>4F</th><th>騎手</th><th>気性</th><th>勝切</th><th>安定</th><th>ピンパー</th><th>枠</th></tr>"+sorted.map((s,i)=>"<tr><td>"+(i+1)+"</td><td>"+s.h.馬番+"</td><td>"+s.h.馬名+"</td><td>"+(s.w/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p2/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p3/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.rs/Math.max(1,done)).toFixed(2)+"</td><td>"+base(s.h).toFixed(1)+"</td><td>"+abilityScore(s.h).toFixed(1)+"</td><td>"+timeScore(s.h).toFixed(1)+"</td><td>"+blood(s.h).toFixed(1)+"</td><td>"+trainingScore(s.h).toFixed(1)+"</td><td>"+(isNaN(parseFloat(s.h.Time4))?"-":parseFloat(s.h.Time4).toFixed(1))+"</td><td>"+(isNaN(parseFloat(s.h.Time1))?"-":parseFloat(s.h.Time1).toFixed(1))+"</td><td>"+jockeyScore(s.h).toFixed(1)+"</td><td>"+temperamentRisk(s.h).toFixed(1)+"</td><td>"+winProfile(s.h).toFixed(1)+"</td><td>"+stableProfile(s.h).toFixed(1)+"</td><td>"+pinpaProfile(s.h).toFixed(1)+"</td><td>"+frameAdj(s.h).toFixed(1)+"</td></tr>").join("")+"</table>";
 }
 let manyRunning=false;
 function runMany(){
