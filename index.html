@@ -1,10 +1,10 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eikichi Racing Simulator v6.0</title>
+<title>Eikichi Racing Simulator v6.1</title>
 <style>
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1080px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5;transition:left .18s linear,top .18s linear,box-shadow .2s}.horse.move{box-shadow:0 0 14px 5px rgba(255,255,255,.55)}.horse.fade{opacity:.55}.liveBox{background:#081525;border:1px solid #2c4664;border-radius:12px;padding:10px;margin-top:8px}.liveLine{font-size:14px;line-height:1.6}.meter{height:8px;background:#1c3048;border-radius:99px;overflow:hidden;margin:7px 0}.meter>div{height:100%;background:#e1c766;width:0%}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}
 </style></head><body><main>
 <h1 id="title">Eikichi Racing Simulator</h1>
-<div class="small">CSV/TSV貼り付け対応。v6.0：母父名・性別・前走馬体重を使う血統スコア完全版を搭載。生産者は未使用。</div>
+<div class="small">CSV/TSV貼り付け対応。v6.1：能力はS〜Dランク運用のまま、能力反映度を調整可能に変更。</div>
 <div class="panel"><h3>出走表貼り付け</h3><div class="controls">
 <div><label>レース名</label><input id="raceName" value="函館6R 未勝利"></div>
 <div><label>コース</label><select id="course"><optgroup label="東京">
@@ -59,11 +59,14 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 <div><label>予想反映度 <span id="wtxt">70</span>%</label><input id="weight" type="range" min="20" max="95" value="70"></div>
 <div><label>乱数</label><select id="noise"><option value="0.6">少なめ</option><option value="1" selected>標準</option><option value="1.4">多め</option><option value="2.0">荒れ気味</option></select></div>
 <div><label>生き物ブレ</label><select id="life"><option value="1.0">小</option><option value="1.8" selected>標準</option><option value="2.8">大</option><option value="3.5">大荒れ</option></select></div>
-<div><label>検証回数</label><select id="simCount"><option value="300">300回</option><option value="1000" selected>1000回</option><option value="5000">5000回</option></select></div><button id="one">▶ 1回再生</button><button id="many" class="gray">📊 検証</button><button id="reset" class="gray">↻ リセット</button>
+<div><label>能力反映度</label><select id="abilityWeight"><option value="0.60">60%</option><option value="0.70" selected>70%</option><option value="0.80">80%</option><option value="0.90">90%</option></select></div><div><label>検証回数</label><select id="simCount"><option value="300">300回</option><option value="1000" selected>1000回</option><option value="5000">5000回</option></select></div><button id="one">▶ 1回再生</button><button id="many" class="gray">📊 検証</button><button id="reset" class="gray">↻ リセット</button>
 </div>
 <div class="panel"><div id="track"><svg id="courseSvg" viewBox="0 0 1000 520" preserveAspectRatio="none"></svg></div><div id="racePhase" class="small">1回再生を押すと、序盤→向正面→3角→4角→直線→ゴールの展開で動きます。</div><div class="meter"><div id="liveMeter"></div></div><div class="liveBox"><div id="liveComment" class="liveLine">実況：待機中</div><div id="liveOrder" class="small">隊列：未実行</div></div></div>
 <div class="panel"><h3>v2.5補正</h3><div class="small">気性列は高いほど「かかり・折り合い欠き・ムラ」が出やすい設定です。さらに騎手×気性、左回り/右回り、道悪、距離適性、気分屋補正を加えています。ルメール・武豊・横山典は気性難をなだめる補正、川田・レーン・坂井は先行リズム補正を入れています。</div></div>
 
+
+<div class="panel"><h3>v6.1 能力ランク反映度</h3>
+<div class="small">能力はS/A/B/C/Dのランク管理を基本にし、能力反映度で差を圧縮します。G1は70%、未勝利や2歳戦は60%前後、能力差を強く見たい時は80〜90%が目安です。</div></div>
 <div class="panel"><h3>v6.0 血統スコア完全版</h3>
 <div class="small">母父名・性別・前走馬体重を血統スコアへ統合。母父名補正、配合名補正、性別補正、血統×馬体重補正を追加しました。生産者は使用しません。</div></div>
 <div class="panel"><h3>順位</h3><div id="rank">未実行</div></div>
@@ -72,7 +75,7 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 <script>
 (function(){
 const E=id=>document.getElementById(id);let horses=[],timer=null,divs=[],path=[],seg=[],total=0,currentState=null;
-const grade={S:100,AA:95,A:88,B:76,C:64,D:52};
+const grade={S:88,AA:85,A:82,B:74,C:66,D:58,E:52,"－":62,"":62};
 const jockey={"ルメール":10,"レーン":9,"川田将雅":8,"武豊":5,"戸崎圭太":4,"坂井瑠星":4,"松山弘平":3,"横山武史":3,"岩田望来":3,"横山和生":3,"丹内祐次":2};
 const colors=["#ff5a5f","#ffd166","#06d6a0","#4cc9f0","#f72585","#b8f2e6","#c77dff","#90be6d","#f8961e","#adb5bd"];
 const baseShapes={
@@ -395,10 +398,20 @@ function blood(h){
  return Math.max(50,Math.min(100,s));
 }
 function abilityScore(h){
-  const raw=parseFloat(h.能力);
-  if(!isNaN(raw)){
-    return Math.max(50,Math.min(100,50 + raw*0.9));
+  const aw = E("abilityWeight") ? parseFloat(E("abilityWeight").value||"0.70") : 0.70;
+
+  // 基本はS〜Dランク運用。能力に引っ張られすぎないよう70点へ圧縮。
+  let rawRank = grade[h.能力] || 66;
+
+  // 数値が入った場合も対応するが、反映度で必ず圧縮する。
+  const rawNum = parseFloat(h.能力);
+  if(!isNaN(rawNum)){
+    rawRank = Math.max(52, Math.min(88, 52 + rawNum*0.65));
   }
+
+  // 70点を中心に、能力反映度で差を縮める
+  return 70 + (rawRank - 70) * aw;
+}
   return grade[h.能力]||65;
 }
 function timeScore(h){
