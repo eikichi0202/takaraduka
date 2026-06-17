@@ -1,10 +1,10 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eikichi Racing Simulator v6.6</title>
+<title>Eikichi Racing Simulator v7.0</title>
 <style>
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1080px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5;transition:left .18s linear,top .18s linear,box-shadow .2s}.horse.move{box-shadow:0 0 14px 5px rgba(255,255,255,.55)}.horse.fade{opacity:.55}.liveBox{background:#081525;border:1px solid #2c4664;border-radius:12px;padding:10px;margin-top:8px}.liveLine{font-size:14px;line-height:1.6}.meter{height:8px;background:#1c3048;border-radius:99px;overflow:hidden;margin:7px 0}.meter>div{height:100%;background:#e1c766;width:0%}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}
 </style></head><body><main>
 <h1 id="title">Eikichi Racing Simulator</h1>
-<div class="small">CSV/TSV貼り付け対応。v6.6：特定レース専用補正を廃止し、全レースで使える汎用バランスへ調整。</div>
+<div class="small">CSV/TSV貼り付け対応。v7.0：いつものお願い方式の血統スコア完全版。前走脚質は血統スコアに不使用。</div>
 <div class="panel"><h3>出走表貼り付け</h3><div class="controls">
 <div><label>レース名</label><input id="raceName" value="函館6R 未勝利"></div>
 <div><label>コース</label><select id="course"><optgroup label="東京">
@@ -70,6 +70,9 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 
 
 
+
+<div class="panel"><h3>v7.0 血統スコア完全版</h3>
+<div class="small">父35%・母父25%・配合20%・コース10%・馬場5%・ペース3%・性別/馬体2%で血統を偏差値化。前走脚質は血統スコアに使いません。100点が並ばないよう上限96点に圧縮しています。</div></div>
 <div class="panel"><h3>v6.6 汎用バランス</h3>
 <div class="small">宝塚記念など特定レース・特定馬へ寄せる補正を廃止。勝ち切り・安定・ピンパー・騎手・コース補正を全レース共通で効くようにマイルド化しました。</div></div>
 <div class="panel"><h3>v6.3 タイム反映度</h3>
@@ -166,246 +169,204 @@ function num(v,d=0){
 function style(s){s=String(s||"").trim();if(s.includes("逃"))return"逃げ";if(s.includes("先"))return"先行";if(s.includes("中"))return"中団";if(s.includes("後"))return"後方";if(s.includes("差"))return"差し";return"中団"}
 function loadData(){try{const rows=parseTable(E("csvInput").value),tc=E("timeCol").value;horses=rows.map(r=>({レース名:r["レース名"]||E("raceName").value,場所:r["場所"]||"",芝ダ:r["芝ダ"]||"",距離:num(r["距離"],0),馬名:(r["馬名"]||"").trim().replace("$",""),馬番:parseInt(r["馬番"]||"0",10),騎手:r["騎手"]||"",種牡馬:r["種牡馬"]||"",母父名:r["母父名"]||"",性別:r["性別"]||"",前走馬体重:num(r["前走馬体重"]||r["前走体重"]||r["馬体重"],null),父タイプ名:r["父タイプ名"]||"",母父タイプ名:r["母父タイプ名"]||"",父母父タイプ名:r["父母父タイプ名"]||"",母母父タイプ名:r["母母父タイプ名"]||"",脚質:style(r["脚質"]||r["前走脚質"]),能力:r["能力"]||"C",調教:r["調教"]||"C",タイム指数:num(r[tc]||r["タイム指数"]||r["推定タイム"]||r["推定タイム評価"],100),斤量:r["斤量"]||57,Time1:num(r["坂路4F"]||r["坂路４F"]||r["Time1"],null),Time2:num(r["坂路3F"]||r["坂路３F"]||r["Time2"],null),Time3:num(r["坂路2F"]||r["坂路２F"]||r["Time3"],null),Time4:num(r["坂路1F"]||r["坂路１F"]||r["Time4"],null),Lap4:num(r["Lap4"],null),Lap3:num(r["Lap3"],null),Lap2:num(r["Lap2"],null),Lap1:num(r["Lap1"],null),ウッド6F:num(r["ウッド6F"],null),ウッド5F:num(r["ウッド5F"],null),ウッド4F:num(r["ウッド4F"],null),ウッド3F:num(r["ウッド3F"],null),ウッド2F:num(r["ウッド2F"],null),ウッド1F:num(r["ウッド1F"],null)})).filter(h=>h.馬名&&h.馬番);if(!horses.length)throw new Error("馬名・馬番が読み込めません");const first=horses[0];E("raceName").value=(first.場所?first.場所+" ":"")+(first.レース名||"");E("title").textContent=E("raceName").value+" / "+(courses[E("course").value]?.name||"");E("loadMsg").innerHTML=`<span class="ok">読込成功：</span>${horses.length}頭 / タイム列=${tc} / 脚質=前走脚質`;setup()}catch(e){E("loadMsg").innerHTML=`<span class="warn">読込失敗：</span>${e.message}`}}
 
-function broodmareSireScore(h){
-  const mfName=(h.母父名||"").trim();
+
+function sireAptitudeScore(h){
   const c=courses[E("course").value]||{};
-  const profile=c.profile||"";
-  const going=E("going").value;
-  let s=0;
+  const sire=h.種牡馬||"", ft=h.父タイプ名||"", all=sire+ft;
+  const dist=c.dist||h.距離||0, surface=c.kind||"", venue=c.venue||"";
+  let s=58;
 
-  // 中長距離・持続力
-  if(mfName.includes("ハーツクライ")) s+=4.5;
-  if(mfName.includes("ハービンジャー")) s+=4.5;
-  if(mfName.includes("ジャングルポケット")) s+=4.0;
-  if(mfName.includes("Galileo")||mfName.includes("High Chaparral")||mfName.includes("Cape Cross")) s+=4.2;
-  if(mfName.includes("シンボリクリスエス")) s+=3.5;
+  if(sire.includes("キタサンブラック")) s+=10;
+  if(sire.includes("エピファネイア")) s+=9;
+  if(sire.includes("キズナ")) s+=8;
+  if(sire.includes("ハーツクライ")) s+=8;
+  if(sire.includes("ドゥラメンテ")) s+=8;
+  if(sire.includes("ロードカナロア")) s+=8;
+  if(sire.includes("ディープインパクト")) s+=9;
+  if(sire.includes("ゴールドシップ")) s+=7;
+  if(sire.includes("スワーヴリチャード")) s+=7;
+  if(sire.includes("リオンディーズ")) s+=6;
+  if(sire.includes("モーリス")) s+=6;
+  if(sire.includes("ナダル")) s+=7;
+  if(sire.includes("ビッグアーサー")||sire.includes("ファインニードル")||sire.includes("ミッキーアイル")) s+=7;
 
-  // パワー・道悪・ダート
-  if(mfName.includes("フレンチデピュティ")||mfName.includes("クロフネ")) s+=4.0;
-  if(mfName.includes("ロージズインメイ")||mfName.includes("ティンバーカントリー")||mfName.includes("Congrats")||mfName.includes("Southern Image")) s+=3.5;
-  if(mfName.includes("Not For Sale")) s+=2.5;
-
-  // 短距離・機動力
-  if(mfName.includes("サクラバクシンオー")||mfName.includes("キングヘイロー")) s+=3.5;
-
-  // コース別
-  if(profile.includes("hanshin_stamina")||profile.includes("tokyo_stamina")||profile.includes("fukushima_stamina")){
-    if(mfName.includes("ハーツクライ")||mfName.includes("ハービンジャー")||mfName.includes("Galileo")||mfName.includes("High Chaparral")||mfName.includes("Cape Cross")||mfName.includes("ジャングルポケット")) s+=3.2;
+  if(dist<=1400){
+    if(sire.includes("ロードカナロア")||sire.includes("ビッグアーサー")||sire.includes("ファインニードル")||sire.includes("ミッキーアイル")||ft.includes("ダンチヒ")||ft.includes("ニアークティック")) s+=7;
+    if(sire.includes("ゴールドシップ")||sire.includes("ハーツクライ")) s-=4;
+  }else if(dist>=2000){
+    if(sire.includes("キタサンブラック")||sire.includes("ハーツクライ")||sire.includes("エピファネイア")||sire.includes("ドゥラメンテ")||sire.includes("ゴールドシップ")||sire.includes("スワーヴリチャード")) s+=7;
+    if(sire.includes("ビッグアーサー")||sire.includes("ファインニードル")||sire.includes("ミッキーアイル")) s-=5;
+  }else{
+    if(sire.includes("キズナ")||sire.includes("ロードカナロア")||sire.includes("モーリス")||sire.includes("リオンディーズ")||sire.includes("ディープインパクト")) s+=5;
   }
-  if(profile.includes("tokyo_mile")||profile.includes("tokyo_mid")){
-    if(mfName.includes("ハーツクライ")||mfName.includes("ディープインパクト")||mfName.includes("ハービンジャー")) s+=2.0;
+
+  if(surface==="dirt"){
+    if(sire.includes("ナダル")||sire.includes("サンダースノー")||ft.includes("ロイヤルチャージャー")||ft.includes("ニアークティック")) s+=7;
+    if(sire.includes("ディープインパクト")||sire.includes("ハーツクライ")) s-=2;
   }
-  if(profile.includes("dirt")||c.kind==="dirt"){
-    if(mfName.includes("フレンチデピュティ")||mfName.includes("クロフネ")||mfName.includes("ロージズインメイ")||mfName.includes("ティンバーカントリー")||mfName.includes("Congrats")) s+=3.2;
+
+  if(venue==="東京" && surface==="turf" && dist>=1600) s+=2;
+  if((venue==="函館"||venue==="小倉"||venue==="福島") && dist<=1700) {
+    if(ft.includes("ダンチヒ")||ft.includes("ニアークティック")||sire.includes("ナダル")) s+=2;
+  }
+  return Math.max(40,Math.min(80,s));
+}
+
+function broodmareAptitudeScore(h){
+  const c=courses[E("course").value]||{};
+  const mf=h.母父名||"", mft=h.母父タイプ名||"";
+  const dist=c.dist||h.距離||0, surface=c.kind||"";
+  let s=56;
+
+  if(mf.includes("ハーツクライ")) s+=9;
+  if(mf.includes("ハービンジャー")) s+=9;
+  if(mf.includes("ジャングルポケット")) s+=8;
+  if(mf.includes("Galileo")||mf.includes("High Chaparral")||mf.includes("Cape Cross")) s+=8;
+  if(mf.includes("シンボリクリスエス")) s+=7;
+  if(mf.includes("フレンチデピュティ")||mf.includes("クロフネ")) s+=7;
+  if(mf.includes("ロージズインメイ")||mf.includes("ティンバーカントリー")||mf.includes("Congrats")||mf.includes("Southern Image")) s+=6;
+  if(mf.includes("サクラバクシンオー")||mf.includes("キングヘイロー")) s+=6;
+  if(mf.includes("ネオユニヴァース")) s+=5;
+  if(mf.includes("Not For Sale")||mf.includes("Sri Pekan")) s+=4;
+
+  if(dist>=2000){
+    if(mf.includes("ハーツクライ")||mf.includes("ハービンジャー")||mf.includes("Galileo")||mf.includes("High Chaparral")||mf.includes("Cape Cross")||mf.includes("ジャングルポケット")||mft.includes("トニービン")) s+=7;
+    if(mf.includes("サクラバクシンオー")) s-=4;
+  }else if(dist<=1400){
+    if(mf.includes("サクラバクシンオー")||mf.includes("キングヘイロー")||mf.includes("フレンチデピュティ")||mft.includes("ダンチヒ")) s+=6;
+    if(mf.includes("Galileo")||mf.includes("High Chaparral")) s-=3;
+  }
+
+  if(surface==="dirt"){
+    if(mf.includes("フレンチデピュティ")||mf.includes("クロフネ")||mf.includes("ロージズインメイ")||mf.includes("ティンバーカントリー")||mf.includes("Congrats")||mf.includes("Southern Image")) s+=7;
+  }
+  return Math.max(40,Math.min(80,s));
+}
+
+function pairingScore(h){
+  const sire=h.種牡馬||"", mf=h.母父名||"", ft=h.父タイプ名||"", mft=h.母父タイプ名||"";
+  const c=courses[E("course").value]||{};
+  const dist=c.dist||h.距離||0;
+  let s=56;
+
+  if(sire.includes("キタサンブラック") && (mf.includes("Cape Cross")||mf.includes("ハービンジャー")||mf.includes("キングヘイロー"))) s+=9;
+  if(sire.includes("リオンディーズ") && mf.includes("ハーツクライ")) s+=8;
+  if(sire.includes("ゴールドシップ") && (mf.includes("フレンチデピュティ")||mf.includes("ロージズインメイ"))) s+=7;
+  if(sire.includes("スワーヴリチャード") && mf.includes("ハービンジャー")) s+=8;
+  if(sire.includes("エピファネイア") && (mf.includes("ジャングルポケット")||mf.includes("ハービンジャー")||mf.includes("シンボリクリスエス"))) s+=7;
+  if(sire.includes("キズナ") && (mf.includes("シンボリクリスエス")||mf.includes("フレンチデピュティ")||mf.includes("Storm Cat"))) s+=6;
+  if(sire.includes("ドゥラメンテ") && mf.includes("サクラバクシンオー")) s+=4;
+  if(sire.includes("レイデオロ") && mf.includes("ネオユニヴァース")) s+=5;
+
+  if(ft.includes("キングマンボ") && mft.includes("サンデーサイレンス")) s+=5;
+  if(ft.includes("サンデーサイレンス") && (mft.includes("ナスルーラ")||mft.includes("トニービン")||mft.includes("ロイヤルチャージャー"))) s+=5;
+  if(ft.includes("ロイヤルチャージャー") && mft.includes("サンデーサイレンス")) s+=4;
+  if(ft.includes("ダンチヒ") && mft.includes("サンデーサイレンス")) s+=4;
+
+  if(dist>=2000 && (mf.includes("Cape Cross")||mf.includes("ハーツクライ")||mf.includes("ハービンジャー")||mf.includes("Galileo")||mf.includes("High Chaparral"))) s+=3;
+  if(dist<=1400 && (mf.includes("サクラバクシンオー")||mf.includes("キングヘイロー"))) s+=3;
+
+  return Math.max(40,Math.min(80,s));
+}
+
+function courseBloodScore(h){
+  const c=courses[E("course").value]||{};
+  const profile=c.profile||"", venue=c.venue||"", surface=c.kind||"", dist=c.dist||h.距離||0;
+  const sire=h.種牡馬||"", mf=h.母父名||"", ft=h.父タイプ名||"", mft=h.母父タイプ名||"";
+  let s=56;
+
+  if(venue==="阪神" && surface==="turf" && dist>=2000){
+    if(sire.includes("キタサンブラック")||sire.includes("ゴールドシップ")||sire.includes("エピファネイア")||sire.includes("ハーツクライ")||mf.includes("ハービンジャー")||mf.includes("Cape Cross")) s+=9;
+  }
+  if(venue==="東京" && surface==="turf" && dist>=1600){
+    if(sire.includes("ディープインパクト")||sire.includes("ロードカナロア")||sire.includes("キズナ")||sire.includes("ハーツクライ")||sire.includes("ドゥラメンテ")) s+=8;
+    if(mf.includes("ハーツクライ")||mf.includes("トニービン")||mft.includes("ナスルーラ")) s+=4;
   }
   if(profile.includes("sprint")){
-    if(mfName.includes("サクラバクシンオー")||mfName.includes("キングヘイロー")||mfName.includes("フレンチデピュティ")) s+=2.2;
+    if(sire.includes("ロードカナロア")||sire.includes("ビッグアーサー")||sire.includes("ファインニードル")||sire.includes("ミッキーアイル")||mf.includes("サクラバクシンオー")) s+=9;
+  }
+  if(surface==="dirt"){
+    if(sire.includes("ナダル")||mf.includes("フレンチデピュティ")||mf.includes("クロフネ")||ft.includes("ロイヤルチャージャー")||ft.includes("ニアークティック")) s+=9;
+  }
+  if((venue==="函館"||venue==="小倉"||venue==="福島") && surface==="turf"){
+    if(ft.includes("ダンチヒ")||ft.includes("ニアークティック")||sire.includes("ロードカナロア")||sire.includes("ビッグアーサー")) s+=5;
   }
 
-  // 馬場
-  if(going==="soft"||going==="bad"||going==="soft_range"){
-    if(mfName.includes("ハービンジャー")||mfName.includes("Galileo")||mfName.includes("High Chaparral")||mfName.includes("フレンチデピュティ")||mfName.includes("クロフネ")) s+=2.8;
-  }
-  if(going==="ultrafirm"||going==="firm"){
-    if(mfName.includes("ハーツクライ")||mfName.includes("ディープインパクト")||mfName.includes("Cape Cross")) s+=1.5;
-  }
-
-  return s;
+  return Math.max(40,Math.min(80,s));
 }
 
-function sexBloodAdj(h){
-  const c=courses[E("course").value]||{};
-  const sex=(h.性別||"").trim();
-  let s=0;
-  if(sex.includes("牝")){
-    if(c.kind==="turf" && c.dist>=1800) s+=1.8; // 軽斤量・切れ
-    if(c.kind==="dirt" && c.dist>=1600) s-=1.0;
-    if(c.dist<=1400) s+=0.5;
-  }
-  if(sex.includes("牡")){
-    if(c.kind==="dirt" && c.dist>=1600) s+=1.0;
-  }
-  if(sex.includes("セ")){
-    if(c.dist>=2000) s-=0.4;
-    if(c.dist<=1600) s+=0.4;
-  }
-  return s;
-}
+function goingBloodScore(h){
+  const g=E("going").value;
+  const sire=h.種牡馬||"", mf=h.母父名||"", ft=h.父タイプ名||"", mft=h.母父タイプ名||"";
+  let s=56;
 
-function bodyWeightBloodAdj(h){
-  const bw=parseFloat(h.前走馬体重);
-  if(isNaN(bw)||bw<=0) return 0;
-  const c=courses[E("course").value]||{};
-  const sire=h.種牡馬||"";
-  const mf=h.母父名||"";
-  let s=0;
-
-  if(c.kind==="dirt"){
-    if(bw>=520) s+=2.8;
-    else if(bw>=500) s+=2.0;
-    else if(bw<450) s-=1.8;
+  if(g==="ultrafirm"||g==="firm"){
+    if(ft.includes("サンデーサイレンス")||ft.includes("キングマンボ")||sire.includes("ロードカナロア")||sire.includes("ディープインパクト")||mf.includes("ハーツクライ")||mf.includes("Cape Cross")) s+=7;
+  }else if(g==="firm_to_good"||g==="good_soft"){
+    if(sire.includes("キタサンブラック")||sire.includes("キズナ")||sire.includes("エピファネイア")||mf.includes("ハービンジャー")) s+=6;
   }else{
-    if(c.dist<=1400){
-      if(bw>=440 && bw<=510) s+=1.7;
-      if(bw>=540) s-=1.0;
-      if(bw<420) s-=1.2;
-    }else if(c.dist>=1800){
-      if(bw>=460 && bw<=540) s+=2.0;
-      if(bw<430) s-=1.5;
-      if(bw>=560) s-=0.8;
-    }
+    if(sire.includes("ゴールドシップ")||sire.includes("ナダル")||mf.includes("ハービンジャー")||mf.includes("Galileo")||mf.includes("High Chaparral")||mf.includes("フレンチデピュティ")||mf.includes("クロフネ")||mft.includes("ナスルーラ")) s+=8;
+    if(sire.includes("ロードカナロア") && !mf.includes("フレンチデピュティ")) s-=2;
   }
-
-  // 血統×馬体重
-  if(sire.includes("ゴールドシップ") && bw>=500) s+=2.5;
-  if(sire.includes("キタサンブラック") && bw>=490 && bw<=535) s+=2.2;
-  if(sire.includes("ナダル") && bw>=500) s+=3.0;
-  if((sire.includes("ハービンジャー")||mf.includes("ハービンジャー")) && bw>=460 && bw<=510) s+=2.0;
-  if(sire.includes("ロードカナロア") && bw>=450 && bw<=520) s+=1.4;
-  if(sire.includes("エピファネイア") && bw>=460 && bw<=530) s+=1.2;
-
-  return s;
+  return Math.max(40,Math.min(80,s));
 }
 
-function pairingNameAdj(h){
-  const sire=h.種牡馬||"";
-  const mf=h.母父名||"";
-  const c=courses[E("course").value]||{};
-  let s=0;
-
-  if(sire.includes("キタサンブラック") && (mf.includes("Cape Cross")||mf.includes("ハービンジャー")||mf.includes("キングヘイロー"))) s+=1.6;
-  if(sire.includes("リオンディーズ") && mf.includes("ハーツクライ")) s+=1.8;
-  if(sire.includes("ゴールドシップ") && (mf.includes("フレンチデピュティ")||mf.includes("ロージズインメイ"))) s+=1.5;
-  if(sire.includes("スワーヴリチャード") && mf.includes("ハービンジャー")) s+=1.7;
-  if(sire.includes("エピファネイア") && (mf.includes("ジャングルポケット")||mf.includes("ハービンジャー")||mf.includes("シンボリクリスエス"))) s+=2.8;
-  if(sire.includes("キズナ") && (mf.includes("シンボリクリスエス")||mf.includes("Storm Cat")||mf.includes("フレンチデピュティ"))) s+=2.8;
-  if(sire.includes("ドゥラメンテ") && mf.includes("サクラバクシンオー")){
-    s+=1.5;
-    if(c.dist>=2000) s-=1.2; // スピード母父で距離長めは少し抑える
+function paceBloodScore(h){
+  const p=E("pace").value;
+  const sire=h.種牡馬||"", mf=h.母父名||"", ft=h.父タイプ名||"", mft=h.母父タイプ名||"";
+  let s=56;
+  if(p==="slow"){
+    if(ft.includes("サンデーサイレンス")||ft.includes("キングマンボ")||sire.includes("キタサンブラック")||sire.includes("ディープインパクト")) s+=6;
+  }else if(p==="high"){
+    if(mft.includes("ナスルーラ")||mf.includes("ハーツクライ")||mf.includes("ハービンジャー")||sire.includes("キズナ")||sire.includes("ゴールドシップ")||ft.includes("ロイヤルチャージャー")) s+=6;
+  }else{
+    if(sire.includes("キタサンブラック")||sire.includes("キズナ")||sire.includes("ロードカナロア")||sire.includes("エピファネイア")) s+=4;
   }
-  if(sire.includes("レイデオロ") && mf.includes("ネオユニヴァース")) s+=2.0;
+  return Math.max(40,Math.min(80,s));
+}
 
-  return s;
+function sexBodyBloodScore(h){
+  const c=courses[E("course").value]||{};
+  const sex=h.性別||"", bw=parseFloat(h.前走馬体重);
+  const sire=h.種牡馬||"", mf=h.母父名||"";
+  let s=56;
+  if(sex.includes("牝") && c.kind==="turf" && c.dist>=1800) s+=3;
+  if(sex.includes("牡") && c.kind==="dirt" && c.dist>=1600) s+=2;
+  if(!isNaN(bw)&&bw>0){
+    if(c.kind==="dirt"){
+      if(bw>=500) s+=4; if(bw<450) s-=3;
+    }else if(c.dist>=1800){
+      if(bw>=460&&bw<=540) s+=3; if(bw<430) s-=3;
+    }else{
+      if(bw>=440&&bw<=510) s+=2; if(bw>=540||bw<420) s-=2;
+    }
+    if(sire.includes("ゴールドシップ")&&bw>=500) s+=3;
+    if(sire.includes("キタサンブラック")&&bw>=490&&bw<=535) s+=3;
+    if((sire.includes("ハービンジャー")||mf.includes("ハービンジャー"))&&bw>=460&&bw<=510) s+=2;
+    if(sire.includes("ナダル")&&bw>=500) s+=4;
+  }
+  return Math.max(40,Math.min(80,s));
 }
 
 function blood(h){
- const c=courses[E("course").value]||{};
- const going=E("going").value;
- const pace=E("pace").value;
- const sire=h.種牡馬||"";
- const ft=h.父タイプ名||"", mf=h.母父タイプ名||"", fmf=h.父母父タイプ名||"", mmf=h.母母父タイプ名||"";
- const all=sire+ft+mf+fmf+mmf;
- let s=68;
+  // いつものお願い完全版：前走脚質は不使用
+  const sire = sireAptitudeScore(h);
+  const bm = broodmareAptitudeScore(h);
+  const pair = pairingScore(h);
+  const course = courseBloodScore(h);
+  const going = goingBloodScore(h);
+  const pace = paceBloodScore(h);
+  const sexbody = sexBodyBloodScore(h);
 
- // 1) 父評価：能力の根幹
- const sireBase={
-  "キタサンブラック":88,"エピファネイア":86,"キズナ":85,"ハーツクライ":84,"ドゥラメンテ":84,"ロードカナロア":86,
-  "モーリス":82,"リオンディーズ":81,"ゴールドシップ":82,"ナダル":84,"サートゥルナーリア":82,"スワーヴリチャード":82,
-  "シルバーステート":79,"ミッキーアイル":80,"ダイワメジャー":81,"ジャスタウェイ":78,"レイデオロ":79,
-  "リアルスティール":80,"サンダースノー":81,"アドマイヤマーズ":80
- };
- Object.keys(sireBase).forEach(k=>{if(sire.includes(k))s+=(sireBase[k]-70)*0.55});
+  // 父35%、母父25%、配合20%、コース10%、馬場5%、ペース3%、性別/馬体2%
+  let raw = sire*0.35 + bm*0.25 + pair*0.20 + course*0.10 + going*0.05 + pace*0.03 + sexbody*0.02;
 
- // 2) 系統ベース
- if(ft.includes("サンデーサイレンス"))s+=4.5;
- if(ft.includes("キングマンボ"))s+=4.0;
- if(ft.includes("ロイヤルチャージャー"))s+=3.8;
- if(ft.includes("ニアークティック"))s+=3.0;
- if(ft.includes("ダンチヒ"))s+=3.2;
- if(ft.includes("ネイティヴダンサー"))s+=2.8;
- if(mf.includes("サンデーサイレンス"))s+=3.2;
- if(mf.includes("キングマンボ"))s+=3.0;
- if(mf.includes("ナスルーラ")||mf.includes("トニービン"))s+=3.0;
- if(mf.includes("ダンチヒ")||mf.includes("ニアークティック"))s+=2.5;
-
- // 3) 父×母父の配合評価
- if(ft.includes("キングマンボ") && mf.includes("サンデーサイレンス"))s+=4.0;
- if(ft.includes("サンデーサイレンス") && (mf.includes("ロイヤルチャージャー")||mf.includes("ナスルーラ")||mf.includes("トニービン")))s+=3.8;
- if(ft.includes("ロイヤルチャージャー") && mf.includes("サンデーサイレンス"))s+=3.5;
- if(ft.includes("サンデーサイレンス") && (mf.includes("ダンチヒ")||mf.includes("ニアークティック")))s+=2.8;
- if(ft.includes("ニアークティック") && mf.includes("サンデーサイレンス"))s+=2.8;
-
- // 4) コース別「いつものお願い」血統補正
- const p=c.profile||"";
- if(p.includes("tokyo_mile")){
-   if(all.includes("ロードカナロア")||all.includes("モーリス")||all.includes("キズナ"))s+=5;
-   if(ft.includes("ネイティヴダンサー")&&mf.includes("サンデーサイレンス"))s+=4;
-   if(h.脚質==="差し"||h.脚質==="中団")s+=1.5;
- }
- if(p.includes("tokyo_stamina")){
-   if(all.includes("キタサンブラック")||all.includes("ハーツクライ")||all.includes("エピファネイア")||all.includes("ドゥラメンテ"))s+=5;
-   if(mf.includes("トニービン")||mf.includes("ナスルーラ"))s+=3;
- }
- if(p.includes("tokyo_dirt")){
-   if(ft.includes("ロイヤルチャージャー")||ft.includes("ニアークティック")||mf.includes("ストームキャット"))s+=4;
-   if(h.馬番>=13)s+=1.5;
- }
- if(p.includes("hanshin_stamina")){
-   if(all.includes("キタサンブラック")||all.includes("ゴールドシップ")||all.includes("ハーツクライ")||all.includes("エピファネイア"))s+=6;
-   if(mf.includes("トニービン")||mf.includes("ナスルーラ"))s+=3;
- }
- if(p.includes("hanshin_mile")||p.includes("hanshin_mid")){
-   if(all.includes("ディープ")||all.includes("キズナ")||all.includes("ロードカナロア")||all.includes("ハーツクライ"))s+=4;
-   if(h.脚質==="差し"||h.脚質==="中団")s+=1.5;
- }
- if(p.includes("hakodate_sprint")){
-   if(ft.includes("ダンチヒ")||mf.includes("ダンチヒ")||ft.includes("ニアークティック")||mf.includes("ニアークティック"))s+=6;
-   if(all.includes("ロードカナロア")||all.includes("ダイワメジャー")||all.includes("ミッキーアイル"))s+=4;
-   if(h.脚質==="逃げ"||h.脚質==="先行")s+=2;
- }
- if(p.includes("hakodate_dirt")||p.includes("fukushima_dirt")||p.includes("kokura_dirt")){
-   if(all.includes("ナダル")||ft.includes("ロイヤルチャージャー")||ft.includes("ニアークティック")||ft.includes("ダンチヒ"))s+=6;
-   if(h.脚質==="逃げ"||h.脚質==="先行")s+=2.5;
- }
- if(p.includes("kokura_sprint")||p.includes("fukushima_sprint")){
-   if(all.includes("ロードカナロア")||all.includes("ミッキーアイル")||ft.includes("ダンチヒ")||ft.includes("ニアークティック"))s+=5.5;
-   if(h.脚質==="逃げ"||h.脚質==="先行")s+=2.5;
- }
- if(p.includes("kokura_mid")||p.includes("fukushima_mid")||p.includes("hakodate_mid")){
-   if(ft.includes("サンデーサイレンス")||ft.includes("キングマンボ")||mf.includes("ナスルーラ"))s+=4;
-   if(h.脚質==="先行"||h.脚質==="中団")s+=1.5;
- }
- if(p.includes("fukushima_stamina")){
-   if(all.includes("ゴールドシップ")||all.includes("ハーツクライ")||mf.includes("トニービン")||mf.includes("ナスルーラ"))s+=6;
- }
-
- // 5) 馬場補正
- if(going==="ultrafirm"||going==="firm"){
-   if(ft.includes("サンデーサイレンス")||ft.includes("キングマンボ"))s+=1.8;
-   if(h.タイム指数>=130)s+=1.0;
- }
- if(going==="good_soft"||going==="soft_range"||going==="soft"||going==="bad"){
-   if(all.includes("ゴールドシップ")||all.includes("ナダル")||ft.includes("ロイヤルチャージャー")||mf.includes("トニービン")||mf.includes("ナスルーラ"))s+=4.0;
-   if(c.kind==="dirt"&&(ft.includes("ニアークティック")||ft.includes("ダンチヒ")||all.includes("ナダル")))s+=3.0;
- }
-
- // 6) ペース×血統
- if(pace==="high"){
-   if(ft.includes("ロイヤルチャージャー")||mf.includes("ナスルーラ")||mf.includes("トニービン"))s+=2.5;
-   if(h.脚質==="差し"||h.脚質==="後方")s+=1.0;
- }
- if(pace==="slow"){
-   if(ft.includes("サンデーサイレンス")||ft.includes("キングマンボ"))s+=2.0;
-   if(h.脚質==="逃げ"||h.脚質==="先行")s+=1.0;
- }
-
- 
- // v5.2追加血統補正
- const prof=(courses[E("course").value]||{}).profile||"";
- if(prof.includes("tokyo_sprint")&&(all.includes("ビッグアーサー")||all.includes("ファインニードル")||ft.includes("ダンチヒ")))s+=3.0;
- if(prof.includes("tokyo_mid")&&(all.includes("ディープインパクト")||all.includes("ハーツクライ")||all.includes("ドゥラメンテ")))s+=3.0;
- if(prof.includes("hanshin_stamina")&&(all.includes("キタサンブラック")||all.includes("ゴールドシップ")||mf.includes("トニービン")))s+=3.0;
- if((prof.includes("hakodate")||prof.includes("kokura")||prof.includes("fukushima"))&&(h.脚質==="逃げ"||h.脚質==="先行"))s+=1.5;
- if((E("going").value==="soft"||E("going").value==="bad")&&(all.includes("ゴールドシップ")||all.includes("ナダル")||mf.includes("ナスルーラ")))s+=2.5;
- 
- // v6.0 血統完全版：母父名・性別・前走馬体重
- s += broodmareSireScore(h);
- s += pairingNameAdj(h);
- s += sexBloodAdj(h);
- s += bodyWeightBloodAdj(h);
-
- return Math.max(50,Math.min(100,s));
+  // シミュレーター本体が50〜100を想定するため、血統偏差値40〜80を60〜96へ変換。
+  // 100点量産を避ける。
+  let score = 60 + (raw - 40) * 0.90;
+  return Math.max(58, Math.min(96, score));
 }
+
 function abilityScore(h){
   var awEl = document.getElementById("abilityWeight");
   var aw = awEl ? parseFloat(awEl.value || "0.70") : 0.70;
@@ -1200,7 +1161,7 @@ function oneRaceOrder(){
 }
 function drawResult(st,done,n,finished){
  let sorted=[...st].sort((a,b)=>b.w-a.w||b.p3-a.p3);
- E("result").innerHTML=(finished?"":"<div class='small'>検証中... "+done+" / "+n+"回</div>")+"<table><tr><th>順</th><th>馬番</th><th>馬名</th><th>勝率</th><th>連対</th><th>複勝</th><th>平均</th><th>総合</th><th>能力</th><th>タイム</th><th>血統</th><th>母父</th><th>馬体</th><th>調教</th><th>坂終</th><th>坂4F</th><th>W1</th><th>W6</th><th>騎手</th><th>騎場</th><th>気性</th><th>勝切</th><th>安定</th><th>ピンパー</th><th>枠</th><th>馬場</th></tr>"+sorted.map((s,i)=>"<tr><td>"+(i+1)+"</td><td>"+s.h.馬番+"</td><td>"+s.h.馬名+"</td><td>"+(s.w/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p2/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p3/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.rs/Math.max(1,done)).toFixed(2)+"</td><td>"+base(s.h).toFixed(1)+"</td><td>"+abilityScore(s.h).toFixed(1)+"</td><td>"+timeScore(s.h).toFixed(1)+"</td><td>"+blood(s.h).toFixed(1)+"</td><td>"+broodmareSireScore(s.h).toFixed(1)+"</td><td>"+bodyWeightBloodAdj(s.h).toFixed(1)+"</td><td>"+trainingScore(s.h).toFixed(1)+"</td><td>"+(isNaN(parseFloat(s.h.Time4))?"-":parseFloat(s.h.Time4).toFixed(1))+"</td><td>"+(isNaN(parseFloat(s.h.Time1))?"-":parseFloat(s.h.Time1).toFixed(1))+"</td><td>"+(isNaN(parseFloat(s.h.ウッド1F))?"-":parseFloat(s.h.ウッド1F).toFixed(1))+"</td><td>"+(isNaN(parseFloat(s.h.ウッド6F))?"-":parseFloat(s.h.ウッド6F).toFixed(1))+"</td><td>"+jockeyScore(s.h).toFixed(1)+"</td><td>"+jockeyCourseAdj(s.h).toFixed(1)+"</td><td>"+temperamentRisk(s.h).toFixed(1)+"</td><td>"+winProfile(s.h).toFixed(1)+"</td><td>"+stableProfile(s.h).toFixed(1)+"</td><td>"+pinpaProfile(s.h).toFixed(1)+"</td><td>"+frameAdj(s.h).toFixed(1)+"</td><td>"+manualBiasAdj(s.h).toFixed(1)+"</td></tr>").join("")+"</table>";
+ E("result").innerHTML=(finished?"":"<div class='small'>検証中... "+done+" / "+n+"回</div>")+"<table><tr><th>順</th><th>馬番</th><th>馬名</th><th>勝率</th><th>連対</th><th>複勝</th><th>平均</th><th>総合</th><th>能力</th><th>タイム</th><th>血統</th><th>調教</th><th>坂終</th><th>坂4F</th><th>W1</th><th>W6</th><th>騎手</th><th>騎場</th><th>気性</th><th>勝切</th><th>安定</th><th>ピンパー</th><th>枠</th><th>馬場</th></tr>"+sorted.map((s,i)=>"<tr><td>"+(i+1)+"</td><td>"+s.h.馬番+"</td><td>"+s.h.馬名+"</td><td>"+(s.w/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p2/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p3/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.rs/Math.max(1,done)).toFixed(2)+"</td><td>"+base(s.h).toFixed(1)+"</td><td>"+abilityScore(s.h).toFixed(1)+"</td><td>"+timeScore(s.h).toFixed(1)+"</td><td>"+blood(s.h).toFixed(1)+"</td><td>"+trainingScore(s.h).toFixed(1)+"</td><td>"+(isNaN(parseFloat(s.h.Time4))?"-":parseFloat(s.h.Time4).toFixed(1))+"</td><td>"+(isNaN(parseFloat(s.h.Time1))?"-":parseFloat(s.h.Time1).toFixed(1))+"</td><td>"+(isNaN(parseFloat(s.h.ウッド1F))?"-":parseFloat(s.h.ウッド1F).toFixed(1))+"</td><td>"+(isNaN(parseFloat(s.h.ウッド6F))?"-":parseFloat(s.h.ウッド6F).toFixed(1))+"</td><td>"+jockeyScore(s.h).toFixed(1)+"</td><td>"+jockeyCourseAdj(s.h).toFixed(1)+"</td><td>"+temperamentRisk(s.h).toFixed(1)+"</td><td>"+winProfile(s.h).toFixed(1)+"</td><td>"+stableProfile(s.h).toFixed(1)+"</td><td>"+pinpaProfile(s.h).toFixed(1)+"</td><td>"+frameAdj(s.h).toFixed(1)+"</td><td>"+manualBiasAdj(s.h).toFixed(1)+"</td></tr>").join("")+"</table>";
 }
 let manyRunning=false;
 function runMany(){
