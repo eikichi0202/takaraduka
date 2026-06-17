@@ -1,10 +1,10 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eikichi Racing Simulator v6.3</title>
+<title>Eikichi Racing Simulator v6.4</title>
 <style>
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1080px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5;transition:left .18s linear,top .18s linear,box-shadow .2s}.horse.move{box-shadow:0 0 14px 5px rgba(255,255,255,.55)}.horse.fade{opacity:.55}.liveBox{background:#081525;border:1px solid #2c4664;border-radius:12px;padding:10px;margin-top:8px}.liveLine{font-size:14px;line-height:1.6}.meter{height:8px;background:#1c3048;border-radius:99px;overflow:hidden;margin:7px 0}.meter>div{height:100%;background:#e1c766;width:0%}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}
 </style></head><body><main>
 <h1 id="title">Eikichi Racing Simulator</h1>
-<div class="small">CSV/TSV貼り付け対応。v6.3：推定タイム評価の反映度を調整可能にし、タイムに引っ張られすぎない設計へ変更。</div>
+<div class="small">CSV/TSV貼り付け対応。v6.4：騎手補正を抑制し、勝ち切り・安定補正を再調整。総合上位の先行安定馬が勝率に反映されやすい設計へ変更。</div>
 <div class="panel"><h3>出走表貼り付け</h3><div class="controls">
 <div><label>レース名</label><input id="raceName" value="函館6R 未勝利"></div>
 <div><label>コース</label><select id="course"><optgroup label="東京">
@@ -69,6 +69,9 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 <div class="small">能力はS/A/B/C/Dのランク管理を基本にし、能力反映度で差を圧縮します。読み込み処理を壊さないよう、v6.0ベースに最小限だけ追加しています。</div></div>
 
 
+
+<div class="panel"><h3>v6.4補正調整</h3>
+<div class="small">騎手補正を抑制し、川田・武豊・ルメールの過大評価を軽減。勝ち切り補正は総合力・能力・血統・先行安定を重視し、阪神芝2200ではキタサンブラック×Cape Crossの好位型を強化しました。</div></div>
 <div class="panel"><h3>v6.3 タイム反映度</h3>
 <div class="small">推定タイム評価は70点中心に圧縮し、タイム反映度でさらに調整します。G1は55%前後、時計信頼度が高い条件は70%、新馬や展開差が大きい条件は40%が目安です。</div></div>
 <div class="panel"><h3>v6.2 騎手×競馬場補正</h3>
@@ -598,21 +601,22 @@ function trainingScore(h){
 function jockeyBaseAdj(h){
   const j=h.騎手||"";
   let s=0;
-  if(j.includes("ルメール")) s+=2.0;
-  else if(j.includes("川田")) s+=1.8;
-  else if(j.includes("レーン")||j.includes("モレイラ")) s+=1.8;
-  else if(j.includes("武豊")) s+=1.5;
-  else if(j.includes("横山典")) s+=1.2;
-  else if(j.includes("坂井")) s+=1.2;
-  else if(j.includes("戸崎")) s+=1.1;
-  else if(j.includes("松山")) s+=1.0;
-  else if(j.includes("横山武")) s+=1.0;
-  else if(j.includes("岩田望")) s+=0.9;
-  else if(j.includes("西村淳")) s+=0.8;
-  else if(j.includes("三浦")) s+=0.7;
-  else if(j.includes("津村")) s+=0.6;
-  else if(j.includes("丹内")) s+=0.5;
-  else if(j.includes("大野")) s+=0.4;
+  if(j.includes("ルメール")) s+=1.45;
+  else if(j.includes("川田")) s+=1.35;
+  else if(j.includes("レーン")||j.includes("モレイラ")) s+=1.30;
+  else if(j.includes("武豊")) s+=1.25;
+  else if(j.includes("横山典")) s+=1.05;
+  else if(j.includes("坂井")) s+=1.00;
+  else if(j.includes("戸崎")) s+=0.95;
+  else if(j.includes("松山")) s+=0.90;
+  else if(j.includes("横山武")) s+=0.90;
+  else if(j.includes("岩田望")) s+=0.85;
+  else if(j.includes("北村友")) s+=0.82;
+  else if(j.includes("西村淳")) s+=0.78;
+  else if(j.includes("三浦")) s+=0.65;
+  else if(j.includes("津村")) s+=0.55;
+  else if(j.includes("丹内")) s+=0.50;
+  else if(j.includes("大野")) s+=0.38;
   return s;
 }
 
@@ -713,11 +717,11 @@ function jockeyStyleGoingAdj(h){
 function jockeyCourseAdj(h){
   // 補正が強くなりすぎないよう上限を設定
   let s=jockeyBaseAdj(h)+jockeyVenueDistanceAdj(h)+jockeyStyleGoingAdj(h);
-  return Math.max(-1.0, Math.min(4.0, s));
+  return Math.max(-0.8, Math.min(2.8, s));
 }
 
 function jockeyScore(h){
-  return Math.max(50,Math.min(100,70 + jockeyCourseAdj(h)*5));
+  return Math.max(58,Math.min(86,72 + jockeyCourseAdj(h)*3.2));
 }
 function base(h){
   let ab=abilityScore(h), ti=timeScore(h), bl=blood(h), tr=trainingScore(h), jo=jockeyScore(h);
@@ -1077,51 +1081,121 @@ function runOne(){
 }
 
 
+
+function stabilityProfile(h){
+  let s=0;
+  const risk = temperamentRisk(h);
+  const st=h.脚質||"";
+  const sire=h.種牡馬||"";
+  const mf=h.母父名||"";
+
+  // 気性リスクが低いほど安定
+  s += Math.max(0, 10 - risk) * 0.65;
+
+  // 好位〜先行は複勝安定、逃げはピンパー
+  if(st==="先行"||st==="中団") s+=2.2;
+  if(st==="逃げ") s-=1.0;
+  if(st==="後方") s-=0.7;
+
+  // 操縦性・持続力血統
+  if(sire.includes("キタサンブラック")) s+=2.3;
+  if(sire.includes("ハーツクライ")) s+=1.3;
+  if(mf.includes("Cape Cross")||mf.includes("ハーツクライ")||mf.includes("ハービンジャー")) s+=1.2;
+  if(sire.includes("ゴールドシップ")) s-=1.0;
+
+  return Math.max(0,Math.min(12,s));
+}
+
 function winProfile(h){
   let s=0;
-  const j=h.騎手||"", sire=h.種牡馬||"";
-  if(h.脚質==="逃げ") s+=4.0;
-  if(h.脚質==="先行") s+=2.0;
-  if(j.includes("ルメール")||j.includes("川田")||j.includes("レーン")||j.includes("モレイラ")) s+=1.6; s+=jockeyCourseAdj(h)*0.5;
-  if(abilityScore(h)>=90) s+=3.0;
-  if(timeScore(h)>=88) s+=1.5;
-  if(sire.includes("キタサンブラック")||sire.includes("ドゥラメンテ")||sire.includes("ロードカナロア")) s+=1.5;
-  if(temperamentRisk(h)>=10) s-=1.5;
-  return s;
+  const j=h.騎手||"", sire=h.種牡馬||"", mf=h.母父名||"", st=h.脚質||"";
+  const baseScore = base(h);
+  const ab = abilityScore(h);
+  const bl = blood(h);
+
+  // 総合力・能力・血統上位を勝率に反映
+  if(baseScore>=86) s+=3.6;
+  else if(baseScore>=83) s+=2.4;
+  else if(baseScore>=80) s+=1.2;
+
+  if(ab>=80) s+=2.0;
+  else if(ab>=76) s+=1.2;
+
+  if(bl>=94) s+=1.5;
+  else if(bl>=90) s+=0.8;
+
+  // 脚質。逃げは勝ち切りもあるが、過大評価しない
+  if(st==="逃げ") s+=1.8;
+  if(st==="先行") s+=2.4;
+  if(st==="中団") s+=1.0;
+  if(st==="後方") s-=0.6;
+
+  // 騎手は控えめ。コース相性込みでも最大影響を抑える
+  s += jockeyCourseAdj(h)*0.35;
+
+  // 配合・個性の勝ち切り
+  if(sire.includes("キタサンブラック") && mf.includes("Cape Cross")) s+=3.8;
+  if(sire.includes("リオンディーズ") && mf.includes("ハーツクライ")) s+=1.4;
+  if(sire.includes("スワーヴリチャード") && mf.includes("ハービンジャー")) s+=1.2;
+  if(sire.includes("ゴールドシップ") && mf.includes("フレンチデピュティ")) s+=1.8;
+
+  // 仕上がり
+  if(trainingScore(h)>=90) s+=1.2;
+  else if(trainingScore(h)>=86) s+=0.6;
+
+  return Math.max(0,Math.min(12,s));
 }
 function stableProfile(h){
   let s=0;
-  if(h.脚質==="先行"||h.脚質==="中団") s+=4.0;
-  if(trainingScore(h)>=88) s+=2.0;
-  if(temperamentRisk(h)<=5) s+=3.0;
-  if(blood(h)>=84) s+=1.5;
-  if((h.騎手||"").includes("ルメール")||(h.騎手||"").includes("武豊")) s+=1.5;
-  if(h.脚質==="逃げ"&&E("pace").value==="high") s-=2.5;
-  if(h.脚質==="後方") s-=1.5;
-  return s;
+  s += stabilityProfile(h);
+
+  if(trainingScore(h)>=88) s+=1.4;
+  if(blood(h)>=92) s+=1.0;
+  if(h.脚質==="先行"||h.脚質==="中団") s+=1.8;
+  if(h.脚質==="逃げ"&&E("pace").value==="high") s-=2.0;
+  if(h.脚質==="後方") s-=0.8;
+
+  return Math.max(0,Math.min(12,s));
 }
 function pinpaProfile(h){
   let s=0;
-  if(h.脚質==="逃げ") s+=4.5;
-  if(h.脚質==="後方"||h.脚質==="差し") s+=3.0;
-  if(temperamentRisk(h)>=9) s+=3.5;
-  if((h.種牡馬||"").includes("ゴールドシップ")) s+=3.5;
-  if(abilityScore(h)<72 && timeScore(h)>=80) s+=2.5;
-  if(trainingScore(h)>=88 && abilityScore(h)<78) s+=1.5;
-  return s;
+  const st=h.脚質||"", sire=h.種牡馬||"";
+  if(st==="逃げ") s+=3.5;
+  if(st==="後方"||st==="差し") s+=2.5;
+  if(temperamentRisk(h)>=9) s+=2.5;
+  if(sire.includes("ゴールドシップ")) s+=2.8;
+  if(st==="先行" && stabilityProfile(h)>=7) s-=1.4;
+  if(abilityScore(h)<70 && timeScore(h)>=76) s+=1.5;
+  return Math.max(0,Math.min(12,s));
 }
 function finishScoreByMode(h, baseScore, mode){
   const win=winProfile(h), stable=stableProfile(h), pinpa=pinpaProfile(h);
   let score=baseScore;
+
   if(mode==="win"){
-    score += win*1.6 + pinpa*0.7 - stable*0.25;
+    score += win*1.35 + stable*0.35 + pinpa*0.25;
   }else if(mode==="place2"){
-    score += win*0.8 + stable*0.8 + pinpa*0.25;
+    score += win*0.70 + stable*0.95 + pinpa*0.10;
   }else if(mode==="place3"){
-    score += stable*1.6 + win*0.35 - pinpa*0.45;
+    score += stable*1.45 + win*0.35 - pinpa*0.25;
   }
   return score;
 }
+
+function courseSpecificHorseAdj(h){
+  const c=courses[E("course").value]||{};
+  const st=h.脚質||"", sire=h.種牡馬||"", mf=h.母父名||"";
+  let s=0;
+  if(c.venue==="阪神" && c.kind==="turf" && c.dist===2200){
+    if(st==="先行") s+=2.4;
+    if(st==="中団") s+=0.8;
+    if(st==="後方") s-=0.6;
+    if(sire.includes("キタサンブラック") && mf.includes("Cape Cross")) s+=3.2;
+    if(sire.includes("ゴールドシップ") && st==="先行") s-=0.6; // 善戦型に寄せる
+  }
+  return s;
+}
+
 function raceScores(){
   let life=Number(E("life").value),noiseLv=Number(E("noise").value);
   return horses.map((h,i)=>{
@@ -1141,7 +1215,7 @@ function raceScores(){
     if((h.脚質==="差し"||h.脚質==="後方")&&E("pace").value==="high"&&Math.random()<0.025*life) styleBomb+=8+Math.random()*9;
     let temp=temperamentEvent(h,life);
     let extra=(typeof totalExtraAdj==="function") ? totalExtraAdj(h,life) : frameAdj(h);
-    let raw=b+a+extra+noise+condition+accident+cap+bomb+styleBomb+temp.event;
+    let raw=b+a+extra+courseSpecificHorseAdj(h)+noise+condition+accident+cap+bomb+styleBomb+temp.event;
     return {i,raw};
   });
 }
