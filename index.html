@@ -1,10 +1,12 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eikichi Racing Simulator v7.0</title>
+<!DOCTYPE html>
+<!-- saved from url=(0067)file:///C:/Users/admin/Downloads/index_v7_0_bloodline_complete.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eikichi Racing Simulator v7.1</title>
 <style>
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1080px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5;transition:left .18s linear,top .18s linear,box-shadow .2s}.horse.move{box-shadow:0 0 14px 5px rgba(255,255,255,.55)}.horse.fade{opacity:.55}.liveBox{background:#081525;border:1px solid #2c4664;border-radius:12px;padding:10px;margin-top:8px}.liveLine{font-size:14px;line-height:1.6}.meter{height:8px;background:#1c3048;border-radius:99px;overflow:hidden;margin:7px 0}.meter>div{height:100%;background:#e1c766;width:0%}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}
 </style></head><body><main>
-<h1 id="title">Eikichi Racing Simulator</h1>
-<div class="small">CSV/TSV貼り付け対応。v7.0：いつものお願い方式の血統スコア完全版。前走脚質は血統スコアに不使用。</div>
+<h1 id="title">函館 未勝利 / 函館ダ1700</h1>
+<div class="small">CSV/TSV貼り付け対応。v7.1：血統スコア完全版＋コース別枠順補正強化。小回り内枠、芝スタートダート外枠を反映。</div>
 <div class="panel"><h3>出走表貼り付け</h3><div class="controls">
 <div><label>レース名</label><input id="raceName" value="函館6R 未勝利"></div>
 <div><label>コース</label><select id="course"><optgroup label="東京">
@@ -17,7 +19,7 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 </optgroup>
 <optgroup label="函館">
 <option value="hakodate_t1200">函館芝1200</option><option value="hakodate_t1800">函館芝1800</option><option value="hakodate_t2000">函館芝2000</option>
-<option value="hakodate_d1000">函館ダ1000</option><option value="hakodate_d1700" selected>函館ダ1700</option>
+<option value="hakodate_d1000">函館ダ1000</option><option value="hakodate_d1700" selected="">函館ダ1700</option>
 </optgroup>
 <optgroup label="小倉">
 <option value="kokura_t1200">小倉芝1200</option><option value="kokura_t1800">小倉芝1800</option><option value="kokura_t2000">小倉芝2000</option>
@@ -27,18 +29,18 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 <option value="fukushima_t1200">福島芝1200</option><option value="fukushima_t1800">福島芝1800</option><option value="fukushima_t2000">福島芝2000</option><option value="fukushima_t2600">福島芝2600</option>
 <option value="fukushima_d1150">福島ダ1150</option><option value="fukushima_d1700">福島ダ1700</option>
 </optgroup></select></div>
-<div><label>タイム列</label><select id="timeCol"><option value="近3走タイム評価" selected>近3走タイム評価</option><option value="最高タイム評価">最高タイム評価</option><option value="推定タイム評価">推定タイム評価</option><option value="タイム指数">タイム指数</option></select></div><button id="load" class="green">出走表読込</button>
+<div><label>タイム列</label><select id="timeCol"><option value="近3走タイム評価" selected="">近3走タイム評価</option><option value="最高タイム評価">最高タイム評価</option><option value="推定タイム評価">推定タイム評価</option><option value="タイム指数">タイム指数</option></select></div><button id="load" class="green">出走表読込</button>
 </div><textarea id="csvInput">日付	場所	レース	コース	芝ダ	距離	レース名	馬名	馬番	騎手	種牡馬	父タイプ名	母父タイプ名	父母父タイプ名	母母父タイプ名	前走脚質	斤量	推定タイム評価	最高タイム評価	近3走タイム評価	同コース	同距離	同場所	１走前	2走前	3走前	能力	調教
 613	函館	函6		ダ	1700	未勝利	 トーセンアミューズ	1	小崎綾也	ダイワメジャー	サンデーサイレンス系	キングマンボ系	ニアークティック系	ニアークティック系	後	57	113	113	108		-	-	109	113	101	D	A
 613	函館	函6		ダ	1700	未勝利	 オンザムービー	2	横山和生	サンダースノー	ダンチヒ系	サンデーサイレンス系	キングマンボ系	ダンチヒ系	先	57	134	134	129	-	-		125	129	134	A	C
 613	函館	函6		ダ	1700	未勝利	 コイオステソーロ	10	丹内祐次	ナダル	ロイヤルチャージャー系	ネイティヴダンサー系	ナスルーラ系	マンノウォー系	先	57	141	141	137	-			140	131	141	S	C
 613	函館	函6		ダ	1700	未勝利	 キセログラフィカ	11	横山武史	ナダル	ロイヤルチャージャー系	サンデーサイレンス系	ナスルーラ系	キングマンボ系	先	57	131	131	130	-			131	131	127	S	A
-613	函館	函6		ダ	1700	未勝利	 エトワールブルー	12	遠藤汰月	サートゥルナーリア	キングマンボ系	サンデーサイレンス系	サンデーサイレンス系	ニアークティック系	中	54▲	121	121	120	-			118	121	120	D	B</textarea><div id="loadMsg" class="small"></div></div>
+613	函館	函6		ダ	1700	未勝利	 エトワールブルー	12	遠藤汰月	サートゥルナーリア	キングマンボ系	サンデーサイレンス系	サンデーサイレンス系	ニアークティック系	中	54▲	121	121	120	-			118	121	120	D	B</textarea><div id="loadMsg" class="small"><span class="ok">読込成功：</span>5頭 / タイム列=近3走タイム評価 / 脚質=前走脚質</div></div>
 <div class="panel controls">
-<div><label>ペース</label><select id="pace"><option value="slow">スロー</option><option value="middle" selected>ミドル</option><option value="high">ハイ</option></select></div>
+<div><label>ペース</label><select id="pace"><option value="slow">スロー</option><option value="middle" selected="">ミドル</option><option value="high">ハイ</option></select></div>
 <div><label>馬場</label><select id="going">
 <option value="ultrafirm">パンパンの良馬場</option>
-<option value="firm" selected>良馬場</option>
+<option value="firm" selected="">良馬場</option>
 <option value="firm_to_good">良馬場〜稍重</option>
 <option value="good_soft">稍重</option>
 <option value="soft_range">稍重〜重馬場</option>
@@ -46,7 +48,7 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 <option value="bad">不良</option>
 </select></div>
 <div><label>馬場バイアス</label><select id="bias">
-<option value="flat" selected>フラット</option>
+<option value="flat" selected="">フラット</option>
 <option value="inside_front">内先行</option>
 <option value="inside">内有利</option>
 <option value="front">前有利</option>
@@ -57,11 +59,22 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 <option value="speed">高速馬場</option>
 </select></div>
 <div><label>予想反映度 <span id="wtxt">70</span>%</label><input id="weight" type="range" min="20" max="95" value="70"></div>
-<div><label>乱数</label><select id="noise"><option value="0.6">少なめ</option><option value="1" selected>標準</option><option value="1.4">多め</option><option value="2.0">荒れ気味</option></select></div>
-<div><label>生き物ブレ</label><select id="life"><option value="1.0">小</option><option value="1.8" selected>標準</option><option value="2.8">大</option><option value="3.5">大荒れ</option></select></div>
-<div><label>能力反映度</label><select id="abilityWeight"><option value="0.60">60%</option><option value="0.70" selected>70%</option><option value="0.80">80%</option><option value="0.90">90%</option></select></div><div><label>タイム反映度</label><select id="timeWeight"><option value="0.40">40%</option><option value="0.55" selected>55%</option><option value="0.70">70%</option><option value="0.85">85%</option></select></div><div><label>検証回数</label><select id="simCount"><option value="300">300回</option><option value="1000" selected>1000回</option><option value="5000">5000回</option></select></div><button id="one">▶ 1回再生</button><button id="many" class="gray">📊 検証</button><button id="reset" class="gray">↻ リセット</button>
+<div><label>乱数</label><select id="noise"><option value="0.6">少なめ</option><option value="1" selected="">標準</option><option value="1.4">多め</option><option value="2.0">荒れ気味</option></select></div>
+<div><label>生き物ブレ</label><select id="life"><option value="1.0">小</option><option value="1.8" selected="">標準</option><option value="2.8">大</option><option value="3.5">大荒れ</option></select></div>
+<div><label>能力反映度</label><select id="abilityWeight"><option value="0.60">60%</option><option value="0.70" selected="">70%</option><option value="0.80">80%</option><option value="0.90">90%</option></select></div><div><label>タイム反映度</label><select id="timeWeight"><option value="0.40">40%</option><option value="0.55" selected="">55%</option><option value="0.70">70%</option><option value="0.85">85%</option></select></div><div><label>検証回数</label><select id="simCount"><option value="300">300回</option><option value="1000" selected="">1000回</option><option value="5000">5000回</option></select></div><button id="one">▶ 1回再生</button><button id="many" class="gray">📊 検証</button><button id="reset" class="gray">↻ リセット</button>
 </div>
-<div class="panel"><div id="track"><svg id="courseSvg" viewBox="0 0 1000 520" preserveAspectRatio="none"></svg></div><div id="racePhase" class="small">1回再生を押すと、序盤→向正面→3角→4角→直線→ゴールの展開で動きます。</div><div class="meter"><div id="liveMeter"></div></div><div class="liveBox"><div id="liveComment" class="liveLine">実況：待機中</div><div id="liveOrder" class="small">隊列：未実行</div></div></div>
+<div class="panel"><div id="track"><svg id="courseSvg" viewBox="0 0 1000 520" preserveAspectRatio="none"><rect width="1000" height="520" fill="#10263e"></rect>
+ <path d="M815 365 L705 398 L540 410 L360 405 L245 382 L95 335 L70 240 L115 158 L265 112 L500 100 L730 120 L885 190 L895 300 L820 365 L670 392 L480 402 L315 395 L245 382" fill="none" stroke="#3c9a50" stroke-width="76" stroke-linecap="round" stroke-linejoin="round"></path>
+ <path d="M815 365 L705 398 L540 410 L360 405 L245 382 L95 335 L70 240 L115 158 L265 112 L500 100 L730 120 L885 190 L895 300 L820 365 L670 392 L480 402 L315 395 L245 382" fill="none" stroke="#8cec7d" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"></path>
+ <ellipse cx="500" cy="255" rx="285" ry="90" fill="#071f10"></ellipse>
+ <line x1="815" y1="420" x2="815" y2="335" stroke="#f4d94f" stroke-width="5"></line>
+ <line x1="245" y1="427" x2="245" y2="337" stroke="#fff" stroke-width="4" stroke-dasharray="8 7"></line>
+ <text x="815" y="447" fill="#f4d94f" font-size="17" text-anchor="middle">START</text>
+ <text x="245" y="460" fill="#fff" font-size="17" text-anchor="middle">GOAL</text>
+ <text x="500" y="238" fill="#e1c766" font-size="25" font-weight="700" text-anchor="middle">函館ダ1700</text>
+ <text x="500" y="272" fill="#9fd4ff" font-size="18" font-weight="700" text-anchor="middle">右回り・小回り・先行持続</text>
+ <text x="500" y="310" fill="#ffd166" font-size="22" font-weight="700" text-anchor="middle">右回り →</text>
+ <text x="815" y="85" fill="#ffd166" font-size="15" text-anchor="middle">右回り</text></svg><div class="horse" title="トーセンアミューズ" style="background: rgb(255, 90, 95); left: 848.792px; top: 268.125px;">1</div><div class="horse" title="オンザムービー" style="background: rgb(255, 209, 102); left: 853.01px; top: 270.375px;">2</div><div class="horse" title="コイオステソーロ" style="background: rgb(6, 214, 160); left: 857.227px; top: 272.625px;">10</div><div class="horse" title="キセログラフィカ" style="background: rgb(76, 201, 240); left: 861.445px; top: 274.875px;">11</div><div class="horse" title="エトワールブルー" style="background: rgb(247, 37, 133); left: 865.662px; top: 277.125px;">12</div></div><div id="racePhase" class="small">1回再生を押すと、序盤→向正面→3角→4角→直線→ゴールの展開で動きます。</div><div class="meter"><div id="liveMeter" style="width: 0%;"></div></div><div class="liveBox"><div id="liveComment" class="liveLine">実況：待機中</div><div id="liveOrder" class="small">隊列：未実行</div></div></div>
 <div class="panel"><h3>v2.5補正</h3><div class="small">気性列は高いほど「かかり・折り合い欠き・ムラ」が出やすい設定です。さらに騎手×気性、左回り/右回り、道悪、距離適性、気分屋補正を加えています。ルメール・武豊・横山典は気性難をなだめる補正、川田・レーン・坂井は先行リズム補正を入れています。</div></div>
 
 
@@ -71,6 +84,8 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 
 
 
+
+<div class="panel"><h3>v7.1 コース別枠順補正</h3><div class="small">小回り芝1800〜2000は内枠＋逃げ/先行を強化。函館芝1800は1角まで短い条件として追加加点。芝スタートのダート（東京ダ1600、阪神ダ1400、函館/小倉ダ1000、福島ダ1150）は外枠＋逃げ/先行を評価し、非芝スタートのローカルダ1700は内〜中枠先行を評価します。</div></div>
 <div class="panel"><h3>v7.0 血統スコア完全版</h3>
 <div class="small">父35%・母父25%・配合20%・コース10%・馬場5%・ペース3%・性別/馬体2%で血統を偏差値化。前走脚質は血統スコアに使いません。100点が並ばないよう上限96点に圧縮しています。</div></div>
 <div class="panel"><h3>v6.6 汎用バランス</h3>
@@ -81,7 +96,7 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 <div class="small">騎手補正を「基本補正＋競馬場＋距離＋脚質＋馬場」に分解。ルメールは東京芝中距離、川田は阪神・先行/ダート、丹内は函館/福島、武豊は阪神中距離や折り合いで加点します。補正は強くなりすぎないよう上限を設定。</div></div>
 <div class="panel"><h3>v6.0 血統スコア完全版</h3>
 <div class="small">母父名・性別・前走馬体重を血統スコアへ統合。母父名補正、配合名補正、性別補正、血統×馬体重補正を追加しました。生産者は使用しません。</div></div>
-<div class="panel"><h3>順位</h3><div id="rank">未実行</div></div>
+<div class="panel"><h3>順位</h3><div id="rank"><table><tbody><tr><th>順</th><th>馬番</th><th>馬名</th><th>脚質</th><th>状態</th></tr><tr><td>1</td><td><span class="badge">1</span></td><td>トーセンアミューズ</td><td>後方</td><td>0%</td></tr><tr><td>2</td><td><span class="badge">2</span></td><td>オンザムービー</td><td>先行</td><td>0%</td></tr><tr><td>3</td><td><span class="badge">10</span></td><td>コイオステソーロ</td><td>先行</td><td>0%</td></tr><tr><td>4</td><td><span class="badge">11</span></td><td>キセログラフィカ</td><td>先行</td><td>0%</td></tr><tr><td>5</td><td><span class="badge">12</span></td><td>エトワールブルー</td><td>中団</td><td>0%</td></tr></tbody></table></div></div>
 <div class="panel"><h3>勝ち切り・安定・ピンパー補正</h3><div class="small">勝率は「勝ち切り型」、連対率は「勝ち切り＋安定」、複勝率は「安定型」を強めて別計算します。逃げ・後方・気性難はピンパー寄りになり、勝率と複勝率の順位がズレやすくなります。</div></div><div class="panel"><h3>検証結果</h3><div id="result">未実行</div></div>
 </main>
 <script>
@@ -897,17 +912,121 @@ function manualBiasAdj(h){
 }
 
 function frameAdj(h){
-  const c=courses[E("course").value]||{}, profile=c.profile||"", f=frameNo(h), st=h.脚質;
+  const c=courses[E("course").value]||{}, key=E("course").value||"", profile=c.profile||"", f=frameNo(h), st=h.脚質;
   const isFront=(st==="逃げ"||st==="先行"), isCloser=(st==="差し"||st==="後方"||st==="中団");
+  const isLocalSmall=(c.venue==="函館"||c.venue==="小倉"||c.venue==="福島");
+  const isTurfStartDirt=(key==="tokyo_d1600"||key==="hanshin_d1400"||key==="hakodate_d1000"||key==="kokura_d1000"||key==="fukushima_d1150");
   let s=0;
-  if(c.venue==="東京"&&c.kind==="turf"){ if(f>=5)s+=0.9; if(isCloser&&f>=5)s+=1.0; if(isCloser&&f<=2)s-=0.6; if(profile.includes("tokyo_stamina")&&f>=7)s-=0.6; }
-  if(c.venue==="東京"&&c.kind==="dirt"){ if(f<=2)s-=2.5; if(f>=6)s+=2.8; if(profile.includes("tokyo_dirt_mile")&&f>=6)s+=1.0; if(isCloser&&f>=6)s+=1.0; if(isFront&&f>=7)s-=0.5; }
-  if(c.venue==="阪神"){ if(profile.includes("hanshin_inner")||profile.includes("hanshin_stamina")){ if(f<=2)s+=1.8; else if(f<=4)s+=1.1; if(f>=7)s-=1.0; if(isFront&&f<=4)s+=1.0; if(isFront&&f>=7)s-=1.3; if(isCloser&&f>=6)s+=0.4; } else if(c.kind==="turf"){ if(isCloser&&f>=5)s+=0.8; if(isFront&&f<=3)s+=0.7; } else { if(isFront&&f<=3)s+=1.6; if(isFront&&f>=7)s-=0.8; } }
-  if(profile.includes("hakodate_sprint")||profile.includes("kokura_sprint")||profile.includes("fukushima_sprint")){ if(f<=2)s+=3.0; else if(f<=4)s+=1.4; else if(f>=7)s-=1.5; if(isFront&&f<=3)s+=2.2; if(isFront&&f>=7)s-=2.0; if(isCloser&&f>=7)s+=0.4; }
-  if(profile.includes("hakodate_dirt_mid")||profile.includes("kokura_dirt_mid")||profile.includes("fukushima_dirt_mid")){ if(f<=2)s+=2.8; else if(f<=4)s+=1.4; else if(f>=7)s-=1.5; if(isFront&&f<=3)s+=2.2; if(isFront&&f>=7)s-=2.2; if(st==="後方"&&f<=2)s-=0.8; }
-  if(profile.includes("dirt_sprint")){ if(isFront&&f<=2)s+=2.0; if(f>=7)s+=0.9; if(st==="後方")s-=1.0; }
-  if(profile.includes("hakodate_mid")||profile.includes("kokura_mid")||profile.includes("fukushima_mid")||profile.includes("fukushima_stamina")){ if(f<=4)s+=1.4; if(f>=7)s-=0.9; if(isFront&&f<=3)s+=1.2; if(st==="後方"&&f<=2)s-=0.5; }
-  return s;
+
+  // v7.1：芝スタートのダートは、芝部分を長く走れる外枠を明確に評価。
+  // ただし外差しではなく、外枠からスムーズに加速できる逃げ・先行を最も評価する。
+  if(isTurfStartDirt){
+    if(f<=2) s-=1.4;
+    else if(f<=4) s-=0.3;
+    else if(f>=7) s+=1.7;
+    else if(f>=6) s+=1.1;
+
+    if(isFront&&f>=6) s+=1.3;
+    if(isFront&&f<=2) s-=0.6;
+    if(st==="後方") s-=0.4;
+
+    // 東京ダ1600は芝スタート外枠有利を強める代表条件。
+    if(key==="tokyo_d1600"){
+      if(f<=2) s-=1.2;
+      if(f>=7) s+=1.2;
+      if(isFront&&f>=7) s+=0.5;
+      if(isCloser&&f>=6) s+=0.5;
+    }
+    // ローカル短距離の芝スタートダートは外枠逃げ・先行をさらに評価。
+    if(key==="hakodate_d1000"||key==="kokura_d1000"||key==="fukushima_d1150"){
+      if(isFront&&f>=7) s+=1.2;
+      if(f<=2&&isFront) s-=0.4;
+      if(st==="後方") s-=0.8;
+    }
+    return Math.max(-4.5,Math.min(5.0,s));
+  }
+
+  // 東京芝：長い直線で外〜中枠の差しを評価。2400は外すぎのロスを少し抑制。
+  if(c.venue==="東京"&&c.kind==="turf"){
+    if(f>=5)s+=0.9;
+    if(isCloser&&f>=5)s+=1.0;
+    if(isCloser&&f<=2)s-=0.6;
+    if(profile.includes("tokyo_stamina")&&f>=7)s-=0.6;
+  }
+
+  // 東京ダート：ダ1600は上の芝スタート専用で処理済み。ダ1400/2100は外枠をやや評価。
+  if(c.venue==="東京"&&c.kind==="dirt"){
+    if(f<=2)s-=1.2;
+    if(f>=6)s+=1.2;
+    if(profile.includes("tokyo_dirt_stamina")&&f>=7)s-=0.3;
+    if(isCloser&&f>=6)s+=0.5;
+  }
+
+  // 阪神：内回り・ダ1800は内〜中枠先行、外回り芝は外差しも残す。
+  if(c.venue==="阪神"){
+    if(profile.includes("hanshin_inner")||profile.includes("hanshin_stamina")){
+      if(f<=2)s+=1.8; else if(f<=4)s+=1.1;
+      if(f>=7)s-=1.0;
+      if(isFront&&f<=4)s+=1.0;
+      if(isFront&&f>=7)s-=1.3;
+      if(isCloser&&f>=6)s+=0.4;
+    }else if(c.kind==="turf"){
+      if(isCloser&&f>=5)s+=0.8;
+      if(isFront&&f<=3)s+=0.7;
+    }else{
+      if(isFront&&f<=3)s+=1.6;
+      if(isFront&&f>=7)s-=0.8;
+    }
+  }
+
+  // ローカル小回り芝1200：内先行を強める。外枠はロス、差しは馬場バイアスがない限り控えめ。
+  if(profile.includes("hakodate_sprint")||profile.includes("kokura_sprint")||profile.includes("fukushima_sprint")){
+    if(f<=2)s+=3.0; else if(f<=4)s+=1.4; else if(f>=7)s-=1.5;
+    if(isFront&&f<=3)s+=2.2;
+    if(isFront&&f>=7)s-=2.0;
+    if(isCloser&&f>=7)s+=0.2;
+  }
+
+  // ローカル小回りダ1700：芝スタートではないため、外枠有利ではなく内〜中枠先行を評価。
+  if(profile.includes("hakodate_dirt_mid")||profile.includes("kokura_dirt_mid")||profile.includes("fukushima_dirt_mid")){
+    if(f<=2)s+=2.5; else if(f<=4)s+=1.3; else if(f>=7)s-=1.4;
+    if(isFront&&f<=3)s+=2.0;
+    if(isFront&&f>=7)s-=1.8;
+    if(st==="後方"&&f<=2)s-=0.7;
+  }
+
+  // v7.1：函館・小倉・福島の芝1800〜2000は「小回り＋最初のコーナーが近い」ため内枠を明確に評価。
+  // 特に函館芝1800は1角まで短く、逃げ・先行×内枠を強める。
+  if(isLocalSmall&&c.kind==="turf"&&c.dist>=1700&&c.dist<=2000){
+    if(f===1)s+=2.2;
+    else if(f===2)s+=1.9;
+    else if(f===3)s+=1.3;
+    else if(f===4)s+=0.7;
+    else if(f===6)s-=0.4;
+    else if(f===7)s-=1.0;
+    else if(f===8)s-=1.7;
+
+    if(isFront&&f<=3)s+=1.4;
+    if(isFront&&f>=7)s-=1.4;
+    if(isCloser&&f<=2)s-=0.3;
+    if(isCloser&&f>=7)s-=0.5;
+
+    if(key==="hakodate_t1800"){
+      if(f<=2)s+=0.5;
+      if(isFront&&f<=3)s+=0.8;
+      if(f>=7)s-=0.5;
+      if(st==="後方")s-=0.4;
+    }
+  }
+
+  // ローカル芝2600は小回りでもスタミナ比重が高く、内有利は中距離より少し控えめ。
+  if(profile.includes("fukushima_stamina")){
+    if(f<=3)s+=0.8;
+    if(f>=7)s-=0.6;
+    if(isFront&&f<=3)s+=0.6;
+  }
+
+  return Math.max(-5.0,Math.min(6.0,s));
 }
 
 function totalExtraAdj(h,life){
