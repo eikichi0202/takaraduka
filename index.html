@@ -5,7 +5,7 @@
 <style>
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1080px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5;transition:left .18s linear,top .18s linear,box-shadow .2s}.horse.move{box-shadow:0 0 14px 5px rgba(255,255,255,.55)}.horse.fade{opacity:.55}.liveBox{background:#081525;border:1px solid #2c4664;border-radius:12px;padding:10px;margin-top:8px}.liveLine{font-size:14px;line-height:1.6}.meter{height:8px;background:#1c3048;border-radius:99px;overflow:hidden;margin:7px 0}.meter>div{height:100%;background:#e1c766;width:0%}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}
 </style></head><body><main>
-<h1 id="title">函館 未勝利 / 函館ダ1700</h1>
+<h1 id="title">Eikichi Racing Simulator v7.2</h1>
 <div class="small">CSV/TSV貼り付け対応。v7.1：血統スコア完全版＋コース別枠順補正強化。小回り内枠、芝スタートダート外枠を反映。</div>
 <div class="panel"><h3>出走表貼り付け</h3><div class="controls">
 <div><label>レース名</label><input id="raceName" value="函館6R 未勝利"></div>
@@ -86,6 +86,9 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 
 
 <div class="panel"><h3>v7.1 コース別枠順補正</h3><div class="small">小回り芝1800〜2000は内枠＋逃げ/先行を強化。函館芝1800は1角まで短い条件として追加加点。芝スタートのダート（東京ダ1600、阪神ダ1400、函館/小倉ダ1000、福島ダ1150）は外枠＋逃げ/先行を評価し、非芝スタートのローカルダ1700は内〜中枠先行を評価します。</div></div>
+<div class="panel"><h3>v7.1.1 調教列名互換</h3><div class="small">坂路3Fだけでなく「坂3F」、坂路4F/2F/1Fの短縮表記、坂終も読み込み対応。ベルジュロネットのような坂路51.3-37.4-24.3-11.9が調教ランクだけに落ちる不具合を修正。</div></div>
+
+<div class="panel"><h3>v7.2 調教評価ロジック</h3><div class="small">坂路・ウッドは良い方を主軸評価。片方が空欄でも減点せず、両方優秀な場合だけ追加加点します。坂路は残り2Fの個別ラップが12秒台→終い1Fが11秒台前半へ加速する形を強く評価します。</div></div>
 <div class="panel"><h3>v7.0 血統スコア完全版</h3>
 <div class="small">父35%・母父25%・配合20%・コース10%・馬場5%・ペース3%・性別/馬体2%で血統を偏差値化。前走脚質は血統スコアに使いません。100点が並ばないよう上限96点に圧縮しています。</div></div>
 <div class="panel"><h3>v6.6 汎用バランス</h3>
@@ -182,7 +185,7 @@ function num(v,d=0){
   return isNaN(n)?d:n;
 }
 function style(s){s=String(s||"").trim();if(s.includes("逃"))return"逃げ";if(s.includes("先"))return"先行";if(s.includes("中"))return"中団";if(s.includes("後"))return"後方";if(s.includes("差"))return"差し";return"中団"}
-function loadData(){try{const rows=parseTable(E("csvInput").value),tc=E("timeCol").value;horses=rows.map(r=>({レース名:r["レース名"]||E("raceName").value,場所:r["場所"]||"",芝ダ:r["芝ダ"]||"",距離:num(r["距離"],0),馬名:(r["馬名"]||"").trim().replace("$",""),馬番:parseInt(r["馬番"]||"0",10),騎手:r["騎手"]||"",種牡馬:r["種牡馬"]||"",母父名:r["母父名"]||"",性別:r["性別"]||"",前走馬体重:num(r["前走馬体重"]||r["前走体重"]||r["馬体重"],null),父タイプ名:r["父タイプ名"]||"",母父タイプ名:r["母父タイプ名"]||"",父母父タイプ名:r["父母父タイプ名"]||"",母母父タイプ名:r["母母父タイプ名"]||"",脚質:style(r["脚質"]||r["前走脚質"]),能力:r["能力"]||"C",調教:r["調教"]||"C",タイム指数:num(r[tc]||r["タイム指数"]||r["推定タイム"]||r["推定タイム評価"],100),斤量:r["斤量"]||57,Time1:num(r["坂路4F"]||r["坂路４F"]||r["Time1"],null),Time2:num(r["坂路3F"]||r["坂路３F"]||r["Time2"],null),Time3:num(r["坂路2F"]||r["坂路２F"]||r["Time3"],null),Time4:num(r["坂路1F"]||r["坂路１F"]||r["Time4"],null),Lap4:num(r["Lap4"],null),Lap3:num(r["Lap3"],null),Lap2:num(r["Lap2"],null),Lap1:num(r["Lap1"],null),ウッド6F:num(r["ウッド6F"],null),ウッド5F:num(r["ウッド5F"],null),ウッド4F:num(r["ウッド4F"],null),ウッド3F:num(r["ウッド3F"],null),ウッド2F:num(r["ウッド2F"],null),ウッド1F:num(r["ウッド1F"],null)})).filter(h=>h.馬名&&h.馬番);if(!horses.length)throw new Error("馬名・馬番が読み込めません");const first=horses[0];E("raceName").value=(first.場所?first.場所+" ":"")+(first.レース名||"");E("title").textContent=E("raceName").value+" / "+(courses[E("course").value]?.name||"");E("loadMsg").innerHTML=`<span class="ok">読込成功：</span>${horses.length}頭 / タイム列=${tc} / 脚質=前走脚質`;setup()}catch(e){E("loadMsg").innerHTML=`<span class="warn">読込失敗：</span>${e.message}`}}
+function loadData(){try{const rows=parseTable(E("csvInput").value),tc=E("timeCol").value;horses=rows.map(r=>({レース名:r["レース名"]||E("raceName").value,場所:r["場所"]||"",芝ダ:r["芝ダ"]||"",距離:num(r["距離"],0),馬名:(r["馬名"]||"").trim().replace("$",""),馬番:parseInt(r["馬番"]||"0",10),騎手:r["騎手"]||"",種牡馬:r["種牡馬"]||"",母父名:r["母父名"]||"",性別:r["性別"]||"",前走馬体重:num(r["前走馬体重"]||r["前走体重"]||r["馬体重"],null),父タイプ名:r["父タイプ名"]||"",母父タイプ名:r["母父タイプ名"]||"",父母父タイプ名:r["父母父タイプ名"]||"",母母父タイプ名:r["母母父タイプ名"]||"",脚質:style(r["脚質"]||r["前走脚質"]),能力:r["能力"]||"C",調教:r["調教"]||"C",タイム指数:num(r[tc]||r["タイム指数"]||r["推定タイム"]||r["推定タイム評価"],100),斤量:r["斤量"]||57,Time1:num(r["坂路4F"]||r["坂路４F"]||r["坂4F"]||r["坂４F"]||r["坂路4"]||r["Time1"],null),Time2:num(r["坂路3F"]||r["坂路３F"]||r["坂3F"]||r["坂３F"]||r["坂路3"]||r["Time2"],null),Time3:num(r["坂路2F"]||r["坂路２F"]||r["坂2F"]||r["坂２F"]||r["坂路2"]||r["Time3"],null),Time4:num(r["坂路1F"]||r["坂路１F"]||r["坂終"]||r["坂路終"]||r["坂1F"]||r["坂１F"]||r["坂路1"]||r["Time4"],null),Lap4:num(r["Lap4"],null),Lap3:num(r["Lap3"],null),Lap2:num(r["Lap2"],null),Lap1:num(r["Lap1"],null),ウッド6F:num(r["ウッド6F"],null),ウッド5F:num(r["ウッド5F"],null),ウッド4F:num(r["ウッド4F"],null),ウッド3F:num(r["ウッド3F"],null),ウッド2F:num(r["ウッド2F"],null),ウッド1F:num(r["ウッド1F"],null)})).filter(h=>h.馬名&&h.馬番);if(!horses.length)throw new Error("馬名・馬番が読み込めません");const first=horses[0];E("raceName").value=(first.場所?first.場所+" ":"")+(first.レース名||"");E("title").textContent=E("raceName").value+" / "+(courses[E("course").value]?.name||"");E("loadMsg").innerHTML=`<span class="ok">読込成功：</span>${horses.length}頭 / タイム列=${tc} / 脚質=前走脚質`;setup()}catch(e){E("loadMsg").innerHTML=`<span class="warn">読込失敗：</span>${e.message}`}}
 
 
 function sireAptitudeScore(h){
@@ -470,9 +473,28 @@ function slopeTrainingScore(h){
     if(l1>l2+0.4) s-=6;
     if(l2>l3+0.5) s-=3;
   }else{
-    // Lap列がなくても Time2→Time3→Time4 の加速を見る
-    if(t2-t3>=12.5 && t3-t4>=12.0 && t4<=12.5) s+=5;
-    if(t4<=12.2) s+=2;
+    // Lap列がなくても、坂路3F/2F/1Fの累計から個別ラップを推定して加速を見る
+    const lap3to2 = t2 - t3;   // 残り3F→2Fの1Fラップ
+    const lap2to1 = t3 - t4;   // 残り2F→1Fの1Fラップ
+    const last1F = t4;
+
+    if(lap3to2>=12.5 && lap2to1>=12.0 && last1F<=12.5) s+=5;
+    if(last1F<=12.2) s+=2;
+
+    // v7.2：坂路ラスト2F「12秒台→11秒台前半」の加速ラップを強評価
+    // 例：残り2F地点の個別ラップが12.0〜12.9、終い1Fが11.0〜11.4なら大幅加点
+    if(lap2to1>=12.0 && lap2to1<13.0){
+      if(last1F<=11.4) s+=16;
+      else if(last1F<=11.6) s+=12;
+      else if(last1F<=11.9) s+=8;
+      else if(last1F<=12.1) s+=4;
+    }
+    if(lap2to1-last1F>=0.8 && last1F<=11.6) s+=6;
+    else if(lap2to1-last1F>=0.5 && last1F<=11.8) s+=4;
+
+    // ラスト2F合計も優秀なら追加評価
+    if(t3<=24.5 && last1F<=11.5) s+=5;
+    else if(t3<=24.8 && last1F<=11.7) s+=3;
   }
 
   return Math.max(50,Math.min(100,s));
@@ -561,13 +583,21 @@ function trainingScore(h){
 
   let s;
   if(slope!==null && wood!==null){
-    // 両方ある場合は高い方を少し重視しつつ平均化
-    s = Math.max(slope,wood)*0.58 + Math.min(slope,wood)*0.27 + gradeScore*0.15;
-    if(slope>=86 && wood>=86) s+=2.5; // 坂路もウッドも良い
+    // v7.2：坂路・ウッドは「良い方」を主軸評価。悪い方や空欄で過度に下げない。
+    const best = Math.max(slope, wood);
+    const second = Math.min(slope, wood);
+    s = best*0.90 + gradeScore*0.10;
+
+    // 両方しっかり動いている場合だけ上積み。低い方は減点材料にしない。
+    if(slope>=88 && wood>=88) s+=3.0;
+    else if(second>=84) s+=2.0;
+    else if(second>=78) s+=1.0;
   }else if(slope!==null){
-    s = slope*0.82 + gradeScore*0.18;
+    // 坂路のみでも正当に評価。ウッド空欄で下げない。
+    s = slope*0.90 + gradeScore*0.10;
   }else if(wood!==null){
-    s = wood*0.86 + gradeScore*0.14;
+    // ウッドのみでも正当に評価。坂路空欄で下げない。
+    s = wood*0.90 + gradeScore*0.10;
   }else{
     s = gradeScore;
   }
