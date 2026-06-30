@@ -1,69 +1,69 @@
 <!DOCTYPE html>
-<!-- Eikichi Racing Simulator v7.9: dynamic race-condition weights -->
+<!-- Eikichi Racing Simulator v8.2 Lite: dynamic weights + Kokura downhill/front-loaded lap model -->
 <!-- saved from url=(0079)file:///C:/Users/admin/Downloads/Eikichi%2520Racing%2520Simulator%2520v7.8.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eikichi Racing Simulator v7.9</title>
+<title>Eikichi Racing Simulator v8.2 Lite</title>
 <style>
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1080px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5;transition:left .30s linear,top .30s linear,box-shadow .2s}.horse.move{box-shadow:0 0 14px 5px rgba(255,255,255,.55)}.horse.fade{opacity:.55}.liveBox{background:#081525;border:1px solid #2c4664;border-radius:12px;padding:10px;margin-top:8px}.liveLine{font-size:14px;line-height:1.6}.meter{height:8px;background:#1c3048;border-radius:99px;overflow:hidden;margin:7px 0}.meter>div{height:100%;background:#e1c766;width:0%}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}
 </style></head><body><main>
-<h1 id="title">函館 未勝利 / 函館ダ1700</h1>
-<div class="small">CSV/TSV貼り付け対応。v7.9：能力に引っ張られすぎないよう、レース条件別に能力・血統・推定タイム・調教のウェイトを自動切替。CSVのコース列A/B/C/Dも自動参照。</div>
-<div class="panel"><h3>出走表貼り付け</h3><div class="controls">
-<div><label>レース名</label><input id="raceName" value="函館6R 未勝利"></div>
-<div><label>コース</label><select id="course"><optgroup label="東京">
-<option value="tokyo_t1400">東京芝1400</option><option value="tokyo_t1600">東京芝1600</option><option value="tokyo_t1800">東京芝1800</option><option value="tokyo_t2000">東京芝2000</option><option value="tokyo_t2400">東京芝2400</option>
-<option value="tokyo_d1400">東京ダ1400</option><option value="tokyo_d1600">東京ダ1600</option><option value="tokyo_d2100">東京ダ2100</option>
+<h1 id="title">å½é¤¨ æªåå© / å½é¤¨ã1700</h1>
+<div class="small">CSV/TSVè²¼ãä»ãå¯¾å¿ãv8.2 Liteï¼å®ç¸¾DBãå¤ããè»½éçãæ¡ä»¶å¥ã¦ã§ã¤ãèªååæ¿ã«å ããå°åã®ä¸ãç¶ããã³ã¼ã¹å½¢æã«ããåå¾ã©ããåã¨æç¶åé©æ§ãåæ ãCSVã®ã³ã¼ã¹åA/B/C/Dãèªååç§ã</div>
+<div class="panel"><h3>åºèµ°è¡¨è²¼ãä»ã</h3><div class="controls">
+<div><label>ã¬ã¼ã¹å</label><input id="raceName" value="å½é¤¨6R æªåå©"></div>
+<div><label>ã³ã¼ã¹</label><select id="course"><optgroup label="æ±äº¬">
+<option value="tokyo_t1400">æ±äº¬è1400</option><option value="tokyo_t1600">æ±äº¬è1600</option><option value="tokyo_t1800">æ±äº¬è1800</option><option value="tokyo_t2000">æ±äº¬è2000</option><option value="tokyo_t2400">æ±äº¬è2400</option>
+<option value="tokyo_d1400">æ±äº¬ã1400</option><option value="tokyo_d1600">æ±äº¬ã1600</option><option value="tokyo_d2100">æ±äº¬ã2100</option>
 </optgroup>
-<optgroup label="阪神">
-<option value="hanshin_t1200">阪神芝1200</option><option value="hanshin_t1600">阪神芝1600</option><option value="hanshin_t1800">阪神芝1800</option><option value="hanshin_t2000">阪神芝2000</option><option value="hanshin_t2200">阪神芝2200</option><option value="hanshin_t2400">阪神芝2400</option>
-<option value="hanshin_d1400">阪神ダ1400</option><option value="hanshin_d1800">阪神ダ1800</option>
+<optgroup label="éªç¥">
+<option value="hanshin_t1200">éªç¥è1200</option><option value="hanshin_t1600">éªç¥è1600</option><option value="hanshin_t1800">éªç¥è1800</option><option value="hanshin_t2000">éªç¥è2000</option><option value="hanshin_t2200">éªç¥è2200</option><option value="hanshin_t2400">éªç¥è2400</option>
+<option value="hanshin_d1400">éªç¥ã1400</option><option value="hanshin_d1800">éªç¥ã1800</option>
 </optgroup>
-<optgroup label="函館">
-<option value="hakodate_t1200">函館芝1200</option><option value="hakodate_t1800">函館芝1800</option><option value="hakodate_t2000">函館芝2000</option>
-<option value="hakodate_d1000">函館ダ1000</option><option value="hakodate_d1700" selected="">函館ダ1700</option>
+<optgroup label="å½é¤¨">
+<option value="hakodate_t1200">å½é¤¨è1200</option><option value="hakodate_t1800">å½é¤¨è1800</option><option value="hakodate_t2000">å½é¤¨è2000</option>
+<option value="hakodate_d1000">å½é¤¨ã1000</option><option value="hakodate_d1700" selected="">å½é¤¨ã1700</option>
 </optgroup>
-<optgroup label="小倉">
-<option value="kokura_t1200">小倉芝1200</option><option value="kokura_t1800">小倉芝1800</option><option value="kokura_t2000">小倉芝2000</option>
-<option value="kokura_d1000">小倉ダ1000</option><option value="kokura_d1700">小倉ダ1700</option>
+<optgroup label="å°å">
+<option value="kokura_t1200">å°åè1200</option><option value="kokura_t1800">å°åè1800</option><option value="kokura_t2000">å°åè2000</option>
+<option value="kokura_d1000">å°åã1000</option><option value="kokura_d1700">å°åã1700</option>
 </optgroup>
-<optgroup label="福島">
-<option value="fukushima_t1200">福島芝1200</option><option value="fukushima_t1800">福島芝1800</option><option value="fukushima_t2000">福島芝2000</option><option value="fukushima_t2600">福島芝2600</option>
-<option value="fukushima_d1150">福島ダ1150</option><option value="fukushima_d1700">福島ダ1700</option>
+<optgroup label="ç¦å³¶">
+<option value="fukushima_t1200">ç¦å³¶è1200</option><option value="fukushima_t1800">ç¦å³¶è1800</option><option value="fukushima_t2000">ç¦å³¶è2000</option><option value="fukushima_t2600">ç¦å³¶è2600</option>
+<option value="fukushima_d1150">ç¦å³¶ã1150</option><option value="fukushima_d1700">ç¦å³¶ã1700</option>
 </optgroup></select></div>
-<div><label>内柵/コース区分</label><select id="railCourse"><option value="auto" selected="">CSV自動</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></div>
-<button id="load" class="green">出走表読込</button>
-</div><textarea id="csvInput">日付	場所	レース	コース	芝ダ	距離	レース名	馬名	馬番	騎手	種牡馬	父タイプ名	母父タイプ名	父母父タイプ名	母母父タイプ名	前走脚質	斤量	推定タイム評価	最高タイム評価	近3走タイム評価	同コース	同距離	同場所	１走前	2走前	3走前	能力	調教
-613	函館	函6		ダ	1700	未勝利	 トーセンアミューズ	1	小崎綾也	ダイワメジャー	サンデーサイレンス系	キングマンボ系	ニアークティック系	ニアークティック系	後	57	113	113	108		-	-	109	113	101	D	A
-613	函館	函6		ダ	1700	未勝利	 オンザムービー	2	横山和生	サンダースノー	ダンチヒ系	サンデーサイレンス系	キングマンボ系	ダンチヒ系	先	57	134	134	129	-	-		125	129	134	A	C
-613	函館	函6		ダ	1700	未勝利	 コイオステソーロ	10	丹内祐次	ナダル	ロイヤルチャージャー系	ネイティヴダンサー系	ナスルーラ系	マンノウォー系	先	57	141	141	137	-			140	131	141	S	C
-613	函館	函6		ダ	1700	未勝利	 キセログラフィカ	11	横山武史	ナダル	ロイヤルチャージャー系	サンデーサイレンス系	ナスルーラ系	キングマンボ系	先	57	131	131	130	-			131	131	127	S	A
-613	函館	函6		ダ	1700	未勝利	 エトワールブルー	12	遠藤汰月	サートゥルナーリア	キングマンボ系	サンデーサイレンス系	サンデーサイレンス系	ニアークティック系	中	54▲	121	121	120	-			118	121	120	D	B</textarea><div id="loadMsg" class="small"><span class="ok">読込成功：</span>5頭 / タイム=推定タイム評価固定 / 脚質=予想脚質80%＋前走脚質20% / 生産者=育成補正</div></div>
+<div><label>åæµ/ã³ã¼ã¹åºå</label><select id="railCourse"><option value="auto" selected="">CSVèªå</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></div>
+<button id="load" class="green">åºèµ°è¡¨èª­è¾¼</button>
+</div><textarea id="csvInput">æ¥ä»	å ´æ	ã¬ã¼ã¹	ã³ã¼ã¹	èã	è·é¢	ã¬ã¼ã¹å	é¦¬å	é¦¬çª	é¨æ	ç¨®ç¡é¦¬	ç¶ã¿ã¤ãå	æ¯ç¶ã¿ã¤ãå	ç¶æ¯ç¶ã¿ã¤ãå	æ¯æ¯ç¶ã¿ã¤ãå	åèµ°èè³ª	æ¤é	æ¨å®ã¿ã¤ã è©ä¾¡	æé«ã¿ã¤ã è©ä¾¡	è¿3èµ°ã¿ã¤ã è©ä¾¡	åã³ã¼ã¹	åè·é¢	åå ´æ	ï¼èµ°å	2èµ°å	3èµ°å	è½å	èª¿æ
+613	å½é¤¨	å½6		ã	1700	æªåå©	 ãã¼ã»ã³ã¢ãã¥ã¼ãº	1	å°å´ç¶¾ä¹	ãã¤ã¯ã¡ã¸ã£ã¼	ãµã³ãã¼ãµã¤ã¬ã³ã¹ç³»	ã­ã³ã°ãã³ãç³»	ãã¢ã¼ã¯ãã£ãã¯ç³»	ãã¢ã¼ã¯ãã£ãã¯ç³»	å¾	57	113	113	108		-	-	109	113	101	D	A
+613	å½é¤¨	å½6		ã	1700	æªåå©	 ãªã³ã¶ã ã¼ãã¼	2	æ¨ªå±±åç	ãµã³ãã¼ã¹ãã¼	ãã³ããç³»	ãµã³ãã¼ãµã¤ã¬ã³ã¹ç³»	ã­ã³ã°ãã³ãç³»	ãã³ããç³»	å	57	134	134	129	-	-		125	129	134	A	C
+613	å½é¤¨	å½6		ã	1700	æªåå©	 ã³ã¤ãªã¹ãã½ã¼ã­	10	ä¸¹åç¥æ¬¡	ããã«	ã­ã¤ã¤ã«ãã£ã¼ã¸ã£ã¼ç³»	ãã¤ãã£ã´ãã³ãµã¼ç³»	ãã¹ã«ã¼ã©ç³»	ãã³ãã¦ã©ã¼ç³»	å	57	141	141	137	-			140	131	141	S	C
+613	å½é¤¨	å½6		ã	1700	æªåå©	 ã­ã»ã­ã°ã©ãã£ã«	11	æ¨ªå±±æ­¦å²	ããã«	ã­ã¤ã¤ã«ãã£ã¼ã¸ã£ã¼ç³»	ãµã³ãã¼ãµã¤ã¬ã³ã¹ç³»	ãã¹ã«ã¼ã©ç³»	ã­ã³ã°ãã³ãç³»	å	57	131	131	130	-			131	131	127	S	A
+613	å½é¤¨	å½6		ã	1700	æªåå©	 ã¨ãã¯ã¼ã«ãã«ã¼	12	é è¤æ±°æ	ãµã¼ãã¥ã«ãã¼ãªã¢	ã­ã³ã°ãã³ãç³»	ãµã³ãã¼ãµã¤ã¬ã³ã¹ç³»	ãµã³ãã¼ãµã¤ã¬ã³ã¹ç³»	ãã¢ã¼ã¯ãã£ãã¯ç³»	ä¸­	54â²	121	121	120	-			118	121	120	D	B</textarea><div id="loadMsg" class="small"><span class="ok">èª­è¾¼æåï¼</span>5é ­ / ã¿ã¤ã =æ¨å®ã¿ã¤ã è©ä¾¡åºå® / èè³ª=äºæ³èè³ª80%ï¼åèµ°èè³ª20% / çç£è=è²æè£æ­£</div></div>
 <div class="panel controls">
-<div><label>ペース</label><select id="pace"><option value="slow">スロー</option><option value="middle" selected="">ミドル</option><option value="high">ハイ</option></select></div>
-<div><label>馬場</label><select id="going">
-<option value="ultrafirm">パンパンの良馬場</option>
-<option value="firm" selected="">良馬場</option>
-<option value="firm_to_good">良馬場〜稍重</option>
-<option value="good_soft">稍重</option>
-<option value="soft_range">稍重〜重馬場</option>
-<option value="soft">重馬場</option>
-<option value="bad">不良</option>
+<div><label>ãã¼ã¹</label><select id="pace"><option value="slow">ã¹ã­ã¼</option><option value="middle" selected="">ããã«</option><option value="high">ãã¤</option></select></div>
+<div><label>é¦¬å ´</label><select id="going">
+<option value="ultrafirm">ãã³ãã³ã®è¯é¦¬å ´</option>
+<option value="firm" selected="">è¯é¦¬å ´</option>
+<option value="firm_to_good">è¯é¦¬å ´ãç¨é</option>
+<option value="good_soft">ç¨é</option>
+<option value="soft_range">ç¨éãéé¦¬å ´</option>
+<option value="soft">éé¦¬å ´</option>
+<option value="bad">ä¸è¯</option>
 </select></div>
-<div><label>馬場バイアス</label><select id="bias">
-<option value="flat" selected="">フラット</option>
-<option value="inside_front">内先行</option>
-<option value="inside">内有利</option>
-<option value="front">前有利</option>
-<option value="outside">外有利</option>
-<option value="outside_closer">外差し</option>
-<option value="closer">差し有利</option>
-<option value="power">力いる馬場</option>
-<option value="speed">高速馬場</option>
+<div><label>é¦¬å ´ãã¤ã¢ã¹</label><select id="bias">
+<option value="flat" selected="">ãã©ãã</option>
+<option value="inside_front">ååè¡</option>
+<option value="inside">åæå©</option>
+<option value="front">åæå©</option>
+<option value="outside">å¤æå©</option>
+<option value="outside_closer">å¤å·®ã</option>
+<option value="closer">å·®ãæå©</option>
+<option value="power">åããé¦¬å ´</option>
+<option value="speed">é«éé¦¬å ´</option>
 </select></div>
-<div><label>予想反映度 <span id="wtxt">70</span>%</label><input id="weight" type="range" min="20" max="95" value="70"></div>
-<div><label>乱数</label><select id="noise"><option value="0.6">少なめ</option><option value="1" selected="">標準</option><option value="1.4">多め</option><option value="2.0">荒れ気味</option></select></div>
-<div><label>生き物ブレ</label><select id="life"><option value="1.0">小</option><option value="1.8" selected="">標準</option><option value="2.8">大</option><option value="3.5">大荒れ</option></select></div>
-<div><label>能力反映度</label><select id="abilityWeight"><option value="0.60">60%</option><option value="0.70" selected="">70%</option><option value="0.80">80%</option><option value="0.90">90%</option></select></div><div><label>タイム反映度</label><select id="timeWeight"><option value="0.40">40%</option><option value="0.55" selected="">55%</option><option value="0.70">70%</option><option value="0.85">85%</option></select></div><div><label>検証回数</label><select id="simCount"><option value="300">300回</option><option value="1000" selected="">1000回</option><option value="5000">5000回</option></select></div><button id="one">▶ 1回再生</button><button id="many" class="gray">📊 検証</button><button id="reset" class="gray">↻ リセット</button>
+<div><label>äºæ³åæ åº¦ <span id="wtxt">70</span>%</label><input id="weight" type="range" min="20" max="95" value="70"></div>
+<div><label>ä¹±æ°</label><select id="noise"><option value="0.6">å°ãªã</option><option value="1" selected="">æ¨æº</option><option value="1.4">å¤ã</option><option value="2.0">èãæ°å³</option></select></div>
+<div><label>çãç©ãã¬</label><select id="life"><option value="1.0">å°</option><option value="1.8" selected="">æ¨æº</option><option value="2.8">å¤§</option><option value="3.5">å¤§èã</option></select></div>
+<div><label>è½ååæ åº¦</label><select id="abilityWeight"><option value="0.60">60%</option><option value="0.70" selected="">70%</option><option value="0.80">80%</option><option value="0.90">90%</option></select></div><div><label>ã¿ã¤ã åæ åº¦</label><select id="timeWeight"><option value="0.40">40%</option><option value="0.55" selected="">55%</option><option value="0.70">70%</option><option value="0.85">85%</option></select></div><div><label>æ¤è¨¼åæ°</label><select id="simCount"><option value="300">300å</option><option value="1000" selected="">1000å</option><option value="5000">5000å</option></select></div><button id="one">â¶ 1ååç</button><button id="many" class="gray">ð æ¤è¨¼</button><button id="reset" class="gray">â» ãªã»ãã</button>
 </div>
 <div class="panel"><div id="track"><svg id="courseSvg" viewBox="0 0 1000 520" preserveAspectRatio="none"><rect width="1000" height="520" fill="#10263e"></rect>
  <path d="M815 365 L705 398 L540 410 L360 405 L245 382 L95 335 L70 240 L115 158 L265 112 L500 100 L730 120 L885 190 L895 300 L820 365 L670 392 L480 402 L315 395 L245 382" fill="none" stroke="#3c9a50" stroke-width="76" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -73,53 +73,89 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
  <line x1="245" y1="427" x2="245" y2="337" stroke="#fff" stroke-width="4" stroke-dasharray="8 7"></line>
  <text x="815" y="447" fill="#f4d94f" font-size="17" text-anchor="middle">START</text>
  <text x="245" y="460" fill="#fff" font-size="17" text-anchor="middle">GOAL</text>
- <text x="500" y="238" fill="#e1c766" font-size="25" font-weight="700" text-anchor="middle">函館ダ1700</text>
- <text x="500" y="272" fill="#9fd4ff" font-size="18" font-weight="700" text-anchor="middle">右回り・小回り・先行持続</text>
- <text x="500" y="310" fill="#ffd166" font-size="22" font-weight="700" text-anchor="middle">右回り →</text>
- <text x="815" y="85" fill="#ffd166" font-size="15" text-anchor="middle">右回り</text></svg><div class="horse" title="トーセンアミューズ" style="background: rgb(255, 90, 95); left: 848.47px; top: 268.125px;">1</div><div class="horse" title="オンザムービー" style="background: rgb(255, 209, 102); left: 852.686px; top: 270.375px;">2</div><div class="horse" title="コイオステソーロ" style="background: rgb(6, 214, 160); left: 856.902px; top: 272.625px;">10</div><div class="horse" title="キセログラフィカ" style="background: rgb(76, 201, 240); left: 861.118px; top: 274.875px;">11</div><div class="horse" title="エトワールブルー" style="background: rgb(247, 37, 133); left: 865.334px; top: 277.125px;">12</div></div><div id="racePhase" class="small">1回再生を押すと、序盤→向正面→3角→4角→直線→ゴールの展開で動きます。</div><div class="meter"><div id="liveMeter" style="width: 0%;"></div></div><div class="liveBox"><div id="liveComment" class="liveLine"></div><div id="liveOrder" class="small">隊列：未実行</div></div></div>
-<div class="panel"><h3>v2.5補正</h3><div class="small">気性列は高いほど「かかり・折り合い欠き・ムラ」が出やすい設定です。さらに騎手×気性、左回り/右回り、道悪、距離適性、気分屋補正を加えています。ルメール・武豊・横山典は気性難をなだめる補正、川田・レーン・坂井は先行リズム補正を入れています。</div></div>
+ <text x="500" y="238" fill="#e1c766" font-size="25" font-weight="700" text-anchor="middle">å½é¤¨ã1700</text>
+ <text x="500" y="272" fill="#9fd4ff" font-size="18" font-weight="700" text-anchor="middle">å³åãã»å°åãã»åè¡æç¶</text>
+ <text x="500" y="310" fill="#ffd166" font-size="22" font-weight="700" text-anchor="middle">å³åã â</text>
+ <text x="815" y="85" fill="#ffd166" font-size="15" text-anchor="middle">å³åã</text></svg><div class="horse" title="ãã¼ã»ã³ã¢ãã¥ã¼ãº" style="background: rgb(255, 90, 95); left: 848.47px; top: 268.125px;">1</div><div class="horse" title="ãªã³ã¶ã ã¼ãã¼" style="background: rgb(255, 209, 102); left: 852.686px; top: 270.375px;">2</div><div class="horse" title="ã³ã¤ãªã¹ãã½ã¼ã­" style="background: rgb(6, 214, 160); left: 856.902px; top: 272.625px;">10</div><div class="horse" title="ã­ã»ã­ã°ã©ãã£ã«" style="background: rgb(76, 201, 240); left: 861.118px; top: 274.875px;">11</div><div class="horse" title="ã¨ãã¯ã¼ã«ãã«ã¼" style="background: rgb(247, 37, 133); left: 865.334px; top: 277.125px;">12</div></div><div id="racePhase" class="small">1ååçãæ¼ãã¨ãåºç¤âåæ­£é¢â3è§â4è§âç´ç·âã´ã¼ã«ã®å±éã§åãã¾ãã</div><div class="meter"><div id="liveMeter" style="width: 0%;"></div></div><div class="liveBox"><div id="liveComment" class="liveLine"></div><div id="liveOrder" class="small">éåï¼æªå®è¡</div></div></div>
+<div class="panel"><h3>v2.5è£æ­£</h3><div class="small">æ°æ§åã¯é«ãã»ã©ããããã»æãåãæ¬ ãã»ã ã©ããåºãããè¨­å®ã§ããããã«é¨æÃæ°æ§ãå·¦åã/å³åããéæªãè·é¢é©æ§ãæ°åå±è£æ­£ãå ãã¦ãã¾ããã«ã¡ã¼ã«ã»æ­¦è±ã»æ¨ªå±±å¸ã¯æ°æ§é£ããªã ããè£æ­£ãå·ç°ã»ã¬ã¼ã³ã»åäºã¯åè¡ãªãºã è£æ­£ãå¥ãã¦ãã¾ãã</div></div>
 
 
-<div class="panel"><h3>v6.1-safe 能力反映度</h3>
-<div class="small">能力はS/A/B/C/Dのランク管理を基本にし、能力反映度で差を圧縮します。読み込み処理を壊さないよう、v6.0ベースに最小限だけ追加しています。</div></div>
-
-
-
+<div class="panel"><h3>v6.1-safe è½ååæ åº¦</h3>
+<div class="small">è½åã¯S/A/B/C/Dã®ã©ã³ã¯ç®¡çãåºæ¬ã«ããè½ååæ åº¦ã§å·®ãå§ç¸®ãã¾ããèª­ã¿è¾¼ã¿å¦çãå£ããªããããv6.0ãã¼ã¹ã«æå°éã ãè¿½å ãã¦ãã¾ãã</div></div>
 
 
 
-<div class="panel"><h3>v7.9 条件別ウェイト自動切替</h3>
-<div class="small">基本思想は「能力は土台、血統・馬場・展開・調教で上書き」。新馬/2歳戦は血統・調教を強め、道悪は血統と調教を強め、高速馬場は推定タイムを強めます。能力が最重要でも、能力だけで勝敗が決まらないように実効差を圧縮します。<br><span id="weightModeInfo" class="warn">現在のウェイト：未計算</span></div></div>
-<div class="panel"><h3>v7.3 東京芝Dコース補正</h3><div class="small">東京芝1800などでDコース替わり＋稍重時に内の傷みがカバーされて逃げ・内先行が止まりにくいケースを反映。CSVのコース列（A/B/C/D）または内柵/コース区分選択を参照し、東京芝1800Dは内枠逃げ・先行を加点、外枠差しの過大評価を抑制します。</div></div>
-<div class="panel"><h3>v7.1 コース別枠順補正</h3><div class="small">小回り芝1800〜2000は内枠＋逃げ/先行を強化。函館芝1800は1角まで短い条件として追加加点。芝スタートのダート（東京ダ1600、阪神ダ1400、函館/小倉ダ1000、福島ダ1150）は外枠＋逃げ/先行を評価し、非芝スタートのローカルダ1700は内〜中枠先行を評価します。</div></div>
-<div class="panel"><h3>v7.1.1 調教列名互換</h3><div class="small">坂路3Fだけでなく「坂3F」、坂路4F/2F/1Fの短縮表記、坂終も読み込み対応。ベルジュロネットのような坂路51.3-37.4-24.3-11.9が調教ランクだけに落ちる不具合を修正。</div></div>
 
-<div class="panel"><h3>v7.2 調教評価ロジック</h3><div class="small">坂路・ウッドは良い方を主軸評価。片方が空欄でも減点せず、両方優秀な場合だけ追加加点します。坂路は残り2Fの個別ラップが12秒台→終い1Fが11秒台前半へ加速する形を強く評価します。</div></div>
 
-<div class="panel"><h3>v7.7 調教ニュートラル化</h3><div class="small">坂路・ウッドは良い方を採用。片方空欄でも減点せず、両方空欄なら72点固定。調教は「あれば加点、なければ普通」として扱います。</div></div>
-<div class="panel"><h3>v7.8 タイム列固定</h3><div class="small">タイム列プルダウンを削除し、常にCSVの「推定タイム評価」を参照します。</div></div>
-<div class="panel"><h3>v7.0 血統スコア完全版</h3>
-<div class="small">父35%・母父25%・配合20%・コース10%・馬場5%・ペース3%・性別/馬体2%で血統を偏差値化。前走脚質は血統スコアに使いません。100点が並ばないよう上限96点に圧縮しています。</div></div>
-<div class="panel"><h3>v6.6 汎用バランス</h3>
-<div class="small">宝塚記念など特定レース・特定馬へ寄せる補正を廃止。勝ち切り・安定・ピンパー・騎手・コース補正を全レース共通で効くようにマイルド化しました。</div></div>
-<div class="panel"><h3>v6.3 タイム反映度</h3>
-<div class="small">推定タイム評価は70点中心に圧縮し、タイム反映度でさらに調整します。G1は55%前後、時計信頼度が高い条件は70%、新馬や展開差が大きい条件は40%が目安です。</div></div>
-<div class="panel"><h3>v6.2 騎手×競馬場補正</h3>
-<div class="small">騎手補正を「基本補正＋競馬場＋距離＋脚質＋馬場」に分解。ルメールは東京芝中距離、川田は阪神・先行/ダート、丹内は函館/福島、武豊は阪神中距離や折り合いで加点します。補正は強くなりすぎないよう上限を設定。</div></div>
-<div class="panel"><h3>v6.0 血統スコア完全版</h3>
-<div class="small">母父名・性別・前走馬体重を血統スコアへ統合。v7.5では生産者を能力へ直接加点せず、若駒中心の育成・仕上がり補正として好調度へ反映します。</div></div>
 
-<div class="panel"><h3>v7.5 予想脚質ブレンド</h3><div class="small">検証ごとに予想脚質80%・前走脚質20%で隊列を再試行。さらに約5%のランダム要素、枠順、コース形態、騎手の積極性を加味して実効脚質を決めます。予想脚質が空欄の場合は従来どおり前走脚質を使います。</div></div>
+<div class="panel"><h3>v7.9 æ¡ä»¶å¥ã¦ã§ã¤ãèªååæ¿</h3>
+<div class="small">åºæ¬ææ³ã¯ãè½åã¯åå°ãè¡çµ±ã»é¦¬å ´ã»å±éã»èª¿æã§ä¸æ¸ãããæ°é¦¬/2æ­³æ¦ã¯è¡çµ±ã»èª¿æãå¼·ããéæªã¯è¡çµ±ã¨èª¿æãå¼·ããé«éé¦¬å ´ã¯æ¨å®ã¿ã¤ã ãå¼·ãã¾ããè½åãæéè¦ã§ããè½åã ãã§åæãæ±ºã¾ããªãããã«å®å¹å·®ãå§ç¸®ãã¾ãã<br><span id="weightModeInfo" class="warn">ç¾å¨ã®ã¦ã§ã¤ãï¼æªè¨ç®</span></div></div>
+<div class="panel"><h3>v7.3 æ±äº¬èDã³ã¼ã¹è£æ­£</h3><div class="small">æ±äº¬è1800ãªã©ã§Dã³ã¼ã¹æ¿ããï¼ç¨éæã«åã®å·ã¿ãã«ãã¼ããã¦éãã»ååè¡ãæ­¢ã¾ãã«ããã±ã¼ã¹ãåæ ãCSVã®ã³ã¼ã¹åï¼A/B/C/Dï¼ã¾ãã¯åæµ/ã³ã¼ã¹åºåé¸æãåç§ããæ±äº¬è1800Dã¯åæ éãã»åè¡ãå ç¹ãå¤æ å·®ãã®éå¤§è©ä¾¡ãæå¶ãã¾ãã</div></div>
+<div class="panel"><h3>v7.1 ã³ã¼ã¹å¥æ é è£æ­£</h3><div class="small">å°åãè1800ã2000ã¯åæ ï¼éã/åè¡ãå¼·åãå½é¤¨è1800ã¯1è§ã¾ã§ç­ãæ¡ä»¶ã¨ãã¦è¿½å å ç¹ãèã¹ã¿ã¼ãã®ãã¼ãï¼æ±äº¬ã1600ãéªç¥ã1400ãå½é¤¨/å°åã1000ãç¦å³¶ã1150ï¼ã¯å¤æ ï¼éã/åè¡ãè©ä¾¡ããéèã¹ã¿ã¼ãã®ã­ã¼ã«ã«ã1700ã¯åãä¸­æ åè¡ãè©ä¾¡ãã¾ãã</div></div>
+<div class="panel"><h3>v7.1.1 èª¿æååäºæ</h3><div class="small">åè·¯3Fã ãã§ãªããå3Fããåè·¯4F/2F/1Fã®ç­ç¸®è¡¨è¨ãåçµãèª­ã¿è¾¼ã¿å¯¾å¿ããã«ã¸ã¥ã­ãããã®ãããªåè·¯51.3-37.4-24.3-11.9ãèª¿æã©ã³ã¯ã ãã«è½ã¡ãä¸å·åãä¿®æ­£ã</div></div>
 
-<div class="panel"><h3>v7.5 生産者・育成補正</h3><div class="small">生産者列を読込。ノーザンF、社台F、白老F、追分F、レイクヴィラF、ケイアイFなどを、能力ではなく好調/絶好調/不調リスクへ反映。新馬・2歳戦は強く、古馬OP・重賞では大きく減衰します。</div></div>
-<div class="panel"><h3>順位</h3><div id="rank"><table><tbody><tr><th>順</th><th>馬番</th><th>馬名</th><th>脚質</th><th>状態</th></tr><tr><td>1</td><td><span class="badge">1</span></td><td>トーセンアミューズ</td><td>後方</td><td>0%</td></tr><tr><td>2</td><td><span class="badge">2</span></td><td>オンザムービー</td><td>先行</td><td>0%</td></tr><tr><td>3</td><td><span class="badge">10</span></td><td>コイオステソーロ</td><td>先行</td><td>0%</td></tr><tr><td>4</td><td><span class="badge">11</span></td><td>キセログラフィカ</td><td>先行</td><td>0%</td></tr><tr><td>5</td><td><span class="badge">12</span></td><td>エトワールブルー</td><td>中団</td><td>0%</td></tr></tbody></table></div></div>
-<div class="panel"><h3>勝ち切り・安定・ピンパー補正</h3><div class="small">勝率は「勝ち切り型」、連対率は「勝ち切り＋安定」、複勝率は「安定型」を強めて別計算します。逃げ・後方・気性難はピンパー寄りになり、勝率と複勝率の順位がズレやすくなります。</div></div><div class="panel"><h3>検証結果</h3><div id="result">未実行</div></div>
+<div class="panel"><h3>v7.2 èª¿æè©ä¾¡ã­ã¸ãã¯</h3><div class="small">åè·¯ã»ã¦ããã¯è¯ãæ¹ãä¸»è»¸è©ä¾¡ãçæ¹ãç©ºæ¬ã§ãæ¸ç¹ãããä¸¡æ¹åªç§ãªå ´åã ãè¿½å å ç¹ãã¾ããåè·¯ã¯æ®ã2Fã®åå¥ã©ããã12ç§å°âçµã1Fã11ç§å°ååã¸å éããå½¢ãå¼·ãè©ä¾¡ãã¾ãã</div></div>
+
+<div class="panel"><h3>v7.7 èª¿æãã¥ã¼ãã©ã«å</h3><div class="small">åè·¯ã»ã¦ããã¯è¯ãæ¹ãæ¡ç¨ãçæ¹ç©ºæ¬ã§ãæ¸ç¹ãããä¸¡æ¹ç©ºæ¬ãªã72ç¹åºå®ãèª¿æã¯ãããã°å ç¹ããªããã°æ®éãã¨ãã¦æ±ãã¾ãã</div></div>
+<div class="panel"><h3>v7.8 ã¿ã¤ã ååºå®</h3><div class="small">ã¿ã¤ã åãã«ãã¦ã³ãåé¤ããå¸¸ã«CSVã®ãæ¨å®ã¿ã¤ã è©ä¾¡ããåç§ãã¾ãã</div></div>
+<div class="panel"><h3>v7.0 è¡çµ±ã¹ã³ã¢å®å¨ç</h3>
+<div class="small">ç¶35%ã»æ¯ç¶25%ã»éå20%ã»ã³ã¼ã¹10%ã»é¦¬å ´5%ã»ãã¼ã¹3%ã»æ§å¥/é¦¬ä½2%ã§è¡çµ±ãåå·®å¤åãåèµ°èè³ªã¯è¡çµ±ã¹ã³ã¢ã«ä½¿ãã¾ããã100ç¹ãä¸¦ã°ãªãããä¸é96ç¹ã«å§ç¸®ãã¦ãã¾ãã</div></div>
+<div class="panel"><h3>v6.6 æ±ç¨ãã©ã³ã¹</h3>
+<div class="small">å®å¡è¨å¿µãªã©ç¹å®ã¬ã¼ã¹ã»ç¹å®é¦¬ã¸å¯ããè£æ­£ãå»æ­¢ãåã¡åãã»å®å®ã»ãã³ãã¼ã»é¨æã»ã³ã¼ã¹è£æ­£ãå¨ã¬ã¼ã¹å±éã§å¹ãããã«ãã¤ã«ãåãã¾ããã</div></div>
+<div class="panel"><h3>v6.3 ã¿ã¤ã åæ åº¦</h3>
+<div class="small">æ¨å®ã¿ã¤ã è©ä¾¡ã¯70ç¹ä¸­å¿ã«å§ç¸®ããã¿ã¤ã åæ åº¦ã§ããã«èª¿æ´ãã¾ããG1ã¯55%åå¾ãæè¨ä¿¡é ¼åº¦ãé«ãæ¡ä»¶ã¯70%ãæ°é¦¬ãå±éå·®ãå¤§ããæ¡ä»¶ã¯40%ãç®å®ã§ãã</div></div>
+<div class="panel"><h3>v6.2 é¨æÃç«¶é¦¬å ´è£æ­£</h3>
+<div class="small">é¨æè£æ­£ããåºæ¬è£æ­£ï¼ç«¶é¦¬å ´ï¼è·é¢ï¼èè³ªï¼é¦¬å ´ãã«åè§£ãã«ã¡ã¼ã«ã¯æ±äº¬èä¸­è·é¢ãå·ç°ã¯éªç¥ã»åè¡/ãã¼ããä¸¹åã¯å½é¤¨/ç¦å³¶ãæ­¦è±ã¯éªç¥ä¸­è·é¢ãæãåãã§å ç¹ãã¾ããè£æ­£ã¯å¼·ããªããããªãããä¸éãè¨­å®ã</div></div>
+<div class="panel"><h3>v6.0 è¡çµ±ã¹ã³ã¢å®å¨ç</h3>
+<div class="small">æ¯ç¶åã»æ§å¥ã»åèµ°é¦¬ä½éãè¡çµ±ã¹ã³ã¢ã¸çµ±åãv7.5ã§ã¯çç£èãè½åã¸ç´æ¥å ç¹ãããè¥é§ä¸­å¿ã®è²æã»ä»ä¸ããè£æ­£ã¨ãã¦å¥½èª¿åº¦ã¸åæ ãã¾ãã</div></div>
+
+<div class="panel"><h3>v7.5 äºæ³èè³ªãã¬ã³ã</h3><div class="small">æ¤è¨¼ãã¨ã«äºæ³èè³ª80%ã»åèµ°èè³ª20%ã§éåãåè©¦è¡ãããã«ç´5%ã®ã©ã³ãã è¦ç´ ãæ é ãã³ã¼ã¹å½¢æãé¨æã®ç©æ¥µæ§ãå å³ãã¦å®å¹èè³ªãæ±ºãã¾ããäºæ³èè³ªãç©ºæ¬ã®å ´åã¯å¾æ¥ã©ããåèµ°èè³ªãä½¿ãã¾ãã</div></div>
+
+<div class="panel"><h3>v7.5 çç£èã»è²æè£æ­£</h3><div class="small">çç£èåãèª­è¾¼ããã¼ã¶ã³Fãç¤¾å°Fãç½èFãè¿½åFãã¬ã¤ã¯ã´ã£ã©Fãã±ã¤ã¢ã¤Fãªã©ããè½åã§ã¯ãªãå¥½èª¿/çµ¶å¥½èª¿/ä¸èª¿ãªã¹ã¯ã¸åæ ãæ°é¦¬ã»2æ­³æ¦ã¯å¼·ããå¤é¦¬OPã»éè³ã§ã¯å¤§ããæ¸è¡°ãã¾ãã</div></div>
+<div class="panel"><h3>é ä½</h3><div id="rank"><table><tbody><tr><th>é </th><th>é¦¬çª</th><th>é¦¬å</th><th>èè³ª</th><th>ç¶æ</th></tr><tr><td>1</td><td><span class="badge">1</span></td><td>ãã¼ã»ã³ã¢ãã¥ã¼ãº</td><td>å¾æ¹</td><td>0%</td></tr><tr><td>2</td><td><span class="badge">2</span></td><td>ãªã³ã¶ã ã¼ãã¼</td><td>åè¡</td><td>0%</td></tr><tr><td>3</td><td><span class="badge">10</span></td><td>ã³ã¤ãªã¹ãã½ã¼ã­</td><td>åè¡</td><td>0%</td></tr><tr><td>4</td><td><span class="badge">11</span></td><td>ã­ã»ã­ã°ã©ãã£ã«</td><td>åè¡</td><td>0%</td></tr><tr><td>5</td><td><span class="badge">12</span></td><td>ã¨ãã¯ã¼ã«ãã«ã¼</td><td>ä¸­å£</td><td>0%</td></tr></tbody></table></div></div>
+<div class="panel"><h3>åã¡åãã»å®å®ã»ãã³ãã¼è£æ­£</h3><div class="small">åçã¯ãåã¡åãåããé£å¯¾çã¯ãåã¡åãï¼å®å®ããè¤åçã¯ãå®å®åããå¼·ãã¦å¥è¨ç®ãã¾ããéãã»å¾æ¹ã»æ°æ§é£ã¯ãã³ãã¼å¯ãã«ãªããåçã¨è¤åçã®é ä½ããºã¬ããããªãã¾ãã</div></div><div class="panel"><h3>æ¤è¨¼çµæ</h3><div id="result">æªå®è¡</div></div>
 </main>
 <script>
 (function(){
 const E=id=>document.getElementById(id);let horses=[],timer=null,divs=[],path=[],seg=[],total=0,currentState=null;
-const grade={S:88,AA:85,A:82,B:74,C:66,D:58,E:52,"－":62,"":62};
-const jockey={"ルメール":10,"レーン":9,"川田将雅":8,"武豊":5,"戸崎圭太":4,"坂井瑠星":4,"松山弘平":3,"横山武史":3,"岩田望来":3,"横山和生":3,"丹内祐次":2};
+const grade={S:88,AA:85,A:82,B:74,C:66,D:58,E:52,"ï¼":62,"":62};
+const jockey={"ã«ã¡ã¼ã«":10,"ã¬ã¼ã³":9,"å·ç°å°é":8,"æ­¦è±":5,"æ¸å´å­å¤ª":4,"åäºç æ":4,"æ¾å±±å¼å¹³":3,"æ¨ªå±±æ­¦å²":3,"å²©ç°ææ¥":3,"æ¨ªå±±åç":3,"ä¸¹åç¥æ¬¡":2};
+
+// v8.2 TARGETéå»5å¹´å®ç¸¾DBï¼é¨æã»ç¶ã»æ¯ç¶ã»ç¶Ãæ¯ç¶ï¼
+// å¤å½¢å¼: [ææ°, ãµã³ãã«æ°, åç%, è¤åç%, åååç]
+const REAL_DATA_DB = {jockey:{}, sire:{}, damsire:{}, pair:{}};
+// v8.2-Lite: å®ç¸¾DBåãè¾¼ã¿ãå¤ãã¦èµ·åãè»½éå
+
+function realDbKey(name, courseKey){return (name||"").trim()+"|"+courseKey;}
+function realDbItem(kind, name, courseKey){
+  if(!name||!courseKey||!REAL_DATA_DB[kind]) return null;
+  return REAL_DATA_DB[kind][realDbKey(name, courseKey)] || null;
+}
+function currentCourseKey(){return E("course").value||"";}
+function realScoreFromItem(item, neutral){return item ? parseFloat(item[0]) : neutral;}
+function realJockeyScore(h){
+  const item = realDbItem("jockey", h.é¨æ||"", currentCourseKey());
+  return item ? realScoreFromItem(item,72) : null;
+}
+function realBloodScore(h){
+  const ck=currentCourseKey();
+  const sire=(h.ç¨®ç¡é¦¬||"").trim();
+  const mf=(h.æ¯ç¶å||"").trim();
+  const pair=(sire&&mf)?(sire+"Ã"+mf):"";
+  const sItem=realDbItem("sire", sire, ck);
+  const mItem=realDbItem("damsire", mf, ck);
+  const pItem=realDbItem("pair", pair, ck);
+  let total=0, w=0;
+  if(sItem){const n=sItem[1]||0, ww=Math.min(0.45,0.25+n/120); total+=sItem[0]*ww; w+=ww;}
+  if(mItem){const n=mItem[1]||0, ww=Math.min(0.25,0.12+n/180); total+=mItem[0]*ww; w+=ww;}
+  if(pItem){const n=pItem[1]||0, ww=Math.min(0.30,0.10+n/80); total+=pItem[0]*ww; w+=ww;}
+  return w>0 ? total/w : null;
+}
+function realDataText(kind,name,courseKey){
+  const item=realDbItem(kind,name,courseKey); if(!item)return "";
+  return `å®ç¸¾ææ°${item[0]} n=${item[1]} å${item[2]}% è¤${item[3]}% äººæ°ä¹é¢${item[4]}`;
+}
+
 const colors=["#ff5a5f","#ffd166","#06d6a0","#4cc9f0","#f72585","#b8f2e6","#c77dff","#90be6d","#f8961e","#adb5bd"];
 const baseShapes={
   rightSmall:[[815,365],[705,398],[540,410],[360,405],[245,382],[95,335],[70,240],[115,158],[265,112],[500,100],[730,120],[885,190],[895,300],[820,365],[670,392],[480,402],[315,395],[245,382]],
@@ -128,42 +164,42 @@ const baseShapes={
   leftTokyoLong:[[205,360],[335,400],[520,410],[720,392],[875,325],[910,220],[845,145],[650,105],[390,105],[185,155],[95,250],[135,330],[285,382],[455,402],[630,397],[790,370],[850,345]]
 };
 const courses={
-  tokyo_t1400:{name:"東京芝1400",bias:"左回り・長い直線・差し持続",kind:"turf",dir:"左回り",shape:"leftTokyo",venue:"東京",surface:"芝",dist:1400,turn:"left",profile:"tokyo_sprint"},
-  tokyo_t1600:{name:"東京芝1600",bias:"左回り・長い直線・瞬発持続",kind:"turf",dir:"左回り",shape:"leftTokyo",venue:"東京",surface:"芝",dist:1600,turn:"left",profile:"tokyo_mile"},
-  tokyo_t1800:{name:"東京芝1800",bias:"左回り・瞬発力・持続差し",kind:"turf",dir:"左回り",shape:"leftTokyo",venue:"東京",surface:"芝",dist:1800,turn:"left",profile:"tokyo_mid"},
-  tokyo_t2000:{name:"東京芝2000",bias:"左回り・総合力・末脚",kind:"turf",dir:"左回り",shape:"leftTokyo",venue:"東京",surface:"芝",dist:2000,turn:"left",profile:"tokyo_mid"},
-  tokyo_t2400:{name:"東京芝2400",bias:"左回り・長い直線・総合力",kind:"turf",dir:"左回り",shape:"leftTokyoLong",venue:"東京",surface:"芝",dist:2400,turn:"left",profile:"tokyo_stamina"},
-  tokyo_d1400:{name:"東京ダ1400",bias:"左回り・スピード持続",kind:"dirt",dir:"左回り",shape:"leftTokyo",venue:"東京",surface:"ダ",dist:1400,turn:"left",profile:"tokyo_dirt_sprint"},
-  tokyo_d1600:{name:"東京ダ1600",bias:"左回り・外枠・持続差し",kind:"dirt",dir:"左回り",shape:"leftTokyo",venue:"東京",surface:"ダ",dist:1600,turn:"left",profile:"tokyo_dirt_mile"},
-  tokyo_d2100:{name:"東京ダ2100",bias:"左回り・スタミナ・持続",kind:"dirt",dir:"左回り",shape:"leftTokyoLong",venue:"東京",surface:"ダ",dist:2100,turn:"left",profile:"tokyo_dirt_stamina"},
+  tokyo_t1400:{name:"æ±äº¬è1400",bias:"å·¦åãã»é·ãç´ç·ã»å·®ãæç¶",kind:"turf",dir:"å·¦åã",shape:"leftTokyo",venue:"æ±äº¬",surface:"è",dist:1400,turn:"left",profile:"tokyo_sprint"},
+  tokyo_t1600:{name:"æ±äº¬è1600",bias:"å·¦åãã»é·ãç´ç·ã»ç¬çºæç¶",kind:"turf",dir:"å·¦åã",shape:"leftTokyo",venue:"æ±äº¬",surface:"è",dist:1600,turn:"left",profile:"tokyo_mile"},
+  tokyo_t1800:{name:"æ±äº¬è1800",bias:"å·¦åãã»ç¬çºåã»æç¶å·®ã",kind:"turf",dir:"å·¦åã",shape:"leftTokyo",venue:"æ±äº¬",surface:"è",dist:1800,turn:"left",profile:"tokyo_mid"},
+  tokyo_t2000:{name:"æ±äº¬è2000",bias:"å·¦åãã»ç·ååã»æ«è",kind:"turf",dir:"å·¦åã",shape:"leftTokyo",venue:"æ±äº¬",surface:"è",dist:2000,turn:"left",profile:"tokyo_mid"},
+  tokyo_t2400:{name:"æ±äº¬è2400",bias:"å·¦åãã»é·ãç´ç·ã»ç·åå",kind:"turf",dir:"å·¦åã",shape:"leftTokyoLong",venue:"æ±äº¬",surface:"è",dist:2400,turn:"left",profile:"tokyo_stamina"},
+  tokyo_d1400:{name:"æ±äº¬ã1400",bias:"å·¦åãã»ã¹ãã¼ãæç¶",kind:"dirt",dir:"å·¦åã",shape:"leftTokyo",venue:"æ±äº¬",surface:"ã",dist:1400,turn:"left",profile:"tokyo_dirt_sprint"},
+  tokyo_d1600:{name:"æ±äº¬ã1600",bias:"å·¦åãã»å¤æ ã»æç¶å·®ã",kind:"dirt",dir:"å·¦åã",shape:"leftTokyo",venue:"æ±äº¬",surface:"ã",dist:1600,turn:"left",profile:"tokyo_dirt_mile"},
+  tokyo_d2100:{name:"æ±äº¬ã2100",bias:"å·¦åãã»ã¹ã¿ããã»æç¶",kind:"dirt",dir:"å·¦åã",shape:"leftTokyoLong",venue:"æ±äº¬",surface:"ã",dist:2100,turn:"left",profile:"tokyo_dirt_stamina"},
 
-  hanshin_t1200:{name:"阪神芝1200",bias:"右回り・急坂・先行持続",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"阪神",surface:"芝",dist:1200,turn:"right",profile:"hanshin_sprint"},
-  hanshin_t1600:{name:"阪神芝1600",bias:"右回り・外回り・瞬発力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"阪神",surface:"芝",dist:1600,turn:"right",profile:"hanshin_mile"},
-  hanshin_t1800:{name:"阪神芝1800",bias:"右回り・外回り・末脚",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"阪神",surface:"芝",dist:1800,turn:"right",profile:"hanshin_mid"},
-  hanshin_t2000:{name:"阪神芝2000",bias:"右回り・内回り・持続力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"阪神",surface:"芝",dist:2000,turn:"right",profile:"hanshin_inner"},
-  hanshin_t2200:{name:"阪神芝2200",bias:"右回り・内回り・持続力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"阪神",surface:"芝",dist:2200,turn:"right",profile:"hanshin_stamina"},
-  hanshin_t2400:{name:"阪神芝2400",bias:"右回り・外回り・スタミナ",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"阪神",surface:"芝",dist:2400,turn:"right",profile:"hanshin_stamina"},
-  hanshin_d1400:{name:"阪神ダ1400",bias:"右回り・先行持続",kind:"dirt",dir:"右回り",shape:"rightHanshin",venue:"阪神",surface:"ダ",dist:1400,turn:"right",profile:"hanshin_dirt_sprint"},
-  hanshin_d1800:{name:"阪神ダ1800",bias:"右回り・持続力・先行",kind:"dirt",dir:"右回り",shape:"rightHanshin",venue:"阪神",surface:"ダ",dist:1800,turn:"right",profile:"hanshin_dirt_mid"},
+  hanshin_t1200:{name:"éªç¥è1200",bias:"å³åãã»æ¥åã»åè¡æç¶",kind:"turf",dir:"å³åã",shape:"rightHanshin",venue:"éªç¥",surface:"è",dist:1200,turn:"right",profile:"hanshin_sprint"},
+  hanshin_t1600:{name:"éªç¥è1600",bias:"å³åãã»å¤åãã»ç¬çºå",kind:"turf",dir:"å³åã",shape:"rightHanshin",venue:"éªç¥",surface:"è",dist:1600,turn:"right",profile:"hanshin_mile"},
+  hanshin_t1800:{name:"éªç¥è1800",bias:"å³åãã»å¤åãã»æ«è",kind:"turf",dir:"å³åã",shape:"rightHanshin",venue:"éªç¥",surface:"è",dist:1800,turn:"right",profile:"hanshin_mid"},
+  hanshin_t2000:{name:"éªç¥è2000",bias:"å³åãã»ååãã»æç¶å",kind:"turf",dir:"å³åã",shape:"rightHanshin",venue:"éªç¥",surface:"è",dist:2000,turn:"right",profile:"hanshin_inner"},
+  hanshin_t2200:{name:"éªç¥è2200",bias:"å³åãã»ååãã»æç¶å",kind:"turf",dir:"å³åã",shape:"rightHanshin",venue:"éªç¥",surface:"è",dist:2200,turn:"right",profile:"hanshin_stamina"},
+  hanshin_t2400:{name:"éªç¥è2400",bias:"å³åãã»å¤åãã»ã¹ã¿ãã",kind:"turf",dir:"å³åã",shape:"rightHanshin",venue:"éªç¥",surface:"è",dist:2400,turn:"right",profile:"hanshin_stamina"},
+  hanshin_d1400:{name:"éªç¥ã1400",bias:"å³åãã»åè¡æç¶",kind:"dirt",dir:"å³åã",shape:"rightHanshin",venue:"éªç¥",surface:"ã",dist:1400,turn:"right",profile:"hanshin_dirt_sprint"},
+  hanshin_d1800:{name:"éªç¥ã1800",bias:"å³åãã»æç¶åã»åè¡",kind:"dirt",dir:"å³åã",shape:"rightHanshin",venue:"éªç¥",surface:"ã",dist:1800,turn:"right",profile:"hanshin_dirt_mid"},
 
-  hakodate_t1200:{name:"函館芝1200",bias:"右回り・洋芝・先行スピード",kind:"turf",dir:"右回り",shape:"rightSmall",venue:"函館",surface:"芝",dist:1200,turn:"right",profile:"hakodate_sprint"},
-  hakodate_t1800:{name:"函館芝1800",bias:"右回り・洋芝・小回り持続",kind:"turf",dir:"右回り",shape:"rightSmall",venue:"函館",surface:"芝",dist:1800,turn:"right",profile:"hakodate_mid"},
-  hakodate_t2000:{name:"函館芝2000",bias:"右回り・洋芝・持続スタミナ",kind:"turf",dir:"右回り",shape:"rightSmall",venue:"函館",surface:"芝",dist:2000,turn:"right",profile:"hakodate_stamina"},
-  hakodate_d1000:{name:"函館ダ1000",bias:"右回り・短距離・逃げ先行",kind:"dirt",dir:"右回り",shape:"rightSmall",venue:"函館",surface:"ダ",dist:1000,turn:"right",profile:"hakodate_dirt_sprint"},
-  hakodate_d1700:{name:"函館ダ1700",bias:"右回り・小回り・先行持続",kind:"dirt",dir:"右回り",shape:"rightSmall",venue:"函館",surface:"ダ",dist:1700,turn:"right",profile:"hakodate_dirt_mid"},
+  hakodate_t1200:{name:"å½é¤¨è1200",bias:"å³åãã»æ´èã»åè¡ã¹ãã¼ã",kind:"turf",dir:"å³åã",shape:"rightSmall",venue:"å½é¤¨",surface:"è",dist:1200,turn:"right",profile:"hakodate_sprint"},
+  hakodate_t1800:{name:"å½é¤¨è1800",bias:"å³åãã»æ´èã»å°åãæç¶",kind:"turf",dir:"å³åã",shape:"rightSmall",venue:"å½é¤¨",surface:"è",dist:1800,turn:"right",profile:"hakodate_mid"},
+  hakodate_t2000:{name:"å½é¤¨è2000",bias:"å³åãã»æ´èã»æç¶ã¹ã¿ãã",kind:"turf",dir:"å³åã",shape:"rightSmall",venue:"å½é¤¨",surface:"è",dist:2000,turn:"right",profile:"hakodate_stamina"},
+  hakodate_d1000:{name:"å½é¤¨ã1000",bias:"å³åãã»ç­è·é¢ã»éãåè¡",kind:"dirt",dir:"å³åã",shape:"rightSmall",venue:"å½é¤¨",surface:"ã",dist:1000,turn:"right",profile:"hakodate_dirt_sprint"},
+  hakodate_d1700:{name:"å½é¤¨ã1700",bias:"å³åãã»å°åãã»åè¡æç¶",kind:"dirt",dir:"å³åã",shape:"rightSmall",venue:"å½é¤¨",surface:"ã",dist:1700,turn:"right",profile:"hakodate_dirt_mid"},
 
-  kokura_t1200:{name:"小倉芝1200",bias:"右回り・平坦・逃げ先行",kind:"turf",dir:"右回り",shape:"rightSmall",venue:"小倉",surface:"芝",dist:1200,turn:"right",profile:"kokura_sprint"},
-  kokura_t1800:{name:"小倉芝1800",bias:"右回り・小回り・器用さ",kind:"turf",dir:"右回り",shape:"rightSmall",venue:"小倉",surface:"芝",dist:1800,turn:"right",profile:"kokura_mid"},
-  kokura_t2000:{name:"小倉芝2000",bias:"右回り・小回り・持続",kind:"turf",dir:"右回り",shape:"rightSmall",venue:"小倉",surface:"芝",dist:2000,turn:"right",profile:"kokura_mid"},
-  kokura_d1000:{name:"小倉ダ1000",bias:"右回り・短距離・逃げ先行",kind:"dirt",dir:"右回り",shape:"rightSmall",venue:"小倉",surface:"ダ",dist:1000,turn:"right",profile:"kokura_dirt_sprint"},
-  kokura_d1700:{name:"小倉ダ1700",bias:"右回り・小回り・先行持続",kind:"dirt",dir:"右回り",shape:"rightSmall",venue:"小倉",surface:"ダ",dist:1700,turn:"right",profile:"kokura_dirt_mid"},
+  kokura_t1200:{name:"å°åè1200",bias:"å³åãã»å¹³å¦ã»éãåè¡",kind:"turf",dir:"å³åã",shape:"rightSmall",venue:"å°å",surface:"è",dist:1200,turn:"right",profile:"kokura_sprint"},
+  kokura_t1800:{name:"å°åè1800",bias:"å³åãã»å°åãã»å¨ç¨ã",kind:"turf",dir:"å³åã",shape:"rightSmall",venue:"å°å",surface:"è",dist:1800,turn:"right",profile:"kokura_mid"},
+  kokura_t2000:{name:"å°åè2000",bias:"å³åãã»å°åãã»æç¶",kind:"turf",dir:"å³åã",shape:"rightSmall",venue:"å°å",surface:"è",dist:2000,turn:"right",profile:"kokura_mid"},
+  kokura_d1000:{name:"å°åã1000",bias:"å³åãã»ç­è·é¢ã»éãåè¡",kind:"dirt",dir:"å³åã",shape:"rightSmall",venue:"å°å",surface:"ã",dist:1000,turn:"right",profile:"kokura_dirt_sprint"},
+  kokura_d1700:{name:"å°åã1700",bias:"å³åãã»å°åãã»åè¡æç¶",kind:"dirt",dir:"å³åã",shape:"rightSmall",venue:"å°å",surface:"ã",dist:1700,turn:"right",profile:"kokura_dirt_mid"},
 
-  fukushima_t1200:{name:"福島芝1200",bias:"右回り・小回り・先行持続",kind:"turf",dir:"右回り",shape:"rightSmall",venue:"福島",surface:"芝",dist:1200,turn:"right",profile:"fukushima_sprint"},
-  fukushima_t1800:{name:"福島芝1800",bias:"右回り・小回り・持続力",kind:"turf",dir:"右回り",shape:"rightSmall",venue:"福島",surface:"芝",dist:1800,turn:"right",profile:"fukushima_mid"},
-  fukushima_t2000:{name:"福島芝2000",bias:"右回り・小回り・持続スタミナ",kind:"turf",dir:"右回り",shape:"rightSmall",venue:"福島",surface:"芝",dist:2000,turn:"right",profile:"fukushima_mid"},
-  fukushima_t2600:{name:"福島芝2600",bias:"右回り・小回り・スタミナ",kind:"turf",dir:"右回り",shape:"rightSmall",venue:"福島",surface:"芝",dist:2600,turn:"right",profile:"fukushima_stamina"},
-  fukushima_d1150:{name:"福島ダ1150",bias:"右回り・短距離・先行",kind:"dirt",dir:"右回り",shape:"rightSmall",venue:"福島",surface:"ダ",dist:1150,turn:"right",profile:"fukushima_dirt_sprint"},
-  fukushima_d1700:{name:"福島ダ1700",bias:"右回り・小回り・先行持続",kind:"dirt",dir:"右回り",shape:"rightSmall",venue:"福島",surface:"ダ",dist:1700,turn:"right",profile:"fukushima_dirt_mid"}
+  fukushima_t1200:{name:"ç¦å³¶è1200",bias:"å³åãã»å°åãã»åè¡æç¶",kind:"turf",dir:"å³åã",shape:"rightSmall",venue:"ç¦å³¶",surface:"è",dist:1200,turn:"right",profile:"fukushima_sprint"},
+  fukushima_t1800:{name:"ç¦å³¶è1800",bias:"å³åãã»å°åãã»æç¶å",kind:"turf",dir:"å³åã",shape:"rightSmall",venue:"ç¦å³¶",surface:"è",dist:1800,turn:"right",profile:"fukushima_mid"},
+  fukushima_t2000:{name:"ç¦å³¶è2000",bias:"å³åãã»å°åãã»æç¶ã¹ã¿ãã",kind:"turf",dir:"å³åã",shape:"rightSmall",venue:"ç¦å³¶",surface:"è",dist:2000,turn:"right",profile:"fukushima_mid"},
+  fukushima_t2600:{name:"ç¦å³¶è2600",bias:"å³åãã»å°åãã»ã¹ã¿ãã",kind:"turf",dir:"å³åã",shape:"rightSmall",venue:"ç¦å³¶",surface:"è",dist:2600,turn:"right",profile:"fukushima_stamina"},
+  fukushima_d1150:{name:"ç¦å³¶ã1150",bias:"å³åãã»ç­è·é¢ã»åè¡",kind:"dirt",dir:"å³åã",shape:"rightSmall",venue:"ç¦å³¶",surface:"ã",dist:1150,turn:"right",profile:"fukushima_dirt_sprint"},
+  fukushima_d1700:{name:"ç¦å³¶ã1700",bias:"å³åãã»å°åãã»åè¡æç¶",kind:"dirt",dir:"å³åã",shape:"rightSmall",venue:"ç¦å³¶",surface:"ã",dist:1700,turn:"right",profile:"fukushima_dirt_mid"}
 };
 function setCourse(){
  const c=courses[E("course").value]||courses.hakodate_d1700;
@@ -171,8 +207,8 @@ function setCourse(){
  seg=[]; total=0;
  for(let i=0;i<path.length-1;i++){let dx=path[i+1][0]-path[i][0],dy=path[i+1][1]-path[i][1],l=Math.hypot(dx,dy);seg.push(l);total+=l}
  let d=path.map((p,i)=>(i?'L':'M')+p[0]+' '+p[1]).join(' ');
- let arrow = c.dir==="左回り" ? "← 左回り" : "右回り →";
- let arrowX = c.dir==="左回り" ? 185 : 815;
+ let arrow = c.dir==="å·¦åã" ? "â å·¦åã" : "å³åã â";
+ let arrowX = c.dir==="å·¦åã" ? 185 : 815;
  E("courseSvg").innerHTML=`<rect width="1000" height="520" fill="#10263e"/>
  <path d="${d}" fill="none" stroke="#3c9a50" stroke-width="76" stroke-linecap="round" stroke-linejoin="round"/>
  <path d="${d}" fill="none" stroke="#8cec7d" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
@@ -186,148 +222,222 @@ function setCourse(){
  <text x="500" y="310" fill="#ffd166" font-size="22" font-weight="700" text-anchor="middle">${arrow}</text>
  <text x="${arrowX}" y="85" fill="#ffd166" font-size="15" text-anchor="middle">${c.dir}</text>`;
 }
-function parseTable(text){text=text.trim();if(!text)throw new Error("出走表が空です");const delim=text.includes("\t")?"\t":",";const lines=text.split(/\r?\n/).filter(x=>x.trim());const headers=lines[0].split(delim).map(x=>x.trim());return lines.slice(1).map(line=>{const cols=line.split(delim),r={};headers.forEach((h,j)=>r[h]=(cols[j]||"").trim());return r})}
+function parseTable(text){text=text.trim();if(!text)throw new Error("åºèµ°è¡¨ãç©ºã§ã");const delim=text.includes("\t")?"\t":",";const lines=text.split(/\r?\n/).filter(x=>x.trim());const headers=lines[0].split(delim).map(x=>x.trim());return lines.slice(1).map(line=>{const cols=line.split(delim),r={};headers.forEach((h,j)=>r[h]=(cols[j]||"").trim());return r})}
 function num(v,d=0){
   v=String(v??"")
-    .replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0)-0xFEE0))
-    .replace(/[▲☆★]/g,"")
+    .replace(/[ï¼-ï¼]/g, s => String.fromCharCode(s.charCodeAt(0)-0xFEE0))
+    .replace(/[â²ââ]/g,"")
     .replace("#N/A","")
     .replace("-","")
     .trim();
   let n=parseFloat(v);
   return isNaN(n)?d:n;
 }
-function style(s){s=String(s||"").trim();if(s.includes("逃"))return"逃げ";if(s.includes("先")||s.includes("好"))return"先行";if(s.includes("中"))return"中団";if(s.includes("差"))return"差し";if(s.includes("後")||s.includes("追"))return"後方";return"中団"}
+function style(s){s=String(s||"").trim();if(s.includes("é"))return"éã";if(s.includes("å")||s.includes("å¥½"))return"åè¡";if(s.includes("ä¸­"))return"ä¸­å£";if(s.includes("å·®"))return"å·®ã";if(s.includes("å¾")||s.includes("è¿½"))return"å¾æ¹";return"ä¸­å£"}
 function styleOrEmpty(s){s=String(s||"").trim();return s?style(s):""}
-function styleValue(st){st=style(st);if(st==="逃げ")return 100;if(st==="先行")return 76;if(st==="中団")return 52;if(st==="差し")return 38;if(st==="後方")return 24;return 52}
-function valueToStyle(v){if(v>=86)return"逃げ";if(v>=64)return"先行";if(v>=46)return"中団";if(v>=32)return"差し";return"後方"}
-function jockeyQueueAdj(h){const j=h.騎手||"";let s=0;if(j.includes("川田")||j.includes("坂井")||j.includes("レーン")||j.includes("モレイラ"))s+=3.0;else if(j.includes("武豊")||j.includes("幸")||j.includes("松山")||j.includes("西村淳")||j.includes("岩田望")||j.includes("田口"))s+=1.5;else if(j.includes("横山典"))s-=1.0;else if(j.includes("Ｍ．デム")||j.includes("デム"))s-=0.3;return s}
-function courseQueueAdj(h,baseStyle){const c=courses[E("course").value]||{},key=E("course").value||"",f=typeof frameNo==="function"?frameNo(h):0;let s=0;const local=(c.venue==="函館"||c.venue==="小倉"||c.venue==="福島");const front=(baseStyle==="逃げ"||baseStyle==="先行");const turfStartDirt=(key==="tokyo_d1600"||key==="hanshin_d1400"||key==="hakodate_d1000"||key==="kokura_d1000"||key==="fukushima_d1150");if(local&&front){if(f<=3)s+=4.0;else if(f>=7)s-=2.5;else if(f>=5)s-=0.8}if(local&&c.kind==="dirt"&&c.dist===1700&&front){if(f<=4)s+=2.0;if(f>=7)s-=1.3}if(turfStartDirt&&front){if(f>=6)s+=3.0;if(f<=2)s-=1.5}if(c.venue==="東京"&&c.kind==="turf"&&railCourseOf(h)==="D"&&isSoftishGoing()&&front){if(f<=4)s+=2.2;if(f>=7)s-=1.2}if(c.venue==="東京"&&c.kind==="turf"&&!front){if(f>=5)s+=1.0}return s}
-function trialStyle(h){const prev=styleOrEmpty(h.前走脚質)||styleOrEmpty(h.脚質)||"中団";const pred=styleOrEmpty(h.予想脚質);let chosen=(pred&&Math.random()<0.80)?pred:prev;let v=styleValue(chosen);v+=rnd()*5.0;v+=courseQueueAdj(h,chosen);v+=jockeyQueueAdj(h);return valueToStyle(v)}
-function raceHorsesForTrial(){return horses.map(h=>Object.assign({},h,{脚質:trialStyle(h)}))}
-function loadData(){try{const rows=parseTable(E("csvInput").value),tc="推定タイム評価";horses=rows.map(r=>({レース名:r["レース名"]||E("raceName").value,場所:r["場所"]||"",コース区分:r["コース"]||r["内柵"]||r["コース区分"]||"",芝ダ:r["芝ダ"]||"",距離:num(r["距離"],0),馬名:(r["馬名"]||"").trim().replace("$",""),馬番:parseInt(r["馬番"]||"0",10),騎手:r["騎手"]||"",種牡馬:r["種牡馬"]||"",母父名:r["母父名"]||"",生産者:r["生産者"]||r["生産牧場"]||r["牧場"]||"",性別:r["性別"]||"",前走馬体重:num(r["前走馬体重"]||r["前走体重"]||r["馬体重"],null),父タイプ名:r["父タイプ名"]||"",母父タイプ名:r["母父タイプ名"]||"",父母父タイプ名:r["父母父タイプ名"]||"",母母父タイプ名:r["母母父タイプ名"]||"",前走脚質:style(r["前走脚質"]||r["脚質"]),予想脚質:styleOrEmpty(r["予想脚質"]),脚質:styleOrEmpty(r["予想脚質"])||style(r["脚質"]||r["前走脚質"]),能力:r["能力"]||"C",調教:r["調教"]||"C",タイム指数:num(r["推定タイム評価"]||r["推定タイム"]||r["タイム指数"],100),斤量:r["斤量"]||57,Time1:num(r["坂路4F"]||r["坂路４F"]||r["坂4F"]||r["坂４F"]||r["坂路4"]||r["Time1"],null),Time2:num(r["坂路3F"]||r["坂路３F"]||r["坂3F"]||r["坂３F"]||r["坂路3"]||r["Time2"],null),Time3:num(r["坂路2F"]||r["坂路２F"]||r["坂2F"]||r["坂２F"]||r["坂路2"]||r["Time3"],null),Time4:num(r["坂路1F"]||r["坂路１F"]||r["坂終"]||r["坂路終"]||r["坂1F"]||r["坂１F"]||r["坂路1"]||r["Time4"],null),Lap4:num(r["Lap4"],null),Lap3:num(r["Lap3"],null),Lap2:num(r["Lap2"],null),Lap1:num(r["Lap1"],null),ウッド6F:num(r["ウッド6F"],null),ウッド5F:num(r["ウッド5F"],null),ウッド4F:num(r["ウッド4F"],null),ウッド3F:num(r["ウッド3F"],null),ウッド2F:num(r["ウッド2F"],null),ウッド1F:num(r["ウッド1F"],null)})).filter(h=>h.馬名&&h.馬番);if(!horses.length)throw new Error("馬名・馬番が読み込めません");const first=horses[0];E("raceName").value=(first.場所?first.場所+" ":"")+(first.レース名||"");E("title").textContent=E("raceName").value+" / "+(courses[E("course").value]?.name||"");E("loadMsg").innerHTML=`<span class="ok">読込成功：</span>${horses.length}頭 / タイム=推定タイム評価固定 / 脚質=予想脚質80%＋前走脚質20% / 生産者=育成補正`;setup();updateWeightModeInfo()}catch(e){E("loadMsg").innerHTML=`<span class="warn">読込失敗：</span>${e.message}`}}
+function styleValue(st){st=style(st);if(st==="éã")return 100;if(st==="åè¡")return 76;if(st==="ä¸­å£")return 52;if(st==="å·®ã")return 38;if(st==="å¾æ¹")return 24;return 52}
+function valueToStyle(v){if(v>=86)return"éã";if(v>=64)return"åè¡";if(v>=46)return"ä¸­å£";if(v>=32)return"å·®ã";return"å¾æ¹"}
+function jockeyQueueAdj(h){const j=h.é¨æ||"";let s=0;if(j.includes("å·ç°")||j.includes("åäº")||j.includes("ã¬ã¼ã³")||j.includes("ã¢ã¬ã¤ã©"))s+=3.0;else if(j.includes("æ­¦è±")||j.includes("å¹¸")||j.includes("æ¾å±±")||j.includes("è¥¿ææ·³")||j.includes("å²©ç°æ")||j.includes("ç°å£"))s+=1.5;else if(j.includes("æ¨ªå±±å¸"))s-=1.0;else if(j.includes("ï¼­ï¼ãã ")||j.includes("ãã "))s-=0.3;return s}
+function courseQueueAdj(h,baseStyle){const c=courses[E("course").value]||{},key=E("course").value||"",f=typeof frameNo==="function"?frameNo(h):0;let s=0;const local=(c.venue==="å½é¤¨"||c.venue==="å°å"||c.venue==="ç¦å³¶");const front=(baseStyle==="éã"||baseStyle==="åè¡");const turfStartDirt=(key==="tokyo_d1600"||key==="hanshin_d1400"||key==="hakodate_d1000"||key==="kokura_d1000"||key==="fukushima_d1150");if(local&&front){if(f<=3)s+=4.0;else if(f>=7)s-=2.5;else if(f>=5)s-=0.8}if(local&&c.kind==="dirt"&&c.dist===1700&&front){if(f<=4)s+=2.0;if(f>=7)s-=1.3}if(turfStartDirt&&front){if(f>=6)s+=3.0;if(f<=2)s-=1.5}if(c.venue==="æ±äº¬"&&c.kind==="turf"&&railCourseOf(h)==="D"&&isSoftishGoing()&&front){if(f<=4)s+=2.2;if(f>=7)s-=1.2}if(c.venue==="æ±äº¬"&&c.kind==="turf"&&!front){if(f>=5)s+=1.0}return s}
+function randomRaceStyle(){const r=Math.random();if(r<0.16)return"éã";if(r<0.46)return"åè¡";if(r<0.70)return"ä¸­å£";if(r<0.88)return"å·®ã";return"å¾æ¹"}
+function trialStyle(h){
+  const prev=styleOrEmpty(h.åèµ°èè³ª)||styleOrEmpty(h.èè³ª)||"ä¸­å£";
+  const pred=styleOrEmpty(h.äºæ³èè³ª);
+  const r=Math.random();
+  // v8.2ï¼å±éã¯èª­ã¿ã«ãããããäºæ³èè³ª60%ã»åèµ°èè³ª25%ã»ã©ã³ãã 15%ã
+  let chosen;
+  if(pred && r<0.60) chosen=pred;
+  else if(r<0.85) chosen=prev;
+  else chosen=randomRaceStyle();
+  let v=styleValue(chosen);
+  v+=rnd()*5.0;
+  v+=courseQueueAdj(h,chosen);
+  v+=jockeyQueueAdj(h);
+  return valueToStyle(v);
+}
+function raceHorsesForTrial(){return horses.map(h=>Object.assign({},h,{èè³ª:trialStyle(h)}))}
+function isKokuraDownhillCourse(c){
+  c=c||courses[E("course").value]||{};
+  return c.venue==="å°å" && ((c.kind==="turf" && (c.dist===1200||c.dist===1800||c.dist===2000)) || (c.kind==="dirt" && (c.dist===1000||c.dist===1700)));
+}
+function frontLoadedAptitude(h){
+  // å°åã®ä¸ãâåå¾ã©ããåã§è©ä¾¡ããããéãæµããåãã¦æ­¢ã¾ããªããé©æ§ã
+  const c=courses[E("course").value]||{};
+  const sire=h.ç¨®ç¡é¦¬||"";
+  const all=(h.ç¶ã¿ã¤ãå||"")+(h.æ¯ç¶ã¿ã¤ãå||"")+(h.ç¶æ¯ç¶ã¿ã¤ãå||"")+(h.æ¯æ¯ç¶ã¿ã¤ãå||"")+sire+(h.æ¯ç¶å||"");
+  let a=0;
+  if(sire.includes("ã­ãºã")) a+=2.0;
+  if(sire.includes("ã­ã¿ãµã³ãã©ãã¯")) a+=2.0;
+  if(sire.includes("ã¨ããã¡ãã¤ã¢")) a+=1.7;
+  if(sire.includes("ãã¼ãã¯ã©ã¤")) a+=1.6;
+  if(sire.includes("ã´ã¼ã«ãã·ãã")) a+= c.dist>=1700 ? 1.9 : 0.3;
+  if(sire.includes("ããã«")) a+= c.kind==="dirt" ? 1.8 : 0.6;
+  if(sire.includes("ã­ã¼ãã«ãã­ã¢")||sire.includes("ããã°ã¢ã¼ãµã¼")||sire.includes("ãã¡ã¤ã³ãã¼ãã«")||sire.includes("ããã­ã¼ã¢ã¤ã«")) a+= c.dist<=1200 ? 1.6 : 0.3;
+  if(all.includes("ãã¹ã«ã¼ã©")||all.includes("ããã¼ãã³")) a+=1.5;
+  if(all.includes("ã­ã¤ã¤ã«ãã£ã¼ã¸ã£ã¼")||all.includes("ã­ãã«ã")) a+=1.3;
+  if(all.includes("ãã³ãã")||all.includes("ã¹ãã¼ã ã­ã£ãã")||all.includes("ãã¢ã¼ã¯ãã£ãã¯")) a+= c.dist<=1200 ? 1.2 : 0.6;
+  if((h.æ¯ç¶å||"").includes("ãã¼ãã¯ã©ã¤")||(h.æ¯ç¶å||"").includes("ãã¼ãã³ã¸ã£ã¼")||(h.æ¯ç¶å||"").includes("ãã¬ã³ãããã¥ãã£")||(h.æ¯ç¶å||"").includes("ã¯ã­ãã")) a+=1.0;
+  const st=h.èè³ª||"";
+  if(st==="åè¡"||st==="ä¸­å£") a+=0.7;
+  if(st==="éã") a+=0.4;
+  if(st==="å¾æ¹") a-=0.5;
+  return Math.max(-2,Math.min(6,a));
+}
+function kokuraDownhillAdj(h,p){
+  const c=courses[E("course").value]||{};
+  if(!isKokuraDownhillCourse(c)) return 0;
+  const st=h.èè³ª||"", pace=E("pace").value;
+  const apt=frontLoadedAptitude(h);
+  let s=0;
+  // ã³ã¼ã¹èªä½ãåå¾åããããã®ã§ãé¸æãã¼ã¹ãããã«ã§ãå°ããã¤å¯ãã«æ±ãã
+  if(c.dist<=1200){
+    if(st==="éã"||st==="åè¡") s+=0.8;
+    if(p>.55 && st==="éã" && apt<2.5) s-=1.2;
+    if(p>.60 && (st==="ä¸­å£"||st==="å·®ã") && apt>=2.0) s+=1.0;
+  }else{
+    if(st==="éã" && p>.55) s += apt>=3.0 ? 0.6 : -1.8;
+    if(st==="åè¡") s += apt>=2.0 ? 1.3 : -0.2;
+    if((st==="ä¸­å£"||st==="å·®ã") && p>.55) s += apt>=2.0 ? 1.4 : 0.3;
+    if(st==="å¾æ¹") s-=0.4;
+  }
+  if(apt>=4.0) s+=1.6;
+  else if(apt>=2.5) s+=0.9;
+  else if(apt<0.5) s-=0.6;
+  if(pace==="slow"){
+    // äºæ³ãã¹ã­ã¼ã§ãå°åã§ã¯å®å¨ãªç¬çºæ¦ã«ãªãã«ããã
+    if(st==="éã"||st==="åè¡") s-=0.4;
+    if(apt>=2.5) s+=0.7;
+  }
+  if(pace==="high"){
+    if(st==="éã" && apt<3.0) s-=1.2;
+    if((st==="ä¸­å£"||st==="å·®ã") && apt>=2.0) s+=1.0;
+  }
+  return Math.max(-3.5,Math.min(4.0,s));
+}
+
+function loadData(){try{const rows=parseTable(E("csvInput").value),tc="æ¨å®ã¿ã¤ã è©ä¾¡";horses=rows.map(r=>({ã¬ã¼ã¹å:r["ã¬ã¼ã¹å"]||E("raceName").value,å ´æ:r["å ´æ"]||"",ã³ã¼ã¹åºå:r["ã³ã¼ã¹"]||r["åæµ"]||r["ã³ã¼ã¹åºå"]||"",èã:r["èã"]||"",è·é¢:num(r["è·é¢"],0),é¦¬å:(r["é¦¬å"]||"").trim().replace("$",""),é¦¬çª:parseInt(r["é¦¬çª"]||"0",10),é¨æ:r["é¨æ"]||"",ç¨®ç¡é¦¬:r["ç¨®ç¡é¦¬"]||"",æ¯ç¶å:r["æ¯ç¶å"]||"",çç£è:r["çç£è"]||r["çç£ç§å ´"]||r["ç§å ´"]||"",æ§å¥:r["æ§å¥"]||"",åèµ°é¦¬ä½é:num(r["åèµ°é¦¬ä½é"]||r["åèµ°ä½é"]||r["é¦¬ä½é"],null),ç¶ã¿ã¤ãå:r["ç¶ã¿ã¤ãå"]||"",æ¯ç¶ã¿ã¤ãå:r["æ¯ç¶ã¿ã¤ãå"]||"",ç¶æ¯ç¶ã¿ã¤ãå:r["ç¶æ¯ç¶ã¿ã¤ãå"]||"",æ¯æ¯ç¶ã¿ã¤ãå:r["æ¯æ¯ç¶ã¿ã¤ãå"]||"",åèµ°èè³ª:style(r["åèµ°èè³ª"]||r["èè³ª"]),äºæ³èè³ª:styleOrEmpty(r["äºæ³èè³ª"]),èè³ª:styleOrEmpty(r["äºæ³èè³ª"])||style(r["èè³ª"]||r["åèµ°èè³ª"]),è½å:r["è½å"]||"C",èª¿æ:r["èª¿æ"]||"C",ã¿ã¤ã ææ°:num(r["æ¨å®ã¿ã¤ã è©ä¾¡"]||r["æ¨å®ã¿ã¤ã "]||r["ã¿ã¤ã ææ°"],100),æ¤é:r["æ¤é"]||57,Time1:num(r["åè·¯4F"]||r["åè·¯ï¼F"]||r["å4F"]||r["åï¼F"]||r["åè·¯4"]||r["Time1"],null),Time2:num(r["åè·¯3F"]||r["åè·¯ï¼F"]||r["å3F"]||r["åï¼F"]||r["åè·¯3"]||r["Time2"],null),Time3:num(r["åè·¯2F"]||r["åè·¯ï¼F"]||r["å2F"]||r["åï¼F"]||r["åè·¯2"]||r["Time3"],null),Time4:num(r["åè·¯1F"]||r["åè·¯ï¼F"]||r["åçµ"]||r["åè·¯çµ"]||r["å1F"]||r["åï¼F"]||r["åè·¯1"]||r["Time4"],null),Lap4:num(r["Lap4"],null),Lap3:num(r["Lap3"],null),Lap2:num(r["Lap2"],null),Lap1:num(r["Lap1"],null),ã¦ãã6F:num(r["ã¦ãã6F"],null),ã¦ãã5F:num(r["ã¦ãã5F"],null),ã¦ãã4F:num(r["ã¦ãã4F"],null),ã¦ãã3F:num(r["ã¦ãã3F"],null),ã¦ãã2F:num(r["ã¦ãã2F"],null),ã¦ãã1F:num(r["ã¦ãã1F"],null)})).filter(h=>h.é¦¬å&&h.é¦¬çª);if(!horses.length)throw new Error("é¦¬åã»é¦¬çªãèª­ã¿è¾¼ãã¾ãã");const first=horses[0];E("raceName").value=(first.å ´æ?first.å ´æ+" ":"")+(first.ã¬ã¼ã¹å||"");E("title").textContent=E("raceName").value+" / "+(courses[E("course").value]?.name||"");E("loadMsg").innerHTML=`<span class="ok">èª­è¾¼æåï¼</span>${horses.length}é ­ / v8.2 TARGETéå»5å¹´DBåæ  / èè³ª=äºæ³60%ï¼åèµ°25%ï¼ã©ã³ãã 15% / çç£è=è²æè£æ­£`;setup();updateWeightModeInfo()}catch(e){E("loadMsg").innerHTML=`<span class="warn">èª­è¾¼å¤±æï¼</span>${e.message}`}}
 
 
 function sireAptitudeScore(h){
   const c=courses[E("course").value]||{};
-  const sire=h.種牡馬||"", ft=h.父タイプ名||"", all=sire+ft;
-  const dist=c.dist||h.距離||0, surface=c.kind||"", venue=c.venue||"";
+  const sire=h.ç¨®ç¡é¦¬||"", ft=h.ç¶ã¿ã¤ãå||"", all=sire+ft;
+  const dist=c.dist||h.è·é¢||0, surface=c.kind||"", venue=c.venue||"";
   let s=58;
 
-  if(sire.includes("キタサンブラック")) s+=10;
-  if(sire.includes("エピファネイア")) s+=9;
-  if(sire.includes("キズナ")) s+=8;
-  if(sire.includes("ハーツクライ")) s+=8;
-  if(sire.includes("ドゥラメンテ")) s+=8;
-  if(sire.includes("ロードカナロア")) s+=8;
-  if(sire.includes("ディープインパクト")) s+=9;
-  if(sire.includes("ゴールドシップ")) s+=7;
-  if(sire.includes("スワーヴリチャード")) s+=7;
-  if(sire.includes("リオンディーズ")) s+=6;
-  if(sire.includes("モーリス")) s+=6;
-  if(sire.includes("ナダル")) s+=7;
-  if(sire.includes("ビッグアーサー")||sire.includes("ファインニードル")||sire.includes("ミッキーアイル")) s+=7;
+  if(sire.includes("ã­ã¿ãµã³ãã©ãã¯")) s+=10;
+  if(sire.includes("ã¨ããã¡ãã¤ã¢")) s+=9;
+  if(sire.includes("ã­ãºã")) s+=8;
+  if(sire.includes("ãã¼ãã¯ã©ã¤")) s+=8;
+  if(sire.includes("ãã¥ã©ã¡ã³ã")) s+=8;
+  if(sire.includes("ã­ã¼ãã«ãã­ã¢")) s+=8;
+  if(sire.includes("ãã£ã¼ãã¤ã³ãã¯ã")) s+=9;
+  if(sire.includes("ã´ã¼ã«ãã·ãã")) s+=7;
+  if(sire.includes("ã¹ã¯ã¼ã´ãªãã£ã¼ã")) s+=7;
+  if(sire.includes("ãªãªã³ãã£ã¼ãº")) s+=6;
+  if(sire.includes("ã¢ã¼ãªã¹")) s+=6;
+  if(sire.includes("ããã«")) s+=7;
+  if(sire.includes("ããã°ã¢ã¼ãµã¼")||sire.includes("ãã¡ã¤ã³ãã¼ãã«")||sire.includes("ããã­ã¼ã¢ã¤ã«")) s+=7;
 
   if(dist<=1400){
-    if(sire.includes("ロードカナロア")||sire.includes("ビッグアーサー")||sire.includes("ファインニードル")||sire.includes("ミッキーアイル")||ft.includes("ダンチヒ")||ft.includes("ニアークティック")) s+=7;
-    if(sire.includes("ゴールドシップ")||sire.includes("ハーツクライ")) s-=4;
+    if(sire.includes("ã­ã¼ãã«ãã­ã¢")||sire.includes("ããã°ã¢ã¼ãµã¼")||sire.includes("ãã¡ã¤ã³ãã¼ãã«")||sire.includes("ããã­ã¼ã¢ã¤ã«")||ft.includes("ãã³ãã")||ft.includes("ãã¢ã¼ã¯ãã£ãã¯")) s+=7;
+    if(sire.includes("ã´ã¼ã«ãã·ãã")||sire.includes("ãã¼ãã¯ã©ã¤")) s-=4;
   }else if(dist>=2000){
-    if(sire.includes("キタサンブラック")||sire.includes("ハーツクライ")||sire.includes("エピファネイア")||sire.includes("ドゥラメンテ")||sire.includes("ゴールドシップ")||sire.includes("スワーヴリチャード")) s+=7;
-    if(sire.includes("ビッグアーサー")||sire.includes("ファインニードル")||sire.includes("ミッキーアイル")) s-=5;
+    if(sire.includes("ã­ã¿ãµã³ãã©ãã¯")||sire.includes("ãã¼ãã¯ã©ã¤")||sire.includes("ã¨ããã¡ãã¤ã¢")||sire.includes("ãã¥ã©ã¡ã³ã")||sire.includes("ã´ã¼ã«ãã·ãã")||sire.includes("ã¹ã¯ã¼ã´ãªãã£ã¼ã")) s+=7;
+    if(sire.includes("ããã°ã¢ã¼ãµã¼")||sire.includes("ãã¡ã¤ã³ãã¼ãã«")||sire.includes("ããã­ã¼ã¢ã¤ã«")) s-=5;
   }else{
-    if(sire.includes("キズナ")||sire.includes("ロードカナロア")||sire.includes("モーリス")||sire.includes("リオンディーズ")||sire.includes("ディープインパクト")) s+=5;
+    if(sire.includes("ã­ãºã")||sire.includes("ã­ã¼ãã«ãã­ã¢")||sire.includes("ã¢ã¼ãªã¹")||sire.includes("ãªãªã³ãã£ã¼ãº")||sire.includes("ãã£ã¼ãã¤ã³ãã¯ã")) s+=5;
   }
 
   if(surface==="dirt"){
-    if(sire.includes("ナダル")||sire.includes("サンダースノー")||ft.includes("ロイヤルチャージャー")||ft.includes("ニアークティック")) s+=7;
-    if(sire.includes("ディープインパクト")||sire.includes("ハーツクライ")) s-=2;
+    if(sire.includes("ããã«")||sire.includes("ãµã³ãã¼ã¹ãã¼")||ft.includes("ã­ã¤ã¤ã«ãã£ã¼ã¸ã£ã¼")||ft.includes("ãã¢ã¼ã¯ãã£ãã¯")) s+=7;
+    if(sire.includes("ãã£ã¼ãã¤ã³ãã¯ã")||sire.includes("ãã¼ãã¯ã©ã¤")) s-=2;
   }
 
-  if(venue==="東京" && surface==="turf" && dist>=1600) s+=2;
-  if((venue==="函館"||venue==="小倉"||venue==="福島") && dist<=1700) {
-    if(ft.includes("ダンチヒ")||ft.includes("ニアークティック")||sire.includes("ナダル")) s+=2;
+  if(venue==="æ±äº¬" && surface==="turf" && dist>=1600) s+=2;
+  if((venue==="å½é¤¨"||venue==="å°å"||venue==="ç¦å³¶") && dist<=1700) {
+    if(ft.includes("ãã³ãã")||ft.includes("ãã¢ã¼ã¯ãã£ãã¯")||sire.includes("ããã«")) s+=2;
   }
   return Math.max(40,Math.min(80,s));
 }
 
 function broodmareAptitudeScore(h){
   const c=courses[E("course").value]||{};
-  const mf=h.母父名||"", mft=h.母父タイプ名||"";
-  const dist=c.dist||h.距離||0, surface=c.kind||"";
+  const mf=h.æ¯ç¶å||"", mft=h.æ¯ç¶ã¿ã¤ãå||"";
+  const dist=c.dist||h.è·é¢||0, surface=c.kind||"";
   let s=56;
 
-  if(mf.includes("ハーツクライ")) s+=9;
-  if(mf.includes("ハービンジャー")) s+=9;
-  if(mf.includes("ジャングルポケット")) s+=8;
+  if(mf.includes("ãã¼ãã¯ã©ã¤")) s+=9;
+  if(mf.includes("ãã¼ãã³ã¸ã£ã¼")) s+=9;
+  if(mf.includes("ã¸ã£ã³ã°ã«ãã±ãã")) s+=8;
   if(mf.includes("Galileo")||mf.includes("High Chaparral")||mf.includes("Cape Cross")) s+=8;
-  if(mf.includes("シンボリクリスエス")) s+=7;
-  if(mf.includes("フレンチデピュティ")||mf.includes("クロフネ")) s+=7;
-  if(mf.includes("ロージズインメイ")||mf.includes("ティンバーカントリー")||mf.includes("Congrats")||mf.includes("Southern Image")) s+=6;
-  if(mf.includes("サクラバクシンオー")||mf.includes("キングヘイロー")) s+=6;
-  if(mf.includes("ネオユニヴァース")) s+=5;
+  if(mf.includes("ã·ã³ããªã¯ãªã¹ã¨ã¹")) s+=7;
+  if(mf.includes("ãã¬ã³ãããã¥ãã£")||mf.includes("ã¯ã­ãã")) s+=7;
+  if(mf.includes("ã­ã¼ã¸ãºã¤ã³ã¡ã¤")||mf.includes("ãã£ã³ãã¼ã«ã³ããªã¼")||mf.includes("Congrats")||mf.includes("Southern Image")) s+=6;
+  if(mf.includes("ãµã¯ã©ãã¯ã·ã³ãªã¼")||mf.includes("ã­ã³ã°ãã¤ã­ã¼")) s+=6;
+  if(mf.includes("ããªã¦ãã´ã¡ã¼ã¹")) s+=5;
   if(mf.includes("Not For Sale")||mf.includes("Sri Pekan")) s+=4;
 
   if(dist>=2000){
-    if(mf.includes("ハーツクライ")||mf.includes("ハービンジャー")||mf.includes("Galileo")||mf.includes("High Chaparral")||mf.includes("Cape Cross")||mf.includes("ジャングルポケット")||mft.includes("トニービン")) s+=7;
-    if(mf.includes("サクラバクシンオー")) s-=4;
+    if(mf.includes("ãã¼ãã¯ã©ã¤")||mf.includes("ãã¼ãã³ã¸ã£ã¼")||mf.includes("Galileo")||mf.includes("High Chaparral")||mf.includes("Cape Cross")||mf.includes("ã¸ã£ã³ã°ã«ãã±ãã")||mft.includes("ããã¼ãã³")) s+=7;
+    if(mf.includes("ãµã¯ã©ãã¯ã·ã³ãªã¼")) s-=4;
   }else if(dist<=1400){
-    if(mf.includes("サクラバクシンオー")||mf.includes("キングヘイロー")||mf.includes("フレンチデピュティ")||mft.includes("ダンチヒ")) s+=6;
+    if(mf.includes("ãµã¯ã©ãã¯ã·ã³ãªã¼")||mf.includes("ã­ã³ã°ãã¤ã­ã¼")||mf.includes("ãã¬ã³ãããã¥ãã£")||mft.includes("ãã³ãã")) s+=6;
     if(mf.includes("Galileo")||mf.includes("High Chaparral")) s-=3;
   }
 
   if(surface==="dirt"){
-    if(mf.includes("フレンチデピュティ")||mf.includes("クロフネ")||mf.includes("ロージズインメイ")||mf.includes("ティンバーカントリー")||mf.includes("Congrats")||mf.includes("Southern Image")) s+=7;
+    if(mf.includes("ãã¬ã³ãããã¥ãã£")||mf.includes("ã¯ã­ãã")||mf.includes("ã­ã¼ã¸ãºã¤ã³ã¡ã¤")||mf.includes("ãã£ã³ãã¼ã«ã³ããªã¼")||mf.includes("Congrats")||mf.includes("Southern Image")) s+=7;
   }
   return Math.max(40,Math.min(80,s));
 }
 
 function pairingScore(h){
-  const sire=h.種牡馬||"", mf=h.母父名||"", ft=h.父タイプ名||"", mft=h.母父タイプ名||"";
+  const sire=h.ç¨®ç¡é¦¬||"", mf=h.æ¯ç¶å||"", ft=h.ç¶ã¿ã¤ãå||"", mft=h.æ¯ç¶ã¿ã¤ãå||"";
   const c=courses[E("course").value]||{};
-  const dist=c.dist||h.距離||0;
+  const dist=c.dist||h.è·é¢||0;
   let s=56;
 
-  if(sire.includes("キタサンブラック") && (mf.includes("Cape Cross")||mf.includes("ハービンジャー")||mf.includes("キングヘイロー"))) s+=9;
-  if(sire.includes("リオンディーズ") && mf.includes("ハーツクライ")) s+=8;
-  if(sire.includes("ゴールドシップ") && (mf.includes("フレンチデピュティ")||mf.includes("ロージズインメイ"))) s+=7;
-  if(sire.includes("スワーヴリチャード") && mf.includes("ハービンジャー")) s+=8;
-  if(sire.includes("エピファネイア") && (mf.includes("ジャングルポケット")||mf.includes("ハービンジャー")||mf.includes("シンボリクリスエス"))) s+=7;
-  if(sire.includes("キズナ") && (mf.includes("シンボリクリスエス")||mf.includes("フレンチデピュティ")||mf.includes("Storm Cat"))) s+=6;
-  if(sire.includes("ドゥラメンテ") && mf.includes("サクラバクシンオー")) s+=4;
-  if(sire.includes("レイデオロ") && mf.includes("ネオユニヴァース")) s+=5;
+  if(sire.includes("ã­ã¿ãµã³ãã©ãã¯") && (mf.includes("Cape Cross")||mf.includes("ãã¼ãã³ã¸ã£ã¼")||mf.includes("ã­ã³ã°ãã¤ã­ã¼"))) s+=9;
+  if(sire.includes("ãªãªã³ãã£ã¼ãº") && mf.includes("ãã¼ãã¯ã©ã¤")) s+=8;
+  if(sire.includes("ã´ã¼ã«ãã·ãã") && (mf.includes("ãã¬ã³ãããã¥ãã£")||mf.includes("ã­ã¼ã¸ãºã¤ã³ã¡ã¤"))) s+=7;
+  if(sire.includes("ã¹ã¯ã¼ã´ãªãã£ã¼ã") && mf.includes("ãã¼ãã³ã¸ã£ã¼")) s+=8;
+  if(sire.includes("ã¨ããã¡ãã¤ã¢") && (mf.includes("ã¸ã£ã³ã°ã«ãã±ãã")||mf.includes("ãã¼ãã³ã¸ã£ã¼")||mf.includes("ã·ã³ããªã¯ãªã¹ã¨ã¹"))) s+=7;
+  if(sire.includes("ã­ãºã") && (mf.includes("ã·ã³ããªã¯ãªã¹ã¨ã¹")||mf.includes("ãã¬ã³ãããã¥ãã£")||mf.includes("Storm Cat"))) s+=6;
+  if(sire.includes("ãã¥ã©ã¡ã³ã") && mf.includes("ãµã¯ã©ãã¯ã·ã³ãªã¼")) s+=4;
+  if(sire.includes("ã¬ã¤ããªã­") && mf.includes("ããªã¦ãã´ã¡ã¼ã¹")) s+=5;
 
-  if(ft.includes("キングマンボ") && mft.includes("サンデーサイレンス")) s+=5;
-  if(ft.includes("サンデーサイレンス") && (mft.includes("ナスルーラ")||mft.includes("トニービン")||mft.includes("ロイヤルチャージャー"))) s+=5;
-  if(ft.includes("ロイヤルチャージャー") && mft.includes("サンデーサイレンス")) s+=4;
-  if(ft.includes("ダンチヒ") && mft.includes("サンデーサイレンス")) s+=4;
+  if(ft.includes("ã­ã³ã°ãã³ã") && mft.includes("ãµã³ãã¼ãµã¤ã¬ã³ã¹")) s+=5;
+  if(ft.includes("ãµã³ãã¼ãµã¤ã¬ã³ã¹") && (mft.includes("ãã¹ã«ã¼ã©")||mft.includes("ããã¼ãã³")||mft.includes("ã­ã¤ã¤ã«ãã£ã¼ã¸ã£ã¼"))) s+=5;
+  if(ft.includes("ã­ã¤ã¤ã«ãã£ã¼ã¸ã£ã¼") && mft.includes("ãµã³ãã¼ãµã¤ã¬ã³ã¹")) s+=4;
+  if(ft.includes("ãã³ãã") && mft.includes("ãµã³ãã¼ãµã¤ã¬ã³ã¹")) s+=4;
 
-  if(dist>=2000 && (mf.includes("Cape Cross")||mf.includes("ハーツクライ")||mf.includes("ハービンジャー")||mf.includes("Galileo")||mf.includes("High Chaparral"))) s+=3;
-  if(dist<=1400 && (mf.includes("サクラバクシンオー")||mf.includes("キングヘイロー"))) s+=3;
+  if(dist>=2000 && (mf.includes("Cape Cross")||mf.includes("ãã¼ãã¯ã©ã¤")||mf.includes("ãã¼ãã³ã¸ã£ã¼")||mf.includes("Galileo")||mf.includes("High Chaparral"))) s+=3;
+  if(dist<=1400 && (mf.includes("ãµã¯ã©ãã¯ã·ã³ãªã¼")||mf.includes("ã­ã³ã°ãã¤ã­ã¼"))) s+=3;
 
   return Math.max(40,Math.min(80,s));
 }
 
 function courseBloodScore(h){
   const c=courses[E("course").value]||{};
-  const profile=c.profile||"", venue=c.venue||"", surface=c.kind||"", dist=c.dist||h.距離||0;
-  const sire=h.種牡馬||"", mf=h.母父名||"", ft=h.父タイプ名||"", mft=h.母父タイプ名||"";
+  const profile=c.profile||"", venue=c.venue||"", surface=c.kind||"", dist=c.dist||h.è·é¢||0;
+  const sire=h.ç¨®ç¡é¦¬||"", mf=h.æ¯ç¶å||"", ft=h.ç¶ã¿ã¤ãå||"", mft=h.æ¯ç¶ã¿ã¤ãå||"";
   let s=56;
 
-  if(venue==="阪神" && surface==="turf" && dist>=2000){
-    if(sire.includes("キタサンブラック")||sire.includes("ゴールドシップ")||sire.includes("エピファネイア")||sire.includes("ハーツクライ")||mf.includes("ハービンジャー")||mf.includes("Cape Cross")) s+=9;
+  if(venue==="éªç¥" && surface==="turf" && dist>=2000){
+    if(sire.includes("ã­ã¿ãµã³ãã©ãã¯")||sire.includes("ã´ã¼ã«ãã·ãã")||sire.includes("ã¨ããã¡ãã¤ã¢")||sire.includes("ãã¼ãã¯ã©ã¤")||mf.includes("ãã¼ãã³ã¸ã£ã¼")||mf.includes("Cape Cross")) s+=9;
   }
-  if(venue==="東京" && surface==="turf" && dist>=1600){
-    if(sire.includes("ディープインパクト")||sire.includes("ロードカナロア")||sire.includes("キズナ")||sire.includes("ハーツクライ")||sire.includes("ドゥラメンテ")) s+=8;
-    if(mf.includes("ハーツクライ")||mf.includes("トニービン")||mft.includes("ナスルーラ")) s+=4;
+  if(venue==="æ±äº¬" && surface==="turf" && dist>=1600){
+    if(sire.includes("ãã£ã¼ãã¤ã³ãã¯ã")||sire.includes("ã­ã¼ãã«ãã­ã¢")||sire.includes("ã­ãºã")||sire.includes("ãã¼ãã¯ã©ã¤")||sire.includes("ãã¥ã©ã¡ã³ã")) s+=8;
+    if(mf.includes("ãã¼ãã¯ã©ã¤")||mf.includes("ããã¼ãã³")||mft.includes("ãã¹ã«ã¼ã©")) s+=4;
   }
   if(profile.includes("sprint")){
-    if(sire.includes("ロードカナロア")||sire.includes("ビッグアーサー")||sire.includes("ファインニードル")||sire.includes("ミッキーアイル")||mf.includes("サクラバクシンオー")) s+=9;
+    if(sire.includes("ã­ã¼ãã«ãã­ã¢")||sire.includes("ããã°ã¢ã¼ãµã¼")||sire.includes("ãã¡ã¤ã³ãã¼ãã«")||sire.includes("ããã­ã¼ã¢ã¤ã«")||mf.includes("ãµã¯ã©ãã¯ã·ã³ãªã¼")) s+=9;
   }
   if(surface==="dirt"){
-    if(sire.includes("ナダル")||mf.includes("フレンチデピュティ")||mf.includes("クロフネ")||ft.includes("ロイヤルチャージャー")||ft.includes("ニアークティック")) s+=9;
+    if(sire.includes("ããã«")||mf.includes("ãã¬ã³ãããã¥ãã£")||mf.includes("ã¯ã­ãã")||ft.includes("ã­ã¤ã¤ã«ãã£ã¼ã¸ã£ã¼")||ft.includes("ãã¢ã¼ã¯ãã£ãã¯")) s+=9;
   }
-  if((venue==="函館"||venue==="小倉"||venue==="福島") && surface==="turf"){
-    if(ft.includes("ダンチヒ")||ft.includes("ニアークティック")||sire.includes("ロードカナロア")||sire.includes("ビッグアーサー")) s+=5;
+  if((venue==="å½é¤¨"||venue==="å°å"||venue==="ç¦å³¶") && surface==="turf"){
+    if(ft.includes("ãã³ãã")||ft.includes("ãã¢ã¼ã¯ãã£ãã¯")||sire.includes("ã­ã¼ãã«ãã­ã¢")||sire.includes("ããã°ã¢ã¼ãµã¼")) s+=5;
   }
 
   return Math.max(40,Math.min(80,s));
@@ -335,41 +445,41 @@ function courseBloodScore(h){
 
 function goingBloodScore(h){
   const g=E("going").value;
-  const sire=h.種牡馬||"", mf=h.母父名||"", ft=h.父タイプ名||"", mft=h.母父タイプ名||"";
+  const sire=h.ç¨®ç¡é¦¬||"", mf=h.æ¯ç¶å||"", ft=h.ç¶ã¿ã¤ãå||"", mft=h.æ¯ç¶ã¿ã¤ãå||"";
   let s=56;
 
   if(g==="ultrafirm"||g==="firm"){
-    if(ft.includes("サンデーサイレンス")||ft.includes("キングマンボ")||sire.includes("ロードカナロア")||sire.includes("ディープインパクト")||mf.includes("ハーツクライ")||mf.includes("Cape Cross")) s+=7;
+    if(ft.includes("ãµã³ãã¼ãµã¤ã¬ã³ã¹")||ft.includes("ã­ã³ã°ãã³ã")||sire.includes("ã­ã¼ãã«ãã­ã¢")||sire.includes("ãã£ã¼ãã¤ã³ãã¯ã")||mf.includes("ãã¼ãã¯ã©ã¤")||mf.includes("Cape Cross")) s+=7;
   }else if(g==="firm_to_good"||g==="good_soft"){
-    if(sire.includes("キタサンブラック")||sire.includes("キズナ")||sire.includes("エピファネイア")||mf.includes("ハービンジャー")) s+=6;
+    if(sire.includes("ã­ã¿ãµã³ãã©ãã¯")||sire.includes("ã­ãºã")||sire.includes("ã¨ããã¡ãã¤ã¢")||mf.includes("ãã¼ãã³ã¸ã£ã¼")) s+=6;
   }else{
-    if(sire.includes("ゴールドシップ")||sire.includes("ナダル")||mf.includes("ハービンジャー")||mf.includes("Galileo")||mf.includes("High Chaparral")||mf.includes("フレンチデピュティ")||mf.includes("クロフネ")||mft.includes("ナスルーラ")) s+=8;
-    if(sire.includes("ロードカナロア") && !mf.includes("フレンチデピュティ")) s-=2;
+    if(sire.includes("ã´ã¼ã«ãã·ãã")||sire.includes("ããã«")||mf.includes("ãã¼ãã³ã¸ã£ã¼")||mf.includes("Galileo")||mf.includes("High Chaparral")||mf.includes("ãã¬ã³ãããã¥ãã£")||mf.includes("ã¯ã­ãã")||mft.includes("ãã¹ã«ã¼ã©")) s+=8;
+    if(sire.includes("ã­ã¼ãã«ãã­ã¢") && !mf.includes("ãã¬ã³ãããã¥ãã£")) s-=2;
   }
   return Math.max(40,Math.min(80,s));
 }
 
 function paceBloodScore(h){
   const p=E("pace").value;
-  const sire=h.種牡馬||"", mf=h.母父名||"", ft=h.父タイプ名||"", mft=h.母父タイプ名||"";
+  const sire=h.ç¨®ç¡é¦¬||"", mf=h.æ¯ç¶å||"", ft=h.ç¶ã¿ã¤ãå||"", mft=h.æ¯ç¶ã¿ã¤ãå||"";
   let s=56;
   if(p==="slow"){
-    if(ft.includes("サンデーサイレンス")||ft.includes("キングマンボ")||sire.includes("キタサンブラック")||sire.includes("ディープインパクト")) s+=6;
+    if(ft.includes("ãµã³ãã¼ãµã¤ã¬ã³ã¹")||ft.includes("ã­ã³ã°ãã³ã")||sire.includes("ã­ã¿ãµã³ãã©ãã¯")||sire.includes("ãã£ã¼ãã¤ã³ãã¯ã")) s+=6;
   }else if(p==="high"){
-    if(mft.includes("ナスルーラ")||mf.includes("ハーツクライ")||mf.includes("ハービンジャー")||sire.includes("キズナ")||sire.includes("ゴールドシップ")||ft.includes("ロイヤルチャージャー")) s+=6;
+    if(mft.includes("ãã¹ã«ã¼ã©")||mf.includes("ãã¼ãã¯ã©ã¤")||mf.includes("ãã¼ãã³ã¸ã£ã¼")||sire.includes("ã­ãºã")||sire.includes("ã´ã¼ã«ãã·ãã")||ft.includes("ã­ã¤ã¤ã«ãã£ã¼ã¸ã£ã¼")) s+=6;
   }else{
-    if(sire.includes("キタサンブラック")||sire.includes("キズナ")||sire.includes("ロードカナロア")||sire.includes("エピファネイア")) s+=4;
+    if(sire.includes("ã­ã¿ãµã³ãã©ãã¯")||sire.includes("ã­ãºã")||sire.includes("ã­ã¼ãã«ãã­ã¢")||sire.includes("ã¨ããã¡ãã¤ã¢")) s+=4;
   }
   return Math.max(40,Math.min(80,s));
 }
 
 function sexBodyBloodScore(h){
   const c=courses[E("course").value]||{};
-  const sex=h.性別||"", bw=parseFloat(h.前走馬体重);
-  const sire=h.種牡馬||"", mf=h.母父名||"";
+  const sex=h.æ§å¥||"", bw=parseFloat(h.åèµ°é¦¬ä½é);
+  const sire=h.ç¨®ç¡é¦¬||"", mf=h.æ¯ç¶å||"";
   let s=56;
-  if(sex.includes("牝") && c.kind==="turf" && c.dist>=1800) s+=3;
-  if(sex.includes("牡") && c.kind==="dirt" && c.dist>=1600) s+=2;
+  if(sex.includes("ç") && c.kind==="turf" && c.dist>=1800) s+=3;
+  if(sex.includes("ç¡") && c.kind==="dirt" && c.dist>=1600) s+=2;
   if(!isNaN(bw)&&bw>0){
     if(c.kind==="dirt"){
       if(bw>=500) s+=4; if(bw<450) s-=3;
@@ -378,16 +488,16 @@ function sexBodyBloodScore(h){
     }else{
       if(bw>=440&&bw<=510) s+=2; if(bw>=540||bw<420) s-=2;
     }
-    if(sire.includes("ゴールドシップ")&&bw>=500) s+=3;
-    if(sire.includes("キタサンブラック")&&bw>=490&&bw<=535) s+=3;
-    if((sire.includes("ハービンジャー")||mf.includes("ハービンジャー"))&&bw>=460&&bw<=510) s+=2;
-    if(sire.includes("ナダル")&&bw>=500) s+=4;
+    if(sire.includes("ã´ã¼ã«ãã·ãã")&&bw>=500) s+=3;
+    if(sire.includes("ã­ã¿ãµã³ãã©ãã¯")&&bw>=490&&bw<=535) s+=3;
+    if((sire.includes("ãã¼ãã³ã¸ã£ã¼")||mf.includes("ãã¼ãã³ã¸ã£ã¼"))&&bw>=460&&bw<=510) s+=2;
+    if(sire.includes("ããã«")&&bw>=500) s+=4;
   }
   return Math.max(40,Math.min(80,s));
 }
 
 function blood(h){
-  // いつものお願い完全版：前走脚質は不使用
+  // ãã¤ãã®ãé¡ãå®å¨çï¼åèµ°èè³ªã¯ä¸ä½¿ç¨
   const sire = sireAptitudeScore(h);
   const bm = broodmareAptitudeScore(h);
   const pair = pairingScore(h);
@@ -396,20 +506,26 @@ function blood(h){
   const pace = paceBloodScore(h);
   const sexbody = sexBodyBloodScore(h);
 
-  // 父35%、母父25%、配合20%、コース10%、馬場5%、ペース3%、性別/馬体2%
+  // ç¶35%ãæ¯ç¶25%ãéå20%ãã³ã¼ã¹10%ãé¦¬å ´5%ããã¼ã¹3%ãæ§å¥/é¦¬ä½2%
   let raw = sire*0.35 + bm*0.25 + pair*0.20 + course*0.10 + going*0.05 + pace*0.03 + sexbody*0.02;
 
-  // シミュレーター本体が50〜100を想定するため、血統偏差値40〜80を60〜96へ変換。
-  // 100点量産を避ける。
+  // ã·ãã¥ã¬ã¼ã¿ã¼æ¬ä½ã50ã100ãæ³å®ãããããè¡çµ±åå·®å¤40ã80ã60ã96ã¸å¤æã
+  // 100ç¹éç£ãé¿ããã
   let score = 60 + (raw - 40) * 0.90;
+  score = Math.max(58, Math.min(96, score));
+  const real = realBloodScore(h);
+  if(real!==null){
+    // TARGETéå»5å¹´ã®ã³ã¼ã¹å¥å®ç¸¾ã30%ã ãåæ ãè¡çµ±ã­ã¸ãã¯æ¬ä½ãå£ããªãã
+    score = score*0.70 + real*0.30;
+  }
   return Math.max(58, Math.min(96, score));
 }
 
 function abilityScore(h){
   var awEl = document.getElementById("abilityWeight");
   var aw = awEl ? parseFloat(awEl.value || "0.70") : 0.70;
-  var rawRank = grade[h.能力] || 66;
-  var rawNum = parseFloat(h.能力);
+  var rawRank = grade[h.è½å] || 66;
+  var rawNum = parseFloat(h.è½å);
   if(!isNaN(rawNum)){
     rawRank = Math.max(52, Math.min(88, 52 + rawNum * 0.65));
   }
@@ -418,20 +534,20 @@ function abilityScore(h){
 function timeScore(h){
   const twEl = document.getElementById("timeWeight");
   const tw = twEl ? parseFloat(twEl.value || "0.55") : 0.55;
-  const t = parseFloat(h.タイム指数);
+  const t = parseFloat(h.ã¿ã¤ã ææ°);
   if(isNaN(t)) return 70;
 
-  // 推定タイム評価は強く出すぎないよう、70点中心に圧縮。
-  // 160〜183程度の入力を想定。高指数でも最大差を限定する。
+  // æ¨å®ã¿ã¤ã è©ä¾¡ã¯å¼·ãåºãããªãããã70ç¹ä¸­å¿ã«å§ç¸®ã
+  // 160ã183ç¨åº¦ã®å¥åãæ³å®ãé«ææ°ã§ãæå¤§å·®ãéå®ããã
   let raw;
   if(t >= 150){
-    raw = 70 + (t - 170) * 0.75;   // 183でも約79.8、164でも約65.5
+    raw = 70 + (t - 170) * 0.75;   // 183ã§ãç´79.8ã164ã§ãç´65.5
   }else{
     raw = 70 + (t - 120) * 0.45;
   }
   raw = Math.max(58, Math.min(88, raw));
 
-  // 反映度でさらに70点へ寄せる
+  // åæ åº¦ã§ããã«70ç¹ã¸å¯ãã
   return 70 + (raw - 70) * tw;
 }
 function slopeTrainingScore(h){
@@ -441,7 +557,7 @@ function slopeTrainingScore(h){
 
   let s=68;
 
-  // 坂路4F/3F/2F/1F。全体35%、終い25%、加速40%のイメージ。
+  // åè·¯4F/3F/2F/1Fãå¨ä½35%ãçµã25%ãå é40%ã®ã¤ã¡ã¼ã¸ã
   if(!isNaN(t1)){
     if(t1<=51.8) s+=12;
     else if(t1<=52.8) s+=10;
@@ -464,7 +580,7 @@ function slopeTrainingScore(h){
   else if(t3>=31.0) s-=5;
   else if(t3>=28.0) s-=3;
 
-  // 終い1F
+  // çµã1F
   if(t4<=12.0) s+=10;
   else if(t4<=12.2) s+=8;
   else if(t4<=12.5) s+=6;
@@ -472,37 +588,37 @@ function slopeTrainingScore(h){
   else if(t4>=14.0) s-=5;
   else if(t4>=13.4) s-=2;
 
-  // ラスト加速ラップ評価を強化
+  // ã©ã¹ãå éã©ããè©ä¾¡ãå¼·å
   if(!isNaN(l4)&&!isNaN(l3)&&!isNaN(l2)&&!isNaN(l1)){
     let accelSteps=0;
     if(l4>=l3) accelSteps++;
     if(l3>=l2) accelSteps++;
     if(l2>=l1) accelSteps++;
 
-    if(accelSteps===3) s+=11;       // 完全加速
+    if(accelSteps===3) s+=11;       // å®å¨å é
     else if(accelSteps===2) s+=7;
     else if(accelSteps===1) s+=3;
 
-    if(l1<=12.1 && l2<=12.7) s+=5;  // ラスト2F優秀
+    if(l1<=12.1 && l2<=12.7) s+=5;  // ã©ã¹ã2Fåªç§
     else if(l1<=12.4 && l2<=13.0) s+=3;
 
     if(l4-l1>=3.5) s+=4;
     else if(l4-l1>=2.5) s+=2;
 
-    // ラスト失速は明確に下げる
+    // ã©ã¹ãå¤±éã¯æç¢ºã«ä¸ãã
     if(l1>l2+0.4) s-=6;
     if(l2>l3+0.5) s-=3;
   }else{
-    // Lap列がなくても、坂路3F/2F/1Fの累計から個別ラップを推定して加速を見る
-    const lap3to2 = t2 - t3;   // 残り3F→2Fの1Fラップ
-    const lap2to1 = t3 - t4;   // 残り2F→1Fの1Fラップ
+    // Lapåããªãã¦ããåè·¯3F/2F/1Fã®ç´¯è¨ããåå¥ã©ãããæ¨å®ãã¦å éãè¦ã
+    const lap3to2 = t2 - t3;   // æ®ã3Fâ2Fã®1Fã©ãã
+    const lap2to1 = t3 - t4;   // æ®ã2Fâ1Fã®1Fã©ãã
     const last1F = t4;
 
     if(lap3to2>=12.5 && lap2to1>=12.0 && last1F<=12.5) s+=5;
     if(last1F<=12.2) s+=2;
 
-    // v7.2：坂路ラスト2F「12秒台→11秒台前半」の加速ラップを強評価
-    // 例：残り2F地点の個別ラップが12.0〜12.9、終い1Fが11.0〜11.4なら大幅加点
+    // v7.2ï¼åè·¯ã©ã¹ã2Fã12ç§å°â11ç§å°ååãã®å éã©ãããå¼·è©ä¾¡
+    // ä¾ï¼æ®ã2Få°ç¹ã®åå¥ã©ããã12.0ã12.9ãçµã1Fã11.0ã11.4ãªãå¤§å¹å ç¹
     if(lap2to1>=12.0 && lap2to1<13.0){
       if(last1F<=11.4) s+=16;
       else if(last1F<=11.6) s+=12;
@@ -512,7 +628,7 @@ function slopeTrainingScore(h){
     if(lap2to1-last1F>=0.8 && last1F<=11.6) s+=6;
     else if(lap2to1-last1F>=0.5 && last1F<=11.8) s+=4;
 
-    // ラスト2F合計も優秀なら追加評価
+    // ã©ã¹ã2Fåè¨ãåªç§ãªãè¿½å è©ä¾¡
     if(t3<=24.5 && last1F<=11.5) s+=5;
     else if(t3<=24.8 && last1F<=11.7) s+=3;
   }
@@ -521,13 +637,13 @@ function slopeTrainingScore(h){
 }
 
 function woodTrainingScore(h){
-  const w6=parseFloat(h.ウッド6F), w5=parseFloat(h.ウッド5F), w4=parseFloat(h.ウッド4F), w3=parseFloat(h.ウッド3F), w2=parseFloat(h.ウッド2F), w1=parseFloat(h.ウッド1F);
+  const w6=parseFloat(h.ã¦ãã6F), w5=parseFloat(h.ã¦ãã5F), w4=parseFloat(h.ã¦ãã4F), w3=parseFloat(h.ã¦ãã3F), w2=parseFloat(h.ã¦ãã2F), w1=parseFloat(h.ã¦ãã1F);
   const vals=[w6,w5,w4,w3,w2,w1];
   if(vals.every(v=>isNaN(v)||v<=0)) return null;
 
   let s=68;
 
-  // ウッドは6F20%、4F20%、終い2F30%、終い1F30%イメージ
+  // ã¦ããã¯6F20%ã4F20%ãçµã2F30%ãçµã1F30%ã¤ã¡ã¼ã¸
   if(!isNaN(w6)&&w6>0){
     if(w6<=80.0) s+=9;
     else if(w6<=82.5) s+=7;
@@ -554,7 +670,7 @@ function woodTrainingScore(h){
     else if(w3>=40.0) s-=3;
   }
 
-  // 終い2F/1Fを強化
+  // çµã2F/1Fãå¼·å
   if(!isNaN(w2)&&w2>0){
     if(w2<=22.6) s+=10;
     else if(w2<=23.2) s+=8;
@@ -571,11 +687,11 @@ function woodTrainingScore(h){
     else if(w1>=12.8) s-=5;
   }
 
-  // ウッドのラスト加速評価を強化
+  // ã¦ããã®ã©ã¹ãå éè©ä¾¡ãå¼·å
   if(!isNaN(w4)&&!isNaN(w3)&&!isNaN(w2)&&!isNaN(w1)&&w4>0&&w3>0&&w2>0&&w1>0){
-    const seg43=w4-w3;  // 4F→3F
-    const seg32=w3-w2;  // 3F→2F
-    const seg21=w2-w1;  // 2F→1F
+    const seg43=w4-w3;  // 4Fâ3F
+    const seg32=w3-w2;  // 3Fâ2F
+    const seg21=w2-w1;  // 2Fâ1F
     let accel=0;
     if(seg43>=seg32-0.3) accel++;
     if(seg32>=seg21-0.3) accel++;
@@ -588,7 +704,7 @@ function woodTrainingScore(h){
     if(w1<=11.2 && w2<=23.3) s+=6;
     if(w1<=11.0 && w2<=22.8) s+=8;
 
-    // ラストが甘い場合
+    // ã©ã¹ããçãå ´å
     if(w1>12.4 && w2>24.8) s-=5;
     if(w1>12.8) s-=5;
   }
@@ -600,9 +716,9 @@ function trainingScore(h){
   const slope = slopeTrainingScore(h);
   const wood  = woodTrainingScore(h);
 
-  // v7.7：調教は「あれば加点、なければニュートラル」。
-  // TARGETで美浦・栗東しか拾えない週や地方馬混在でも、空欄をマイナス扱いしない。
-  // 坂路・ウッドの良い方を採用し、両方空欄なら72点固定。
+  // v7.7ï¼èª¿æã¯ãããã°å ç¹ããªããã°ãã¥ã¼ãã©ã«ãã
+  // TARGETã§ç¾æµ¦ã»æ æ±ããæ¾ããªãé±ãå°æ¹é¦¬æ··å¨ã§ããç©ºæ¬ããã¤ãã¹æ±ãããªãã
+  // åè·¯ã»ã¦ããã®è¯ãæ¹ãæ¡ç¨ããä¸¡æ¹ç©ºæ¬ãªã72ç¹åºå®ã
   if(slope === null && wood === null){
     return 72;
   }
@@ -618,7 +734,7 @@ function trainingScore(h){
   let best = Math.max(slope, wood);
   let second = Math.min(slope, wood);
 
-  // 両方とも優秀な時だけ追加加点。悪い方・空欄は減点材料にしない。
+  // ä¸¡æ¹ã¨ãåªç§ãªæã ãè¿½å å ç¹ãæªãæ¹ã»ç©ºæ¬ã¯æ¸ç¹ææã«ããªãã
   if(best >= 88 && second >= 84){
     best += 2;
   }
@@ -630,188 +746,199 @@ function trainingScore(h){
 }
 
 function jockeyBaseAdj(h){
-  const j=h.騎手||"";
+  const j=h.é¨æ||"";
   let s=0;
-  if(j.includes("ルメール")) s+=2.0;
-  else if(j.includes("川田")) s+=1.8;
-  else if(j.includes("レーン")||j.includes("モレイラ")) s+=1.8;
-  else if(j.includes("武豊")) s+=1.5;
-  else if(j.includes("横山典")) s+=1.2;
-  else if(j.includes("坂井")) s+=1.2;
-  else if(j.includes("戸崎")) s+=1.1;
-  else if(j.includes("松山")) s+=1.0;
-  else if(j.includes("横山武")) s+=1.0;
-  else if(j.includes("岩田望")) s+=0.9;
-  else if(j.includes("西村淳")) s+=0.8;
-  else if(j.includes("三浦")) s+=0.7;
-  else if(j.includes("津村")) s+=0.6;
-  else if(j.includes("丹内")) s+=0.5;
-  else if(j.includes("大野")) s+=0.4;
+  if(j.includes("ã«ã¡ã¼ã«")) s+=2.0;
+  else if(j.includes("å·ç°")) s+=1.8;
+  else if(j.includes("ã¬ã¼ã³")||j.includes("ã¢ã¬ã¤ã©")) s+=1.8;
+  else if(j.includes("æ­¦è±")) s+=1.5;
+  else if(j.includes("æ¨ªå±±å¸")) s+=1.2;
+  else if(j.includes("åäº")) s+=1.2;
+  else if(j.includes("æ¸å´")) s+=1.1;
+  else if(j.includes("æ¾å±±")) s+=1.0;
+  else if(j.includes("æ¨ªå±±æ­¦")) s+=1.0;
+  else if(j.includes("å²©ç°æ")) s+=0.9;
+  else if(j.includes("è¥¿ææ·³")) s+=0.8;
+  else if(j.includes("ä¸æµ¦")) s+=0.7;
+  else if(j.includes("æ´¥æ")) s+=0.6;
+  else if(j.includes("ä¸¹å")) s+=0.5;
+  else if(j.includes("å¤§é")) s+=0.4;
   return s;
 }
 
 function jockeyVenueDistanceAdj(h){
-  const j=h.騎手||"";
+  const j=h.é¨æ||"";
   const c=courses[E("course").value]||{};
-  const venue=c.venue||"", surface=c.kind||"", dist=c.dist||h.距離||0, profile=c.profile||"";
+  const venue=c.venue||"", surface=c.kind||"", dist=c.dist||h.è·é¢||0, profile=c.profile||"";
   let s=0;
 
-  // ルメール：東京芝中距離〜クラシック条件を強く、ローカル短距離は控えめ
-  if(j.includes("ルメール")){
-    if(venue==="東京" && surface==="turf" && dist>=1600 && dist<=2400) s+=1.5;
-    if(venue==="東京" && surface==="dirt" && dist>=1400) s+=0.8;
-    if(venue==="阪神" && surface==="turf" && dist>=1600) s+=0.8;
-    if((venue==="函館"||venue==="小倉"||venue==="福島") && dist<=1200) s+=0.2;
+  // ã«ã¡ã¼ã«ï¼æ±äº¬èä¸­è·é¢ãã¯ã©ã·ãã¯æ¡ä»¶ãå¼·ããã­ã¼ã«ã«ç­è·é¢ã¯æ§ãã
+  if(j.includes("ã«ã¡ã¼ã«")){
+    if(venue==="æ±äº¬" && surface==="turf" && dist>=1600 && dist<=2400) s+=1.5;
+    if(venue==="æ±äº¬" && surface==="dirt" && dist>=1400) s+=0.8;
+    if(venue==="éªç¥" && surface==="turf" && dist>=1600) s+=0.8;
+    if((venue==="å½é¤¨"||venue==="å°å"||venue==="ç¦å³¶") && dist<=1200) s+=0.2;
   }
 
-  // 川田：阪神・京都イメージの先行/ダート/マイルで強め。ここでは阪神を厚め。
-  if(j.includes("川田")){
-    if(venue==="阪神" && surface==="turf" && dist>=1600) s+=1.3;
-    if(venue==="阪神" && surface==="dirt") s+=1.4;
-    if(venue==="東京" && surface==="turf" && dist>=2000) s+=0.5;
-    if((venue==="函館"||venue==="小倉"||venue==="福島") && dist<=1200) s+=0.3;
+  // å·ç°ï¼éªç¥ã»äº¬é½ã¤ã¡ã¼ã¸ã®åè¡/ãã¼ã/ãã¤ã«ã§å¼·ããããã§ã¯éªç¥ãåãã
+  if(j.includes("å·ç°")){
+    if(venue==="éªç¥" && surface==="turf" && dist>=1600) s+=1.3;
+    if(venue==="éªç¥" && surface==="dirt") s+=1.4;
+    if(venue==="æ±äº¬" && surface==="turf" && dist>=2000) s+=0.5;
+    if((venue==="å½é¤¨"||venue==="å°å"||venue==="ç¦å³¶") && dist<=1200) s+=0.3;
   }
 
-  // レーン/モレイラ：東京芝・G1級の中距離で強いが、ローカル小回りは控えめ
-  if(j.includes("レーン")||j.includes("モレイラ")){
-    if(venue==="東京" && surface==="turf" && dist>=1600) s+=1.4;
-    if(venue==="阪神" && surface==="turf" && dist>=1800) s+=0.8;
+  // ã¬ã¼ã³/ã¢ã¬ã¤ã©ï¼æ±äº¬èã»G1ç´ã®ä¸­è·é¢ã§å¼·ãããã­ã¼ã«ã«å°åãã¯æ§ãã
+  if(j.includes("ã¬ã¼ã³")||j.includes("ã¢ã¬ã¤ã©")){
+    if(venue==="æ±äº¬" && surface==="turf" && dist>=1600) s+=1.4;
+    if(venue==="éªç¥" && surface==="turf" && dist>=1800) s+=0.8;
     if(profile.includes("dirt_mid")) s+=0.4;
   }
 
-  // 武豊：阪神2200/京都外回りの折り合い・逃げ先行リズム
-  if(j.includes("武豊")){
-    if(venue==="阪神" && surface==="turf" && dist>=2000) s+=1.2;
-    if(venue==="阪神" && surface==="dirt" && dist>=1400) s+=0.7;
+  // æ­¦è±ï¼éªç¥2200/äº¬é½å¤åãã®æãåãã»éãåè¡ãªãºã 
+  if(j.includes("æ­¦è±")){
+    if(venue==="éªç¥" && surface==="turf" && dist>=2000) s+=1.2;
+    if(venue==="éªç¥" && surface==="dirt" && dist>=1400) s+=0.7;
     if(dist>=2000) s+=0.4;
   }
 
-  // 横山典：長距離・折り合い・後方/逃げの特殊騎乗
-  if(j.includes("横山典")){
+  // æ¨ªå±±å¸ï¼é·è·é¢ã»æãåãã»å¾æ¹/éãã®ç¹æ®é¨ä¹
+  if(j.includes("æ¨ªå±±å¸")){
     if(surface==="turf" && dist>=2000) s+=1.0;
-    if(h.脚質==="後方"||h.脚質==="逃げ") s+=0.5;
+    if(h.èè³ª==="å¾æ¹"||h.èè³ª==="éã") s+=0.5;
   }
 
-  // 坂井：先行・積極策
-  if(j.includes("坂井")){
-    if(h.脚質==="逃げ"||h.脚質==="先行") s+=0.8;
-    if(venue==="阪神" && surface==="dirt") s+=0.6;
+  // åäºï¼åè¡ã»ç©æ¥µç­
+  if(j.includes("åäº")){
+    if(h.èè³ª==="éã"||h.èè³ª==="åè¡") s+=0.8;
+    if(venue==="éªç¥" && surface==="dirt") s+=0.6;
   }
 
-  // 戸崎：東京で上げ、ローカル小回りは控えめ
-  if(j.includes("戸崎")){
-    if(venue==="東京") s+=1.0;
-    if(venue==="阪神" && surface==="turf" && dist>=1800) s+=0.4;
+  // æ¸å´ï¼æ±äº¬ã§ä¸ããã­ã¼ã«ã«å°åãã¯æ§ãã
+  if(j.includes("æ¸å´")){
+    if(venue==="æ±äº¬") s+=1.0;
+    if(venue==="éªç¥" && surface==="turf" && dist>=1800) s+=0.4;
   }
 
-  // 丹内：北海道・福島小回りで強め
-  if(j.includes("丹内")){
-    if(venue==="函館") s+=1.4;
-    if(venue==="福島") s+=1.0;
-    if(venue==="小倉") s+=0.6;
-    if(venue==="東京") s-=0.2;
+  // ä¸¹åï¼åæµ·éã»ç¦å³¶å°åãã§å¼·ã
+  if(j.includes("ä¸¹å")){
+    if(venue==="å½é¤¨") s+=1.4;
+    if(venue==="ç¦å³¶") s+=1.0;
+    if(venue==="å°å") s+=0.6;
+    if(venue==="æ±äº¬") s-=0.2;
   }
 
-  // 松山・岩田望・西村淳：阪神/小倉の実戦補正
-  if(j.includes("松山")){
-    if(venue==="阪神") s+=0.8;
-    if(venue==="小倉") s+=0.6;
+  // æ¾å±±ã»å²©ç°æã»è¥¿ææ·³ï¼éªç¥/å°åã®å®æ¦è£æ­£
+  if(j.includes("æ¾å±±")){
+    if(venue==="éªç¥") s+=0.8;
+    if(venue==="å°å") s+=0.6;
   }
-  if(j.includes("岩田望")){
-    if(venue==="阪神") s+=0.7;
+  if(j.includes("å²©ç°æ")){
+    if(venue==="éªç¥") s+=0.7;
   }
-  if(j.includes("西村淳")){
-    if(venue==="小倉"||venue==="阪神") s+=0.6;
+  if(j.includes("è¥¿ææ·³")){
+    if(venue==="å°å"||venue==="éªç¥") s+=0.6;
   }
 
   return s;
 }
 
 function jockeyStyleGoingAdj(h){
-  const j=h.騎手||"", st=h.脚質, going=E("going").value;
+  const j=h.é¨æ||"", st=h.èè³ª, going=E("going").value;
   let s=0;
 
-  // 脚質相性
-  if((j.includes("川田")||j.includes("坂井")||j.includes("武豊")) && (st==="逃げ"||st==="先行")) s+=0.8;
-  if((j.includes("ルメール")||j.includes("レーン")||j.includes("モレイラ")||j.includes("横山典")) && (st==="差し"||st==="後方"||st==="中団")) s+=0.7;
-  if(j.includes("丹内") && (st==="逃げ"||st==="先行")) s+=0.5;
+  // èè³ªç¸æ§
+  if((j.includes("å·ç°")||j.includes("åäº")||j.includes("æ­¦è±")) && (st==="éã"||st==="åè¡")) s+=0.8;
+  if((j.includes("ã«ã¡ã¼ã«")||j.includes("ã¬ã¼ã³")||j.includes("ã¢ã¬ã¤ã©")||j.includes("æ¨ªå±±å¸")) && (st==="å·®ã"||st==="å¾æ¹"||st==="ä¸­å£")) s+=0.7;
+  if(j.includes("ä¸¹å") && (st==="éã"||st==="åè¡")) s+=0.5;
 
-  // 道悪でのリズム/判断
+  // éæªã§ã®ãªãºã /å¤æ­
   if(going==="soft"||going==="bad"||going==="soft_range"){
-    if(j.includes("武豊")||j.includes("川田")||j.includes("ルメール")) s+=0.5;
-    if(st==="逃げ"||st==="先行") s+=0.2;
+    if(j.includes("æ­¦è±")||j.includes("å·ç°")||j.includes("ã«ã¡ã¼ã«")) s+=0.5;
+    if(st==="éã"||st==="åè¡") s+=0.2;
   }
   return s;
 }
 
 function jockeyCourseAdj(h){
-  // 補正が強くなりすぎないよう上限を設定
+  // è£æ­£ãå¼·ããªããããªãããä¸éãè¨­å®
   let s=jockeyBaseAdj(h)+jockeyVenueDistanceAdj(h)+jockeyStyleGoingAdj(h);
   return Math.max(-1.0, Math.min(4.0, s));
 }
 
-function jockeyScore(h){ return Math.max(58,Math.min(84,72 + jockeyCourseAdj(h)*2.8)); }
+function jockeyScore(h){
+  const oldScore = Math.max(58,Math.min(84,72 + jockeyCourseAdj(h)*2.8));
+  const real = realJockeyScore(h);
+  if(real===null) return oldScore;
+  // TARGETå®ç¸¾ã45%ãå¾æ¥ã®çµé¨åã55%ããã¼ã¿ã«å¯ããããªãã
+  return Math.max(58,Math.min(84, oldScore*0.55 + real*0.45));
+}
 
 function raceCategory(){
-  const rn=(E("raceName")?.value||"") + " " + (horses[0]?.レース名||"");
+  const rn=(E("raceName")?.value||"") + " " + (horses[0]?.ã¬ã¼ã¹å||"");
   const c=courses[E("course").value]||{};
   const going=E("going").value;
   const bias=E("bias").value;
-  const isNewcomer=/新馬|メイクデビュー|2歳|２歳/.test(rn);
+  const isNewcomer=/æ°é¦¬|ã¡ã¤ã¯ããã¥ã¼|2æ­³|ï¼æ­³/.test(rn);
   const isBad=(going==="good_soft"||going==="soft_range"||going==="soft"||going==="bad"||bias==="power");
   const isSpeed=(going==="ultrafirm"||bias==="speed");
-  const isGraded=/G1|G2|G3|重賞|ＯＰ|OP|オープン|L/.test(rn);
-  const isLocalSmall=(c.venue==="函館"||c.venue==="小倉"||c.venue==="福島") && (c.dist||0)>=1700;
+  const isGraded=/G1|G2|G3|éè³|ï¼¯ï¼°|OP|ãªã¼ãã³|L/.test(rn);
+  const isLocalSmall=(c.venue==="å½é¤¨"||c.venue==="å°å"||c.venue==="ç¦å³¶") && (c.dist||0)>=1700;
   if(isNewcomer) return "newcomer";
   if(isBad) return "badGoing";
   if(isSpeed) return "speedGoing";
   if(isGraded) return "graded";
+  if(isKokuraDownhillCourse(c)) return "kokuraDownhill";
   if(isLocalSmall) return "localSmall";
   return "standard";
 }
 function raceWeights(){
-  // ab/bl/ti/tr/jo = 能力/血統/推定タイム/調教/騎手。合計1.00。
+  // ab/bl/ti/tr/jo = è½å/è¡çµ±/æ¨å®ã¿ã¤ã /èª¿æ/é¨æãåè¨1.00ã
   const cat=raceCategory();
   const map={
-    newcomer:{label:"新馬・2歳：血統/調教重視",ab:0.34,bl:0.38,ti:0.10,tr:0.14,jo:0.04},
-    badGoing:{label:"道悪：血統/調教重視",ab:0.36,bl:0.34,ti:0.16,tr:0.10,jo:0.04},
-    speedGoing:{label:"高速馬場：タイム重視",ab:0.37,bl:0.23,ti:0.30,tr:0.06,jo:0.04},
-    graded:{label:"古馬重賞/OP：総合力型",ab:0.39,bl:0.25,ti:0.24,tr:0.08,jo:0.04},
-    localSmall:{label:"ローカル小回り：適性/立ち回り重視",ab:0.38,bl:0.30,ti:0.20,tr:0.08,jo:0.04},
-    standard:{label:"標準：能力土台＋適性上書き",ab:0.39,bl:0.30,ti:0.21,tr:0.06,jo:0.04}
+    newcomer:{label:"æ°é¦¬ã»2æ­³ï¼è¡çµ±/èª¿æéè¦",ab:0.34,bl:0.38,ti:0.10,tr:0.14,jo:0.04},
+    badGoing:{label:"éæªï¼è¡çµ±/èª¿æéè¦",ab:0.36,bl:0.34,ti:0.16,tr:0.10,jo:0.04},
+    speedGoing:{label:"é«éé¦¬å ´ï¼ã¿ã¤ã éè¦",ab:0.37,bl:0.23,ti:0.30,tr:0.06,jo:0.04},
+    graded:{label:"å¤é¦¬éè³/OPï¼ç·ååå",ab:0.39,bl:0.25,ti:0.24,tr:0.08,jo:0.04},
+    kokuraDownhill:{label:"å°åï¼åå¾ã©ãã/æç¶åéè¦",ab:0.36,bl:0.34,ti:0.16,tr:0.10,jo:0.04},
+    localSmall:{label:"ã­ã¼ã«ã«å°åãï¼é©æ§/ç«ã¡åãéè¦",ab:0.38,bl:0.30,ti:0.20,tr:0.08,jo:0.04},
+    standard:{label:"æ¨æºï¼è½ååå°ï¼é©æ§ä¸æ¸ã",ab:0.39,bl:0.30,ti:0.21,tr:0.06,jo:0.04}
   };
   return map[cat]||map.standard;
 }
 function updateWeightModeInfo(){
   const w=raceWeights();
   const el=E("weightModeInfo");
-  if(el) el.textContent=`現在のウェイト：${w.label} / 能力${Math.round(w.ab*100)}%・血統${Math.round(w.bl*100)}%・推定タイム${Math.round(w.ti*100)}%・調教${Math.round(w.tr*100)}%・騎手${Math.round(w.jo*100)}%`;
+  if(el) el.textContent=`ç¾å¨ã®ã¦ã§ã¤ãï¼${w.label} / è½å${Math.round(w.ab*100)}%ã»è¡çµ±${Math.round(w.bl*100)}%ã»æ¨å®ã¿ã¤ã ${Math.round(w.ti*100)}%ã»èª¿æ${Math.round(w.tr*100)}%ã»é¨æ${Math.round(w.jo*100)}%`;
 }
 function base(h){
   let ab=abilityScore(h), ti=timeScore(h), bl=blood(h), tr=trainingScore(h), jo=jockeyScore(h);
   const w=raceWeights();
-  // v7.9：能力は土台。ただし能力だけに引っ張られないよう条件別ウェイトで実効差を制御。
-  return ab*w.ab + bl*w.bl + ti*w.ti + tr*w.tr + jo*w.jo;
+  // v8.2ï¼è½åã¯åå°ããã ãè½åã ãã«å¼ã£å¼µãããªãããæ¡ä»¶å¥ã¦ã§ã¤ãã§å®å¹å·®ãå¶å¾¡ã
+  let s=ab*w.ab + bl*w.bl + ti*w.ti + tr*w.tr + jo*w.jo;
+  if(isKokuraDownhillCourse()) s += frontLoadedAptitude(h)*0.35;
+  return s;
 }
-function courseAdj(h,p){const c=courses[E("course").value]||courses.hakodate_d1700;let s=0,st=h.脚質;if(c.name.includes("函館")||c.name.includes("中山")||c.name.includes("阪神")||c.name.includes("京都ダ")){if(st==="逃げ"||st==="先行")s+=2;if(st==="後方"&&p>.65)s-=2}if(c.name.includes("東京")){if(st==="差し"||st==="中団")s+=2;if(h.馬番>=13)s+=1}if(c.kind==="dirt"){if(h.父タイプ名.includes("ロイヤル")||h.父タイプ名.includes("ダンチヒ")||h.父タイプ名.includes("ニアークティック"))s+=2}return s}
-function adj(h,p){let pace=E("pace").value,going=E("going").value,st=h.脚質,s=courseAdj(h,p);if(pace==="slow"&&(st==="逃げ"||st==="先行"))s+=4;if(pace==="high"&&st==="逃げ"&&p>.55)s-=7;if(pace==="high"&&(st==="差し"||st==="後方")&&p>.55)s+=5;if(pace==="middle"&&st==="先行")s+=2;if(pace==="middle"&&(st==="差し"||st==="中団")&&p>.65)s+=2;if((going==="ultrafirm"||going==="firm")&&h.タイム指数>=130)s+=2;
-if(going==="ultrafirm"&&(st==="逃げ"||st==="先行"))s+=1.2;
+function courseAdj(h,p){const c=courses[E("course").value]||courses.hakodate_d1700;let s=0,st=h.èè³ª;if(c.name.includes("å½é¤¨")||c.name.includes("ä¸­å±±")||c.name.includes("éªç¥")||c.name.includes("äº¬é½ã")){if(st==="éã"||st==="åè¡")s+=2;if(st==="å¾æ¹"&&p>.65)s-=2}if(c.name.includes("æ±äº¬")){if(st==="å·®ã"||st==="ä¸­å£")s+=2;if(h.é¦¬çª>=13)s+=1}if(c.kind==="dirt"){if(h.ç¶ã¿ã¤ãå.includes("ã­ã¤ã¤ã«")||h.ç¶ã¿ã¤ãå.includes("ãã³ãã")||h.ç¶ã¿ã¤ãå.includes("ãã¢ã¼ã¯ãã£ãã¯"))s+=2}return s}
+function adj(h,p){let pace=E("pace").value,going=E("going").value,st=h.èè³ª,s=courseAdj(h,p);if(pace==="slow"&&(st==="éã"||st==="åè¡"))s+=4;if(pace==="high"&&st==="éã"&&p>.55)s-=7;if(pace==="high"&&(st==="å·®ã"||st==="å¾æ¹")&&p>.55)s+=5;if(pace==="middle"&&st==="åè¡")s+=2;if(pace==="middle"&&(st==="å·®ã"||st==="ä¸­å£")&&p>.65)s+=2;if((going==="ultrafirm"||going==="firm")&&h.ã¿ã¤ã ææ°>=130)s+=2;
+if(going==="ultrafirm"&&(st==="éã"||st==="åè¡"))s+=1.2;
 if(going==="firm_to_good")s+=0.4;
-if((going==="good_soft"||going==="soft_range"||going==="soft"||going==="bad")&&(h.種牡馬.includes("ゴールドシップ")||h.母父タイプ名.includes("トニービン")||h.父タイプ名.includes("ロイヤル")||h.父タイプ名.includes("ニアークティック")))s+=2+goingPowerLevel()*0.6;
-if((going==="soft"||going==="bad")&&E("course").value.includes("_d")&&(st==="逃げ"||st==="先行"))s+=2.5;
+if((going==="good_soft"||going==="soft_range"||going==="soft"||going==="bad")&&(h.ç¨®ç¡é¦¬.includes("ã´ã¼ã«ãã·ãã")||h.æ¯ç¶ã¿ã¤ãå.includes("ããã¼ãã³")||h.ç¶ã¿ã¤ãå.includes("ã­ã¤ã¤ã«")||h.ç¶ã¿ã¤ãå.includes("ãã¢ã¼ã¯ãã£ãã¯")))s+=2+goingPowerLevel()*0.6;
+if((going==="soft"||going==="bad")&&E("course").value.includes("_d")&&(st==="éã"||st==="åè¡"))s+=2.5;
+s+=kokuraDownhillAdj(h,p);
 s+=manualBiasAdj(h);
 return s}
 function rnd(){return Math.random()+Math.random()+Math.random()-1.5}
 function point(p,lane){p=Math.max(0,Math.min(1,p));let d=p*total,acc=0,i=0;for(;i<seg.length;i++){if(acc+seg[i]>=d)break;acc+=seg[i]}if(i>=seg.length)i=seg.length-1;let f=(d-acc)/seg[i],a=path[i],b=path[i+1];return [a[0]+(b[0]-a[0])*f+lane*4,a[1]+(b[1]-a[1])*f+lane*3]}
 
 function temperamentRisk(h){
-  let risk=0; const sire=h.種牡馬||""; const all=(h.父タイプ名||"")+(h.母父タイプ名||"")+(h.父母父タイプ名||"")+(h.母母父タイプ名||"")+sire; const pace=E("pace").value;
-  if(sire.includes("エピファネイア"))risk+=8.2; if(sire.includes("モーリス"))risk+=7.2; if(sire.includes("ドゥラメンテ"))risk+=6.7; if(sire.includes("リオンディーズ"))risk+=6.2; if(sire.includes("ミッキーアイル"))risk+=7.0; if(sire.includes("サートゥルナーリア"))risk+=5.7; if(sire.includes("シルバーステート"))risk+=4.9; if(sire.includes("キズナ"))risk+=4.0; if(sire.includes("ジャスタウェイ"))risk+=3.8; if(sire.includes("スワーヴリチャード"))risk+=3.5; if(sire.includes("ビッグアーサー")||sire.includes("ファインニードル"))risk+=3.5;
-  if(sire.includes("キタサンブラック"))risk-=2.2; if(sire.includes("ハーツクライ"))risk-=1.6; if(sire.includes("レイデオロ"))risk-=0.7; if(sire.includes("ゴールドシップ"))risk+=2.5;
-  if(all.includes("ストームキャット"))risk+=3.2; if(all.includes("ダンチヒ"))risk+=2.1; if(all.includes("ニアークティック"))risk+=1.5; if(all.includes("サンデーサイレンス"))risk+=1.1;
-  if(h.距離>=2400)risk*=1.48; else if(h.距離>=2000)risk*=1.32; else if(h.距離>=1800)risk*=1.16; else if(h.距離<=1400)risk*=0.76;
-  if(pace==="slow")risk*=1.38; if(pace==="high")risk*=0.80; if(h.脚質==="逃げ")risk*=1.28; if(h.脚質==="先行")risk*=1.16; if(h.脚質==="差し"||h.脚質==="後方")risk*=0.88;
-  const j=h.騎手||""; if(j.includes("ルメール"))risk*=0.86; if(j.includes("武豊"))risk*=0.88; if(j.includes("横山典"))risk*=0.90; if(j.includes("川田"))risk*=0.92;
+  let risk=0; const sire=h.ç¨®ç¡é¦¬||""; const all=(h.ç¶ã¿ã¤ãå||"")+(h.æ¯ç¶ã¿ã¤ãå||"")+(h.ç¶æ¯ç¶ã¿ã¤ãå||"")+(h.æ¯æ¯ç¶ã¿ã¤ãå||"")+sire; const pace=E("pace").value;
+  if(sire.includes("ã¨ããã¡ãã¤ã¢"))risk+=8.2; if(sire.includes("ã¢ã¼ãªã¹"))risk+=7.2; if(sire.includes("ãã¥ã©ã¡ã³ã"))risk+=6.7; if(sire.includes("ãªãªã³ãã£ã¼ãº"))risk+=6.2; if(sire.includes("ããã­ã¼ã¢ã¤ã«"))risk+=7.0; if(sire.includes("ãµã¼ãã¥ã«ãã¼ãªã¢"))risk+=5.7; if(sire.includes("ã·ã«ãã¼ã¹ãã¼ã"))risk+=4.9; if(sire.includes("ã­ãºã"))risk+=4.0; if(sire.includes("ã¸ã£ã¹ã¿ã¦ã§ã¤"))risk+=3.8; if(sire.includes("ã¹ã¯ã¼ã´ãªãã£ã¼ã"))risk+=3.5; if(sire.includes("ããã°ã¢ã¼ãµã¼")||sire.includes("ãã¡ã¤ã³ãã¼ãã«"))risk+=3.5;
+  if(sire.includes("ã­ã¿ãµã³ãã©ãã¯"))risk-=2.2; if(sire.includes("ãã¼ãã¯ã©ã¤"))risk-=1.6; if(sire.includes("ã¬ã¤ããªã­"))risk-=0.7; if(sire.includes("ã´ã¼ã«ãã·ãã"))risk+=2.5;
+  if(all.includes("ã¹ãã¼ã ã­ã£ãã"))risk+=3.2; if(all.includes("ãã³ãã"))risk+=2.1; if(all.includes("ãã¢ã¼ã¯ãã£ãã¯"))risk+=1.5; if(all.includes("ãµã³ãã¼ãµã¤ã¬ã³ã¹"))risk+=1.1;
+  if(h.è·é¢>=2400)risk*=1.48; else if(h.è·é¢>=2000)risk*=1.32; else if(h.è·é¢>=1800)risk*=1.16; else if(h.è·é¢<=1400)risk*=0.76;
+  if(pace==="slow")risk*=1.38; if(pace==="high")risk*=0.80; if(h.èè³ª==="éã")risk*=1.28; if(h.èè³ª==="åè¡")risk*=1.16; if(h.èè³ª==="å·®ã"||h.èè³ª==="å¾æ¹")risk*=0.88;
+  const j=h.é¨æ||""; if(j.includes("ã«ã¡ã¼ã«"))risk*=0.86; if(j.includes("æ­¦è±"))risk*=0.88; if(j.includes("æ¨ªå±±å¸"))risk*=0.90; if(j.includes("å·ç°"))risk*=0.92;
   return Math.max(0,Math.min(26,risk));
 }
 function temperamentEvent(h,life){
@@ -819,37 +946,37 @@ function temperamentEvent(h,life){
   const pace=E("pace").value;
   let event=0, label="";
 
-  // かかり・折り合い欠き
+  // ãããã»æãåãæ¬ ã
   if(Math.random() < (risk/100)*life){
     let loss = 3.5 + Math.random()*risk*1.15;
     if(pace==="slow") loss*=1.25;
-    if(h.距離>=2000) loss*=1.20;
+    if(h.è·é¢>=2000) loss*=1.20;
     event -= loss;
-    label="かかり";
+    label="ããã";
   }
 
-  // 逃げ馬の前向きさが良い方に出る
-  if(h.脚質==="逃げ" && Math.random() < 0.035*life){
+  // éãé¦¬ã®ååãããè¯ãæ¹ã«åºã
+  if(h.èè³ª==="éã" && Math.random() < 0.035*life){
     event += 4 + Math.random()*6;
-    label=label||"前向き○";
+    label=label||"ååãâ";
   }
 
-  // 先行馬が折り合って好位で運べる
-  if(h.脚質==="先行" && Math.random() < 0.030*life){
+  // åè¡é¦¬ãæãåã£ã¦å¥½ä½ã§éã¹ã
+  if(h.èè³ª==="åè¡" && Math.random() < 0.030*life){
     event += 3 + Math.random()*5;
-    label=label||"折合○";
+    label=label||"æåâ";
   }
 
-  // 気性難血統でも今日は我慢できる日
+  // æ°æ§é£è¡çµ±ã§ãä»æ¥ã¯ææ¢ã§ããæ¥
   if(risk>=7 && Math.random() < 0.025*life){
     event += 4 + Math.random()*5;
-    label=label||"我慢○";
+    label=label||"ææ¢â";
   }
 
-  // ゴールドシップ系の気分・エンジンのかかり
-  if((h.種牡馬||"").includes("ゴールドシップ")){
-    if(Math.random()<0.035*life){ event-=5+Math.random()*8; label=label||"気分×"; }
-    else if(Math.random()<0.025*life){ event+=5+Math.random()*8; label=label||"気分○"; }
+  // ã´ã¼ã«ãã·ããç³»ã®æ°åã»ã¨ã³ã¸ã³ã®ããã
+  if((h.ç¨®ç¡é¦¬||"").includes("ã´ã¼ã«ãã·ãã")){
+    if(Math.random()<0.035*life){ event-=5+Math.random()*8; label=label||"æ°åÃ"; }
+    else if(Math.random()<0.025*life){ event+=5+Math.random()*8; label=label||"æ°åâ"; }
   }
 
   return {event,label,risk};
@@ -858,18 +985,18 @@ function temperamentEvent(h,life){
 
 function jockeyTemperamentAdj(h){
   const risk=temperamentRisk(h);
-  let s=0, j=h.騎手||"";
+  let s=0, j=h.é¨æ||"";
 
-  // 気性難をなだめる・折り合わせる騎手
-  if(j.includes("ルメール")) s += risk>=7 ? 4.0 : 2.0;
-  if(j.includes("武豊")) s += risk>=7 ? 3.5 : 1.8;
-  if(j.includes("横山典")) s += risk>=7 ? 2.8 : 1.4;
+  // æ°æ§é£ããªã ããã»æãåãããé¨æ
+  if(j.includes("ã«ã¡ã¼ã«")) s += risk>=7 ? 4.0 : 2.0;
+  if(j.includes("æ­¦è±")) s += risk>=7 ? 3.5 : 1.8;
+  if(j.includes("æ¨ªå±±å¸")) s += risk>=7 ? 2.8 : 1.4;
 
-  // 先行馬をリズム良く運ぶ
-  if((j.includes("川田")||j.includes("レーン")||j.includes("坂井")) && (h.脚質==="逃げ"||h.脚質==="先行")) s += 2.0;
+  // åè¡é¦¬ããªãºã è¯ãéã¶
+  if((j.includes("å·ç°")||j.includes("ã¬ã¼ã³")||j.includes("åäº")) && (h.èè³ª==="éã"||h.èè³ª==="åè¡")) s += 2.0;
 
-  // 若手・減量は気性難で少しブレやすい
-  if(String(h.斤量||"").includes("▲")||String(h.斤量||"").includes("☆")||String(h.斤量||"").includes("★")) {
+  // è¥æã»æ¸éã¯æ°æ§é£ã§å°ããã¬ããã
+  if(String(h.æ¤é||"").includes("â²")||String(h.æ¤é||"").includes("â")||String(h.æ¤é||"").includes("â")) {
     if(risk>=7) s -= 1.5;
   }
   return s;
@@ -877,17 +1004,17 @@ function jockeyTemperamentAdj(h){
 
 function turnAptitudeAdj(h){
   const c=courses[E("course").value]||{};
-  const all=(h.父タイプ名||"")+(h.母父タイプ名||"")+(h.父母父タイプ名||"")+(h.母母父タイプ名||"")+(h.種牡馬||"");
+  const all=(h.ç¶ã¿ã¤ãå||"")+(h.æ¯ç¶ã¿ã¤ãå||"")+(h.ç¶æ¯ç¶ã¿ã¤ãå||"")+(h.æ¯æ¯ç¶ã¿ã¤ãå||"")+(h.ç¨®ç¡é¦¬||"");
   let s=0;
 
-  if(c.dir==="左回り"){
-    // 東京型：直線長く、持続差し・瞬発寄りを少し上げる
-    if(h.脚質==="差し"||h.脚質==="後方"||h.脚質==="中団") s+=1.5;
-    if(all.includes("キングマンボ")||all.includes("サンデーサイレンス")) s+=1.0;
+  if(c.dir==="å·¦åã"){
+    // æ±äº¬åï¼ç´ç·é·ããæç¶å·®ãã»ç¬çºå¯ããå°ãä¸ãã
+    if(h.èè³ª==="å·®ã"||h.èè³ª==="å¾æ¹"||h.èè³ª==="ä¸­å£") s+=1.5;
+    if(all.includes("ã­ã³ã°ãã³ã")||all.includes("ãµã³ãã¼ãµã¤ã¬ã³ã¹")) s+=1.0;
   }else{
-    // 右回り小回り型：先行・器用さ・持続を上げる
-    if(h.脚質==="逃げ"||h.脚質==="先行") s+=1.6;
-    if(all.includes("ダンチヒ")||all.includes("ニアークティック")) s+=0.8;
+    // å³åãå°åãåï¼åè¡ã»å¨ç¨ãã»æç¶ãä¸ãã
+    if(h.èè³ª==="éã"||h.èè³ª==="åè¡") s+=1.6;
+    if(all.includes("ãã³ãã")||all.includes("ãã¢ã¼ã¯ãã£ãã¯")) s+=0.8;
   }
   return s;
 }
@@ -895,39 +1022,39 @@ function turnAptitudeAdj(h){
 function mudAptitudeAdj(h){
   const going=E("going").value;
   if(going!=="soft" && going!=="bad") return 0;
-  const all=(h.父タイプ名||"")+(h.母父タイプ名||"")+(h.父母父タイプ名||"")+(h.母母父タイプ名||"")+(h.種牡馬||"");
+  const all=(h.ç¶ã¿ã¤ãå||"")+(h.æ¯ç¶ã¿ã¤ãå||"")+(h.ç¶æ¯ç¶ã¿ã¤ãå||"")+(h.æ¯æ¯ç¶ã¿ã¤ãå||"")+(h.ç¨®ç¡é¦¬||"");
   let s=0;
-  if(all.includes("ナダル")||all.includes("ロイヤルチャージャー")||all.includes("ニアークティック")||all.includes("ダンチヒ")) s+=2.5;
-  if(all.includes("ゴールドシップ")||all.includes("キズナ")||all.includes("エピファネイア")) s+=1.8;
-  if(h.脚質==="逃げ"||h.脚質==="先行") s+=1.2;
+  if(all.includes("ããã«")||all.includes("ã­ã¤ã¤ã«ãã£ã¼ã¸ã£ã¼")||all.includes("ãã¢ã¼ã¯ãã£ãã¯")||all.includes("ãã³ãã")) s+=2.5;
+  if(all.includes("ã´ã¼ã«ãã·ãã")||all.includes("ã­ãºã")||all.includes("ã¨ããã¡ãã¤ã¢")) s+=1.8;
+  if(h.èè³ª==="éã"||h.èè³ª==="åè¡") s+=1.2;
   if(going==="bad") s+=0.8;
   return s;
 }
 
 function distanceChangeAdj(h){
-  // 入力データに前走距離がない場合も多いので、近似的に脚質×距離で補正。
-  // 将来「前走距離」列があればここを精密化できる。
+  // å¥åãã¼ã¿ã«åèµ°è·é¢ããªãå ´åãå¤ãã®ã§ãè¿ä¼¼çã«èè³ªÃè·é¢ã§è£æ­£ã
+  // å°æ¥ãåèµ°è·é¢ãåãããã°ãããç²¾å¯åã§ããã
   let s=0;
-  if(h.距離>=2200){
-    if((h.種牡馬||"").includes("ハーツクライ")||(h.種牡馬||"").includes("キタサンブラック")||(h.種牡馬||"").includes("ゴールドシップ")) s+=2.0;
+  if(h.è·é¢>=2200){
+    if((h.ç¨®ç¡é¦¬||"").includes("ãã¼ãã¯ã©ã¤")||(h.ç¨®ç¡é¦¬||"").includes("ã­ã¿ãµã³ãã©ãã¯")||(h.ç¨®ç¡é¦¬||"").includes("ã´ã¼ã«ãã·ãã")) s+=2.0;
     if(temperamentRisk(h)>=9 && E("pace").value==="slow") s-=2.5;
   }
-  if(h.距離<=1200){
-    if(h.脚質==="逃げ"||h.脚質==="先行") s+=1.8;
-    if((h.種牡馬||"").includes("ミッキーアイル")||(h.父タイプ名||"").includes("ダンチヒ")) s+=1.8;
+  if(h.è·é¢<=1200){
+    if(h.èè³ª==="éã"||h.èè³ª==="åè¡") s+=1.8;
+    if((h.ç¨®ç¡é¦¬||"").includes("ããã­ã¼ã¢ã¤ã«")||(h.ç¶ã¿ã¤ãå||"").includes("ãã³ãã")) s+=1.8;
   }
   return s;
 }
 
 function moodSwingAdj(h,life){
   let s=0;
-  const sire=h.種牡馬||"";
-  // 気分屋・ムラの出やすさ
+  const sire=h.ç¨®ç¡é¦¬||"";
+  // æ°åå±ã»ã ã©ã®åºããã
   let mood=0;
-  if(sire.includes("ゴールドシップ")) mood+=4.0;
-  if(sire.includes("ジャスタウェイ")) mood+=2.0;
-  if(sire.includes("ドゥラメンテ")) mood+=1.5;
-  if(sire.includes("モーリス")) mood+=1.5;
+  if(sire.includes("ã´ã¼ã«ãã·ãã")) mood+=4.0;
+  if(sire.includes("ã¸ã£ã¹ã¿ã¦ã§ã¤")) mood+=2.0;
+  if(sire.includes("ãã¥ã©ã¡ã³ã")) mood+=1.5;
+  if(sire.includes("ã¢ã¼ãªã¹")) mood+=1.5;
   if(mood>0){
     if(Math.random()<0.025*life*mood/2) s-=4+Math.random()*mood*2.2;
     if(Math.random()<0.018*life*mood/2) s+=4+Math.random()*mood*2.2;
@@ -937,7 +1064,7 @@ function moodSwingAdj(h,life){
 
 
 function frameNo(h){
-  const n=parseInt(h.馬番||0,10);
+  const n=parseInt(h.é¦¬çª||0,10);
   if(n<=0) return 0;
   if(n<=2) return 1;
   if(n<=4) return 2;
@@ -964,7 +1091,7 @@ function goingPowerLevel(){
 function railCourseOf(h){
   const sel = E("railCourse") ? E("railCourse").value : "auto";
   if(sel && sel!=="auto") return sel;
-  const v = String((h && h.コース区分) || "").trim().toUpperCase();
+  const v = String((h && h.ã³ã¼ã¹åºå) || "").trim().toUpperCase();
   if(v.includes("D")) return "D";
   if(v.includes("C")) return "C";
   if(v.includes("B")) return "B";
@@ -978,66 +1105,66 @@ function isSoftishGoing(){
 function manualBiasAdj(h){
   const b=E("bias") ? E("bias").value : "flat";
   const f=typeof frameNo==="function" ? frameNo(h) : 0;
-  const st=h.脚質;
+  const st=h.èè³ª;
   let s=0;
   if(b==="inside_front"){
-    if((st==="逃げ"||st==="先行")) s+=3.0;
+    if((st==="éã"||st==="åè¡")) s+=3.0;
     if(f>0 && f<=3) s+=2.0;
-    if((st==="後方"||st==="差し") && f>=7) s-=1.2;
+    if((st==="å¾æ¹"||st==="å·®ã") && f>=7) s-=1.2;
   }
   if(b==="inside"){
     if(f>0 && f<=3) s+=2.5;
     if(f>=7) s-=1.0;
   }
   if(b==="front"){
-    if(st==="逃げ"||st==="先行") s+=3.0;
-    if(st==="後方") s-=1.5;
+    if(st==="éã"||st==="åè¡") s+=3.0;
+    if(st==="å¾æ¹") s-=1.5;
   }
   if(b==="outside"){
     if(f>=6) s+=2.0;
     if(f<=2) s-=1.0;
   }
   if(b==="outside_closer"){
-    if((st==="差し"||st==="後方"||st==="中団") && f>=5) s+=3.0;
-    if(st==="逃げ"&&f<=3) s-=1.5;
+    if((st==="å·®ã"||st==="å¾æ¹"||st==="ä¸­å£") && f>=5) s+=3.0;
+    if(st==="éã"&&f<=3) s-=1.5;
   }
   if(b==="closer"){
-    if(st==="差し"||st==="後方"||st==="中団") s+=2.5;
-    if(st==="逃げ") s-=1.5;
+    if(st==="å·®ã"||st==="å¾æ¹"||st==="ä¸­å£") s+=2.5;
+    if(st==="éã") s-=1.5;
   }
   if(b==="power"){
-    const all=(h.父タイプ名||"")+(h.母父タイプ名||"")+(h.種牡馬||"");
-    if(all.includes("ロイヤルチャージャー")||all.includes("ナスルーラ")||all.includes("トニービン")||all.includes("ゴールドシップ")||all.includes("ナダル")) s+=2.5;
-    if(st==="逃げ"||st==="先行") s+=0.8;
+    const all=(h.ç¶ã¿ã¤ãå||"")+(h.æ¯ç¶ã¿ã¤ãå||"")+(h.ç¨®ç¡é¦¬||"");
+    if(all.includes("ã­ã¤ã¤ã«ãã£ã¼ã¸ã£ã¼")||all.includes("ãã¹ã«ã¼ã©")||all.includes("ããã¼ãã³")||all.includes("ã´ã¼ã«ãã·ãã")||all.includes("ããã«")) s+=2.5;
+    if(st==="éã"||st==="åè¡") s+=0.8;
   }
   if(b==="speed"){
-    if(h.タイム指数>=130) s+=2.0;
-    if(st==="逃げ"||st==="先行") s+=1.2;
-    const all=(h.父タイプ名||"")+(h.母父タイプ名||"")+(h.種牡馬||"");
-    if(all.includes("サンデーサイレンス")||all.includes("キングマンボ")||all.includes("ロードカナロア")) s+=1.5;
+    if(h.ã¿ã¤ã ææ°>=130) s+=2.0;
+    if(st==="éã"||st==="åè¡") s+=1.2;
+    const all=(h.ç¶ã¿ã¤ãå||"")+(h.æ¯ç¶ã¿ã¤ãå||"")+(h.ç¨®ç¡é¦¬||"");
+    if(all.includes("ãµã³ãã¼ãµã¤ã¬ã³ã¹")||all.includes("ã­ã³ã°ãã³ã")||all.includes("ã­ã¼ãã«ãã­ã¢")) s+=1.5;
   }
-  // v7.3：東京芝Dコース＋稍重寄りで「内先行」を選んだ場合は、通常より逃げ残りを強める。
+  // v7.3ï¼æ±äº¬èDã³ã¼ã¹ï¼ç¨éå¯ãã§ãååè¡ããé¸ãã å ´åã¯ãéå¸¸ããéãæ®ããå¼·ããã
   const c = courses[E("course").value] || {};
-  if(c.venue==="東京" && c.kind==="turf" && railCourseOf(h)==="D" && isSoftishGoing()){
+  if(c.venue==="æ±äº¬" && c.kind==="turf" && railCourseOf(h)==="D" && isSoftishGoing()){
     if(b==="inside_front" || b==="inside" || b==="front"){
-      if(st==="逃げ") s+=1.2;
-      if(st==="先行") s+=0.7;
-      if(f<=3 && (st==="逃げ"||st==="先行")) s+=0.8;
-      if(f>=7 && (st==="差し"||st==="後方")) s-=0.5;
+      if(st==="éã") s+=1.2;
+      if(st==="åè¡") s+=0.7;
+      if(f<=3 && (st==="éã"||st==="åè¡")) s+=0.8;
+      if(f>=7 && (st==="å·®ã"||st==="å¾æ¹")) s-=0.5;
     }
   }
   return s;
 }
 
 function frameAdj(h){
-  const c=courses[E("course").value]||{}, key=E("course").value||"", profile=c.profile||"", f=frameNo(h), st=h.脚質;
-  const isFront=(st==="逃げ"||st==="先行"), isCloser=(st==="差し"||st==="後方"||st==="中団");
-  const isLocalSmall=(c.venue==="函館"||c.venue==="小倉"||c.venue==="福島");
+  const c=courses[E("course").value]||{}, key=E("course").value||"", profile=c.profile||"", f=frameNo(h), st=h.èè³ª;
+  const isFront=(st==="éã"||st==="åè¡"), isCloser=(st==="å·®ã"||st==="å¾æ¹"||st==="ä¸­å£");
+  const isLocalSmall=(c.venue==="å½é¤¨"||c.venue==="å°å"||c.venue==="ç¦å³¶");
   const isTurfStartDirt=(key==="tokyo_d1600"||key==="hanshin_d1400"||key==="hakodate_d1000"||key==="kokura_d1000"||key==="fukushima_d1150");
   let s=0;
 
-  // v7.1：芝スタートのダートは、芝部分を長く走れる外枠を明確に評価。
-  // ただし外差しではなく、外枠からスムーズに加速できる逃げ・先行を最も評価する。
+  // v7.1ï¼èã¹ã¿ã¼ãã®ãã¼ãã¯ãèé¨åãé·ãèµ°ããå¤æ ãæç¢ºã«è©ä¾¡ã
+  // ãã ãå¤å·®ãã§ã¯ãªããå¤æ ããã¹ã ã¼ãºã«å éã§ããéãã»åè¡ãæãè©ä¾¡ããã
   if(isTurfStartDirt){
     if(f<=2) s-=1.4;
     else if(f<=4) s-=0.3;
@@ -1046,27 +1173,27 @@ function frameAdj(h){
 
     if(isFront&&f>=6) s+=1.3;
     if(isFront&&f<=2) s-=0.6;
-    if(st==="後方") s-=0.4;
+    if(st==="å¾æ¹") s-=0.4;
 
-    // 東京ダ1600は芝スタート外枠有利を強める代表条件。
+    // æ±äº¬ã1600ã¯èã¹ã¿ã¼ãå¤æ æå©ãå¼·ããä»£è¡¨æ¡ä»¶ã
     if(key==="tokyo_d1600"){
       if(f<=2) s-=1.2;
       if(f>=7) s+=1.2;
       if(isFront&&f>=7) s+=0.5;
       if(isCloser&&f>=6) s+=0.5;
     }
-    // ローカル短距離の芝スタートダートは外枠逃げ・先行をさらに評価。
+    // ã­ã¼ã«ã«ç­è·é¢ã®èã¹ã¿ã¼ããã¼ãã¯å¤æ éãã»åè¡ãããã«è©ä¾¡ã
     if(key==="hakodate_d1000"||key==="kokura_d1000"||key==="fukushima_d1150"){
       if(isFront&&f>=7) s+=1.2;
       if(f<=2&&isFront) s-=0.4;
-      if(st==="後方") s-=0.8;
+      if(st==="å¾æ¹") s-=0.8;
     }
     return Math.max(-4.5,Math.min(5.0,s));
   }
 
-  // 東京芝：基本は長い直線で外〜中枠の差しを評価。
-  // ただしDコース替わり＋稍重寄りでは内の傷みがカバーされ、東京1800でも逃げ・内先行が止まりにくい。
-  if(c.venue==="東京"&&c.kind==="turf"){
+  // æ±äº¬èï¼åºæ¬ã¯é·ãç´ç·ã§å¤ãä¸­æ ã®å·®ããè©ä¾¡ã
+  // ãã ãDã³ã¼ã¹æ¿ããï¼ç¨éå¯ãã§ã¯åã®å·ã¿ãã«ãã¼ãããæ±äº¬1800ã§ãéãã»ååè¡ãæ­¢ã¾ãã«ããã
+  if(c.venue==="æ±äº¬"&&c.kind==="turf"){
     const rail = railCourseOf(h);
     const softish = isSoftishGoing();
     const tokyoDInnerFront = (rail==="D" && softish && (c.dist===1600||c.dist===1800||c.dist===2000));
@@ -1074,13 +1201,13 @@ function frameAdj(h){
       if(f<=2)s+=2.0;
       else if(f<=4)s+=1.1;
       else if(f>=7)s-=0.8;
-      if(st==="逃げ")s+=1.8;
-      if(st==="先行")s+=1.0;
+      if(st==="éã")s+=1.8;
+      if(st==="åè¡")s+=1.0;
       if(isFront&&f<=4)s+=1.0;
       if(isCloser&&f>=6)s-=0.6;
-      if(st==="後方")s-=0.7;
+      if(st==="å¾æ¹")s-=0.7;
       if(c.dist===1800){
-        if(st==="逃げ")s+=0.7;
+        if(st==="éã")s+=0.7;
         if(isFront&&f<=3)s+=0.5;
       }
     }else{
@@ -1091,16 +1218,16 @@ function frameAdj(h){
     }
   }
 
-  // 東京ダート：ダ1600は上の芝スタート専用で処理済み。ダ1400/2100は外枠をやや評価。
-  if(c.venue==="東京"&&c.kind==="dirt"){
+  // æ±äº¬ãã¼ãï¼ã1600ã¯ä¸ã®èã¹ã¿ã¼ãå°ç¨ã§å¦çæ¸ã¿ãã1400/2100ã¯å¤æ ãããè©ä¾¡ã
+  if(c.venue==="æ±äº¬"&&c.kind==="dirt"){
     if(f<=2)s-=1.2;
     if(f>=6)s+=1.2;
     if(profile.includes("tokyo_dirt_stamina")&&f>=7)s-=0.3;
     if(isCloser&&f>=6)s+=0.5;
   }
 
-  // 阪神：内回り・ダ1800は内〜中枠先行、外回り芝は外差しも残す。
-  if(c.venue==="阪神"){
+  // éªç¥ï¼ååãã»ã1800ã¯åãä¸­æ åè¡ãå¤åãèã¯å¤å·®ããæ®ãã
+  if(c.venue==="éªç¥"){
     if(profile.includes("hanshin_inner")||profile.includes("hanshin_stamina")){
       if(f<=2)s+=1.8; else if(f<=4)s+=1.1;
       if(f>=7)s-=1.0;
@@ -1116,7 +1243,7 @@ function frameAdj(h){
     }
   }
 
-  // ローカル小回り芝1200：内先行を強める。外枠はロス、差しは馬場バイアスがない限り控えめ。
+  // ã­ã¼ã«ã«å°åãè1200ï¼ååè¡ãå¼·ãããå¤æ ã¯ã­ã¹ãå·®ãã¯é¦¬å ´ãã¤ã¢ã¹ããªãéãæ§ããã
   if(profile.includes("hakodate_sprint")||profile.includes("kokura_sprint")||profile.includes("fukushima_sprint")){
     if(f<=2)s+=3.0; else if(f<=4)s+=1.4; else if(f>=7)s-=1.5;
     if(isFront&&f<=3)s+=2.2;
@@ -1124,16 +1251,16 @@ function frameAdj(h){
     if(isCloser&&f>=7)s+=0.2;
   }
 
-  // ローカル小回りダ1700：芝スタートではないため、外枠有利ではなく内〜中枠先行を評価。
+  // ã­ã¼ã«ã«å°åãã1700ï¼èã¹ã¿ã¼ãã§ã¯ãªããããå¤æ æå©ã§ã¯ãªãåãä¸­æ åè¡ãè©ä¾¡ã
   if(profile.includes("hakodate_dirt_mid")||profile.includes("kokura_dirt_mid")||profile.includes("fukushima_dirt_mid")){
     if(f<=2)s+=2.5; else if(f<=4)s+=1.3; else if(f>=7)s-=1.4;
     if(isFront&&f<=3)s+=2.0;
     if(isFront&&f>=7)s-=1.8;
-    if(st==="後方"&&f<=2)s-=0.7;
+    if(st==="å¾æ¹"&&f<=2)s-=0.7;
   }
 
-  // v7.1：函館・小倉・福島の芝1800〜2000は「小回り＋最初のコーナーが近い」ため内枠を明確に評価。
-  // 特に函館芝1800は1角まで短く、逃げ・先行×内枠を強める。
+  // v7.1ï¼å½é¤¨ã»å°åã»ç¦å³¶ã®è1800ã2000ã¯ãå°åãï¼æåã®ã³ã¼ãã¼ãè¿ããããåæ ãæç¢ºã«è©ä¾¡ã
+  // ç¹ã«å½é¤¨è1800ã¯1è§ã¾ã§ç­ããéãã»åè¡Ãåæ ãå¼·ããã
   if(isLocalSmall&&c.kind==="turf"&&c.dist>=1700&&c.dist<=2000){
     if(f===1)s+=2.2;
     else if(f===2)s+=1.9;
@@ -1152,11 +1279,11 @@ function frameAdj(h){
       if(f<=2)s+=0.5;
       if(isFront&&f<=3)s+=0.8;
       if(f>=7)s-=0.5;
-      if(st==="後方")s-=0.4;
+      if(st==="å¾æ¹")s-=0.4;
     }
   }
 
-  // ローカル芝2600は小回りでもスタミナ比重が高く、内有利は中距離より少し控えめ。
+  // ã­ã¼ã«ã«è2600ã¯å°åãã§ãã¹ã¿ããæ¯éãé«ããåæå©ã¯ä¸­è·é¢ããå°ãæ§ããã
   if(profile.includes("fukushima_stamina")){
     if(f<=3)s+=0.8;
     if(f>=7)s-=0.6;
@@ -1169,44 +1296,44 @@ function frameAdj(h){
 
 
 function ageStageFactor(h){
-  const rn=String(h.レース名||"");
-  // 新馬・2歳未勝利（レース名末尾*など）は育成差が最も出る。
-  if(rn.includes("新馬")) return 1.00;
-  if(rn.includes("未勝利*") || rn.includes("未勝利・2") || rn.includes("未勝利･2")) return 0.90;
-  if(rn.includes("未勝利")) return 0.70;
-  if(rn.includes("１勝") || rn.includes("1勝")) return 0.40;
-  if(rn.includes("２勝") || rn.includes("2勝") || rn.includes("３勝") || rn.includes("3勝")) return 0.20;
-  if(rn.includes("OP") || rn.includes("オープン") || rn.includes("G") || rn.includes("Ｈ") || rn.includes("H")) return 0.15;
+  const rn=String(h.ã¬ã¼ã¹å||"");
+  // æ°é¦¬ã»2æ­³æªåå©ï¼ã¬ã¼ã¹åæ«å°¾*ãªã©ï¼ã¯è²æå·®ãæãåºãã
+  if(rn.includes("æ°é¦¬")) return 1.00;
+  if(rn.includes("æªåå©*") || rn.includes("æªåå©ã»2") || rn.includes("æªåå©ï½¥2")) return 0.90;
+  if(rn.includes("æªåå©")) return 0.70;
+  if(rn.includes("ï¼å") || rn.includes("1å")) return 0.40;
+  if(rn.includes("ï¼å") || rn.includes("2å") || rn.includes("ï¼å") || rn.includes("3å")) return 0.20;
+  if(rn.includes("OP") || rn.includes("ãªã¼ãã³") || rn.includes("G") || rn.includes("ï¼¨") || rn.includes("H")) return 0.15;
   return 0.30;
 }
 function breederBaseScore(h){
-  const b=String(h.生産者||"");
+  const b=String(h.çç£è||"");
   if(!b) return 0;
-  if(b.includes("ノーザンファーム")) return 2.0;
-  if(b.includes("社台コーポレーション白老") || b.includes("白老ファーム")) return 1.5;
-  // 社台ファームは白老と別扱いだが、同程度の育成補正。
-  if(b.includes("社台ファーム")) return 1.5;
-  if(b.includes("追分ファーム")) return 1.2;
-  if(b.includes("レイクヴィラファーム")) return 1.2;
-  if(b.includes("ケイアイファーム")) return 1.0;
-  if(b.includes("ビッグレッドファーム")) return 0.8;
-  if(b.includes("ダーレー") || b.includes("Darley")) return 0.8;
-  if(b.includes("ノースヒルズ")) return 0.8;
-  if(b.includes("下河辺牧場")) return 0.8;
-  if(b.includes("コスモヴューファーム")) return 0.6;
-  if(b.includes("岡田スタツド") || b.includes("岡田スタッド")) return 0.5;
-  if(b.includes("チャンピオンズファーム")) return 0.5;
+  if(b.includes("ãã¼ã¶ã³ãã¡ã¼ã ")) return 2.0;
+  if(b.includes("ç¤¾å°ã³ã¼ãã¬ã¼ã·ã§ã³ç½è") || b.includes("ç½èãã¡ã¼ã ")) return 1.5;
+  // ç¤¾å°ãã¡ã¼ã ã¯ç½èã¨å¥æ±ãã ããåç¨åº¦ã®è²æè£æ­£ã
+  if(b.includes("ç¤¾å°ãã¡ã¼ã ")) return 1.5;
+  if(b.includes("è¿½åãã¡ã¼ã ")) return 1.2;
+  if(b.includes("ã¬ã¤ã¯ã´ã£ã©ãã¡ã¼ã ")) return 1.2;
+  if(b.includes("ã±ã¤ã¢ã¤ãã¡ã¼ã ")) return 1.0;
+  if(b.includes("ããã°ã¬ãããã¡ã¼ã ")) return 0.8;
+  if(b.includes("ãã¼ã¬ã¼") || b.includes("Darley")) return 0.8;
+  if(b.includes("ãã¼ã¹ãã«ãº")) return 0.8;
+  if(b.includes("ä¸æ²³è¾ºç§å ´")) return 0.8;
+  if(b.includes("ã³ã¹ã¢ã´ã¥ã¼ãã¡ã¼ã ")) return 0.6;
+  if(b.includes("å²¡ç°ã¹ã¿ãã") || b.includes("å²¡ç°ã¹ã¿ãã")) return 0.5;
+  if(b.includes("ãã£ã³ããªã³ãºãã¡ã¼ã ")) return 0.5;
   return 0;
 }
 function breederConditionAdj(h){
-  // 能力へ直接加点せず、仕上がりの安定性・好調度へ弱く反映する。
+  // è½åã¸ç´æ¥å ç¹ãããä»ä¸ããã®å®å®æ§ã»å¥½èª¿åº¦ã¸å¼±ãåæ ããã
   return breederBaseScore(h) * ageStageFactor(h);
 }
 function breederGoodEvent(h,life){
   const br=breederConditionAdj(h);
   if(br<=0) return 0;
   let s=0;
-  // 絶好調・好調の発生率を少し上げる。古馬重賞ではageStageFactorでほぼ弱まる。
+  // çµ¶å¥½èª¿ã»å¥½èª¿ã®çºççãå°ãä¸ãããå¤é¦¬éè³ã§ã¯ageStageFactorã§ã»ã¼å¼±ã¾ãã
   if(Math.random() < br * 0.018 * life) s += 3.0 + Math.random()*3.0;
   if(Math.random() < br * 0.010 * life) s += 2.0 + Math.random()*2.0;
   return s;
@@ -1217,30 +1344,30 @@ function totalExtraAdj(h,life){
 }
 
 function raceState(){let life=Number(E("life").value);return horses.map(h=>{let br=breederConditionAdj(h),condition=rnd()*life*4.8 + br*(0.8+Math.random()*0.8) + breederGoodEvent(h,life),trip=0,r=Math.random(),temp=temperamentEvent(h,life);let badTripCut=Math.max(0,br*0.006);if(r<Math.max(0.01,0.045*life-badTripCut))trip-=8+Math.random()*7;else if(r<Math.max(0.02,0.10*life-badTripCut))trip-=3+Math.random()*4;else if(r>1-0.035*life)trip+=3+Math.random()*4;return{condition,trip:trip+temp.event,stamina:rnd()*life*1.8,tempLabel:temp.label,tempRisk:temp.risk,breeder:br,extra:totalExtraAdj(h,life)}})}
-function setup(){if(timer)clearInterval(timer);setCourse();E("track").querySelectorAll(".horse").forEach(x=>x.remove());divs=[];horses.forEach((h,i)=>{let d=document.createElement("div");d.className="horse";d.textContent=h.馬番;d.title=h.馬名;d.style.background=colors[i%colors.length];E("track").appendChild(d);divs.push(d)});render(horses.map((h,i)=>-i*.004),[]); if(E("liveComment"))E("liveComment").textContent=""; if(E("liveOrder"))E("liveOrder").textContent="隊列：未実行"; if(E("liveMeter"))E("liveMeter").style.width="0%"}
-function render(prog,order){const box=E("track").getBoundingClientRect();prog.forEach((p,i)=>{let q=point(p,laneSpread(i));if(divs[i]){divs[i].style.left=(q[0]/1000*box.width)+"px";divs[i].style.top=(q[1]/520*box.height)+"px"}});let rows=[];order.forEach(i=>rows.push({i,done:true,p:prog[i]}));horses.forEach((h,i)=>{if(!order.includes(i))rows.push({i,done:false,p:prog[i]})});rows.sort((a,b)=>a.done&&b.done?order.indexOf(a.i)-order.indexOf(b.i):a.done?-1:b.done?1:b.p-a.p);E("rank").innerHTML="<table><tr><th>順</th><th>馬番</th><th>馬名</th><th>脚質</th><th>状態</th></tr>"+rows.map((r,k)=>"<tr><td>"+(k+1)+"</td><td><span class='badge'>"+horses[r.i].馬番+"</span></td><td>"+horses[r.i].馬名+"</td><td>"+horses[r.i].脚質+"</td><td>"+(r.done?"FINISH":Math.max(0,Math.min(100,Math.round(r.p*100)))+"%")+"</td></tr>").join("")+"</table>"}
-function speed(h,p,i){let w=Number(E("weight").value)/100,n=Number(E("noise").value),st=currentState?currentState[i]:{condition:0,trip:0,stamina:0};let raw=base(h)+adj(h,p)+(st.extra||0)+st.condition*1.25+st.trip*1.15;let sp=.0042+((raw-70)/9000)*w+rnd()*n*(1.30-w)/360;if(h.脚質==="逃げ"&&p<.45)sp+=.00016;if((h.脚質==="差し"||h.脚質==="後方")&&p>.70)sp+=.00022;if(p>.72)sp+=st.stamina/18000;return Math.max(.0018,sp)}
+function setup(){if(timer)clearInterval(timer);setCourse();E("track").querySelectorAll(".horse").forEach(x=>x.remove());divs=[];horses.forEach((h,i)=>{let d=document.createElement("div");d.className="horse";d.textContent=h.é¦¬çª;d.title=h.é¦¬å;d.style.background=colors[i%colors.length];E("track").appendChild(d);divs.push(d)});render(horses.map((h,i)=>-i*.004),[]); if(E("liveComment"))E("liveComment").textContent=""; if(E("liveOrder"))E("liveOrder").textContent="éåï¼æªå®è¡"; if(E("liveMeter"))E("liveMeter").style.width="0%"}
+function render(prog,order){const box=E("track").getBoundingClientRect();prog.forEach((p,i)=>{let q=point(p,laneSpread(i));if(divs[i]){divs[i].style.left=(q[0]/1000*box.width)+"px";divs[i].style.top=(q[1]/520*box.height)+"px"}});let rows=[];order.forEach(i=>rows.push({i,done:true,p:prog[i]}));horses.forEach((h,i)=>{if(!order.includes(i))rows.push({i,done:false,p:prog[i]})});rows.sort((a,b)=>a.done&&b.done?order.indexOf(a.i)-order.indexOf(b.i):a.done?-1:b.done?1:b.p-a.p);E("rank").innerHTML="<table><tr><th>é </th><th>é¦¬çª</th><th>é¦¬å</th><th>èè³ª</th><th>ç¶æ</th></tr>"+rows.map((r,k)=>"<tr><td>"+(k+1)+"</td><td><span class='badge'>"+horses[r.i].é¦¬çª+"</span></td><td>"+horses[r.i].é¦¬å+"</td><td>"+horses[r.i].èè³ª+"</td><td>"+(r.done?"FINISH":Math.max(0,Math.min(100,Math.round(r.p*100)))+"%")+"</td></tr>").join("")+"</table>"}
+function speed(h,p,i){let w=Number(E("weight").value)/100,n=Number(E("noise").value),st=currentState?currentState[i]:{condition:0,trip:0,stamina:0};let raw=base(h)+adj(h,p)+(st.extra||0)+st.condition*1.25+st.trip*1.15;let sp=.0042+((raw-70)/9000)*w+rnd()*n*(1.30-w)/360;if(h.èè³ª==="éã"&&p<.45)sp+=.00016;if((h.èè³ª==="å·®ã"||h.èè³ª==="å¾æ¹")&&p>.70)sp+=.00022;if(p>.72)sp+=st.stamina/18000;return Math.max(.0018,sp)}
 
 function styleBasePosition(h){
-  if(h.脚質==="逃げ") return 0.030;
-  if(h.脚質==="先行") return 0.010;
-  if(h.脚質==="中団") return -0.010;
-  if(h.脚質==="差し") return -0.020;
-  if(h.脚質==="後方") return -0.035;
+  if(h.èè³ª==="éã") return 0.030;
+  if(h.èè³ª==="åè¡") return 0.010;
+  if(h.èè³ª==="ä¸­å£") return -0.010;
+  if(h.èè³ª==="å·®ã") return -0.020;
+  if(h.èè³ª==="å¾æ¹") return -0.035;
   return -0.010;
 }
 function phaseName(p){
-  if(p<0.16) return "スタート〜最初の直線：隊列形成";
-  if(p<0.30) return "1コーナー：隊列確定";
-  if(p<0.55) return "向正面：ペース安定";
-  if(p<0.72) return "3〜4コーナー：徐々に差が縮まる";
-  if(p<0.84) return "最終コーナー：仕掛け開始";
-  if(p<0.96) return "直線：追い比べ";
-  return "ゴール前";
+  if(p<0.16) return "ã¹ã¿ã¼ããæåã®ç´ç·ï¼éåå½¢æ";
+  if(p<0.30) return "1ã³ã¼ãã¼ï¼éåç¢ºå®";
+  if(p<0.55) return "åæ­£é¢ï¼ãã¼ã¹å®å®";
+  if(p<0.72) return "3ã4ã³ã¼ãã¼ï¼å¾ãã«å·®ãç¸®ã¾ã";
+  if(p<0.84) return "æçµã³ã¼ãã¼ï¼ä»æãéå§";
+  if(p<0.96) return "ç´ç·ï¼è¿½ãæ¯ã¹";
+  return "ã´ã¼ã«å";
 }
 function laneSpread(i){ return (i%6)-2.5; }
 
-function horseName(i){ return horses[i] ? (horses[i].馬番+" "+horses[i].馬名) : ""; }
+function horseName(i){ return horses[i] ? (horses[i].é¦¬çª+" "+horses[i].é¦¬å) : ""; }
 function topOrderFromProg(prog){
   return horses.map((h,i)=>({i,p:prog[i]})).sort((a,b)=>b.p-a.p).map(x=>x.i);
 }
@@ -1249,12 +1376,12 @@ function updateLive(prog,order){
   const phase=Math.max(...prog);
   if(E("liveMeter")) E("liveMeter").style.width=Math.max(0,Math.min(100,Math.round(phase*100)))+"%";
 
-  // 実況は表示しない
+  // å®æ³ã¯è¡¨ç¤ºããªã
   if(E("liveComment")) E("liveComment").textContent="";
 
   if(E("liveOrder")){
-    const ord=topOrderFromProg(prog).slice(0,6).map((i,k)=>(k+1)+"番手 "+horseName(i)).join(" / ");
-    E("liveOrder").textContent="隊列："+ord;
+    const ord=topOrderFromProg(prog).slice(0,6).map((i,k)=>(k+1)+"çªæ "+horseName(i)).join(" / ");
+    E("liveOrder").textContent="éåï¼"+ord;
   }
   if(divs && divs.length){
     const ord=topOrderFromProg(prog);
@@ -1274,17 +1401,17 @@ function makeRacePlan(){
     let st=currentState[i]||{condition:0,trip:0,stamina:0,extra:0};
     let startLoss=0;
 
-    // 出遅れ・スタートのブレ
+    // åºéãã»ã¹ã¿ã¼ãã®ãã¬
     if(Math.random()<0.025*life) startLoss-=0.014+Math.random()*0.014;
 
-    // 序盤の位置取り。最初のコーナーまでに隊列を作る。
-    if(h.脚質==="逃げ") baseP+=0.020;
-    if(h.脚質==="先行") baseP+=0.010;
-    if(h.脚質==="中団") baseP-=0.004;
-    if(h.脚質==="後方"||h.脚質==="差し") baseP-=0.018;
+    // åºç¤ã®ä½ç½®åããæåã®ã³ã¼ãã¼ã¾ã§ã«éåãä½ãã
+    if(h.èè³ª==="éã") baseP+=0.020;
+    if(h.èè³ª==="åè¡") baseP+=0.010;
+    if(h.èè³ª==="ä¸­å£") baseP-=0.004;
+    if(h.èè³ª==="å¾æ¹"||h.èè³ª==="å·®ã") baseP-=0.018;
 
-    if(h.脚質==="逃げ" && pace==="slow") baseP+=0.006;
-    if(h.脚質==="逃げ" && pace==="high") baseP+=0.012;
+    if(h.èè³ª==="éã" && pace==="slow") baseP+=0.006;
+    if(h.èè³ª==="éã" && pace==="high") baseP+=0.012;
 
     return {
       idx:i,
@@ -1314,48 +1441,48 @@ function phaseSpeed(h,phase,planItem){
 
   let raw=base(h)+adj(h,phase)+(st.extra||0)+(st.condition||0)*1.12+(st.trip||0)*1.02;
 
-  // 動画をゆっくり見せるため、基礎速度を落とす
+  // åç»ããã£ããè¦ãããããåºç¤éåº¦ãè½ã¨ã
   let sp=.00295+((raw-70)/11800)*w+rnd()*n*(1.20-w)/520;
 
-  // 1. スタート〜最初のコーナー：隊列形成
+  // 1. ã¹ã¿ã¼ããæåã®ã³ã¼ãã¼ï¼éåå½¢æ
   if(phase<.22){
-    if(h.脚質==="逃げ") sp+=.00046;
-    if(h.脚質==="先行") sp+=.00028;
-    if(h.脚質==="中団") sp+=.00006;
-    if(h.脚質==="後方"||h.脚質==="差し") sp-=.00016;
+    if(h.èè³ª==="éã") sp+=.00046;
+    if(h.èè³ª==="åè¡") sp+=.00028;
+    if(h.èè³ª==="ä¸­å£") sp+=.00006;
+    if(h.èè³ª==="å¾æ¹"||h.èè³ª==="å·®ã") sp-=.00016;
 
     const c=courses[E("course").value]||{};
-    if((c.venue==="函館"||c.venue==="小倉"||c.venue==="福島") && c.dist<=2000){
-      if(h.脚質==="逃げ") sp+=.00010;
-      if(h.脚質==="先行") sp+=.00006;
+    if((c.venue==="å½é¤¨"||c.venue==="å°å"||c.venue==="ç¦å³¶") && c.dist<=2000){
+      if(h.èè³ª==="éã") sp+=.00010;
+      if(h.èè³ª==="åè¡") sp+=.00006;
     }
   }
 
-  // 2. 向正面：隊列維持
+  // 2. åæ­£é¢ï¼éåç¶­æ
   else if(phase<.58){
-    if(pace==="slow" && (h.脚質==="逃げ"||h.脚質==="先行")) sp+=.00005;
-    if(pace==="high" && h.脚質==="逃げ") sp-=.00008;
-    if(h.脚質==="中団") sp+=.00003;
+    if(pace==="slow" && (h.èè³ª==="éã"||h.èè³ª==="åè¡")) sp+=.00005;
+    if(pace==="high" && h.èè³ª==="éã") sp-=.00008;
+    if(h.èè³ª==="ä¸­å£") sp+=.00003;
   }
 
-  // 3. 3〜4角：後続が徐々に差を詰める
+  // 3. 3ã4è§ï¼å¾ç¶ãå¾ãã«å·®ãè©°ãã
   else if(phase<.78){
-    if(h.脚質==="差し"||h.脚質==="後方") sp+=.00034;
-    if(h.脚質==="中団") sp+=.00020;
-    if(h.脚質==="先行") sp+=.00008;
-    if(pace==="high" && h.脚質==="逃げ") sp-=.00030;
+    if(h.èè³ª==="å·®ã"||h.èè³ª==="å¾æ¹") sp+=.00034;
+    if(h.èè³ª==="ä¸­å£") sp+=.00020;
+    if(h.èè³ª==="åè¡") sp+=.00008;
+    if(pace==="high" && h.èè³ª==="éã") sp-=.00030;
     if(trainingScore(h)>=88) sp+=.00007;
   }
 
-  // 4. 直線：逃げ粘り、先行抜け出し、差し追い込みの伸び
+  // 4. ç´ç·ï¼éãç²ããåè¡æãåºããå·®ãè¿½ãè¾¼ã¿ã®ä¼¸ã³
   else{
-    if(h.脚質==="逃げ"){
+    if(h.èè³ª==="éã"){
       if(pace==="slow") sp+=.00016;
       if(pace==="high") sp-=.00044;
     }
-    if(h.脚質==="先行") sp+= pace==="high" ? .00004 : .00018;
-    if(h.脚質==="中団") sp+=.00024;
-    if(h.脚質==="差し"||h.脚質==="後方") sp+=.00046;
+    if(h.èè³ª==="åè¡") sp+= pace==="high" ? .00004 : .00018;
+    if(h.èè³ª==="ä¸­å£") sp+=.00024;
+    if(h.èè³ª==="å·®ã"||h.èè³ª==="å¾æ¹") sp+=.00046;
 
     sp+=(st.stamina||0)/16500;
     if(typeof winProfile==="function") sp+=winProfile(h)/90000;
@@ -1381,7 +1508,7 @@ function runOne(){
   timer=setInterval(()=>{
     let phase=Math.max(...prog);
     if(E("racePhase")){
-      E("racePhase").textContent=phaseName(phase)+" / 先頭進捗 "+Math.max(0,Math.min(100,Math.round(phase*100)))+"%";
+      E("racePhase").textContent=phaseName(phase)+" / åé ­é²æ "+Math.max(0,Math.min(100,Math.round(phase*100)))+"%";
     }
 
     horses.forEach((h,i)=>{
@@ -1393,9 +1520,9 @@ function runOne(){
     updateLive(prog,order);
     count++;
 
-    // ゆっくり再生用
+    // ãã£ããåçç¨
     if(order.length===horses.length || count>2300){
-      if(E("racePhase")) E("racePhase").textContent="ゴール：全頭入線";
+      if(E("racePhase")) E("racePhase").textContent="ã´ã¼ã«ï¼å¨é ­å¥ç·";
       updateLive(prog,order);
       clearInterval(timer);
     }
@@ -1404,7 +1531,7 @@ function runOne(){
 
 function winProfile(h){
   let s=0;
-  const st=h.脚質||"";
+  const st=h.èè³ª||"";
   const bs=base(h), ab=abilityScore(h), bl=blood(h), tr=trainingScore(h);
 
   if(bs>=86) s+=2.0;
@@ -1418,11 +1545,11 @@ function winProfile(h){
   if(tr>=90) s+=0.7;
   else if(tr>=86) s+=0.3;
 
-  // 脚質の勝ち切りはコースに応じて控えめ
-  if(st==="逃げ") s+=1.2;
-  if(st==="先行") s+=1.1;
-  if(st==="中団") s+=0.5;
-  if(st==="後方") s-=0.4;
+  // èè³ªã®åã¡åãã¯ã³ã¼ã¹ã«å¿ãã¦æ§ãã
+  if(st==="éã") s+=1.2;
+  if(st==="åè¡") s+=1.1;
+  if(st==="ä¸­å£") s+=0.5;
+  if(st==="å¾æ¹") s-=0.4;
 
   if(typeof jockeyCourseAdj==="function") s+=jockeyCourseAdj(h)*0.18;
 
@@ -1430,28 +1557,34 @@ function winProfile(h){
 }
 function stableProfile(h){
   let s=0;
-  const st=h.脚質||"";
+  const st=h.èè³ª||"";
   const risk=temperamentRisk(h);
   s += Math.max(0, 10-risk)*0.45;
 
-  if(st==="先行"||st==="中団") s+=1.6;
-  if(st==="逃げ") s+=0.3;
-  if(st==="後方") s-=0.5;
+  if(st==="åè¡"||st==="ä¸­å£") s+=1.6;
+  if(st==="éã") s+=0.3;
+  if(st==="å¾æ¹") s-=0.5;
 
   if(trainingScore(h)>=88) s+=0.8;
   if(blood(h)>=92) s+=0.5;
-  if(E("pace").value==="high" && st==="逃げ") s-=1.5;
+  if(E("pace").value==="high" && st==="éã") s-=1.5;
+  if(isKokuraDownhillCourse()){
+    const apt=frontLoadedAptitude(h);
+    if(apt>=3.0) s+=0.6;
+    if(st==="éã" && apt<2.0) s-=0.8;
+  }
 
   return Math.max(0,Math.min(8,s));
 }
 function pinpaProfile(h){
   let s=0;
-  const st=h.脚質||"", sire=h.種牡馬||"";
-  if(st==="逃げ") s+=2.0;
-  if(st==="後方"||st==="差し") s+=1.8;
+  const st=h.èè³ª||"", sire=h.ç¨®ç¡é¦¬||"";
+  if(st==="éã") s+=2.0;
+  if(st==="å¾æ¹"||st==="å·®ã") s+=1.8;
   if(temperamentRisk(h)>=9) s+=1.8;
-  if(sire.includes("ゴールドシップ")) s+=1.6;
-  if(st==="先行" && stableProfile(h)>=6) s-=0.8;
+  if(sire.includes("ã´ã¼ã«ãã·ãã")) s+=1.6;
+  if(st==="åè¡" && stableProfile(h)>=6) s-=0.8;
+  if(isKokuraDownhillCourse() && st==="éã" && frontLoadedAptitude(h)<2.0) s+=0.8;
   return Math.max(0,Math.min(8,s));
 }
 function finishScoreByMode(h, baseScore, mode){
@@ -1467,27 +1600,27 @@ function finishScoreByMode(h, baseScore, mode){
   return score;
 }
 function courseSpecificHorseAdj(h){
-  // 特定馬・特定G1専用ではなく、全レース共通の汎用コース補正だけにする
+  // ç¹å®é¦¬ã»ç¹å®G1å°ç¨ã§ã¯ãªããå¨ã¬ã¼ã¹å±éã®æ±ç¨ã³ã¼ã¹è£æ­£ã ãã«ãã
   const c=courses[E("course").value]||{};
-  const st=h.脚質||"";
+  const st=h.èè³ª||"";
   let s=0;
 
-  // 内回り・小回りは位置取りを少し評価
-  if((c.profile||"").includes("inner") || ["函館","小倉","福島"].includes(c.venue)){
-    if(st==="逃げ"||st==="先行") s+=0.6;
-    if(st==="後方") s-=0.4;
+  // ååãã»å°åãã¯ä½ç½®åããå°ãè©ä¾¡
+  if((c.profile||"").includes("inner") || ["å½é¤¨","å°å","ç¦å³¶"].includes(c.venue)){
+    if(st==="éã"||st==="åè¡") s+=0.6;
+    if(st==="å¾æ¹") s-=0.4;
   }
 
-  // 東京など長い直線は差しも届く
-  if(c.venue==="東京" && c.kind==="turf"){
-    if(st==="差し"||st==="後方"||st==="中団") s+=0.5;
-    if(st==="逃げ" && c.dist>=1800) s-=0.2;
+  // æ±äº¬ãªã©é·ãç´ç·ã¯å·®ããå±ã
+  if(c.venue==="æ±äº¬" && c.kind==="turf"){
+    if(st==="å·®ã"||st==="å¾æ¹"||st==="ä¸­å£") s+=0.5;
+    if(st==="éã" && c.dist>=1800) s-=0.2;
   }
 
-  // ダート短距離・小回りは前
+  // ãã¼ãç­è·é¢ã»å°åãã¯å
   if(c.kind==="dirt" && c.dist<=1400){
-    if(st==="逃げ"||st==="先行") s+=0.7;
-    if(st==="後方") s-=0.5;
+    if(st==="éã"||st==="åè¡") s+=0.7;
+    if(st==="å¾æ¹") s-=0.5;
   }
   return s;
 }
@@ -1507,8 +1640,8 @@ function raceScores(trialHorses){
     else if(b<72&&Math.random()<0.014*life) bomb+=11+Math.random()*12;
     else if(b<78&&Math.random()<0.010*life) bomb+=8+Math.random()*9;
     let styleBomb=0;
-    if((h.脚質==="逃げ"||h.脚質==="先行")&&E("pace").value==="slow"&&Math.random()<0.025*life) styleBomb+=8+Math.random()*9;
-    if((h.脚質==="差し"||h.脚質==="後方")&&E("pace").value==="high"&&Math.random()<0.025*life) styleBomb+=8+Math.random()*9;
+    if((h.èè³ª==="éã"||h.èè³ª==="åè¡")&&E("pace").value==="slow"&&Math.random()<0.025*life) styleBomb+=8+Math.random()*9;
+    if((h.èè³ª==="å·®ã"||h.èè³ª==="å¾æ¹")&&E("pace").value==="high"&&Math.random()<0.025*life) styleBomb+=8+Math.random()*9;
     let temp=temperamentEvent(h,life);
     let extra=(typeof totalExtraAdj==="function") ? totalExtraAdj(h,life) : frameAdj(h);
     let raw=b+a+extra+courseSpecificHorseAdj(h)+noise+condition+accident+cap+bomb+styleBomb+temp.event;
@@ -1529,7 +1662,7 @@ function drawResult(st,done,n,finished){
  let sorted=[...st].sort((a,b)=>b.w-a.w||b.p3-a.p3);
  updateWeightModeInfo();
  const w=raceWeights();
- E("result").innerHTML=(finished?"":"<div class='small'>検証中... "+done+" / "+n+"回</div>")+"<div class='small warn'>ウェイト："+w.label+" / 能力"+Math.round(w.ab*100)+"%・血統"+Math.round(w.bl*100)+"%・推定タイム"+Math.round(w.ti*100)+"%・調教"+Math.round(w.tr*100)+"%・騎手"+Math.round(w.jo*100)+"%</div><table><tr><th>順</th><th>馬番</th><th>馬名</th><th>勝率</th><th>連対</th><th>複勝</th><th>平均</th><th>総合</th><th>能力</th><th>タイム</th><th>血統</th><th>調教</th><th>坂終</th><th>坂4F</th><th>W1</th><th>W6</th><th>騎手</th><th>騎場</th><th>気性</th><th>勝切</th><th>安定</th><th>ピンパー</th><th>枠</th><th>馬場</th><th>育成</th></tr>"+sorted.map((s,i)=>"<tr><td>"+(i+1)+"</td><td>"+s.h.馬番+"</td><td>"+s.h.馬名+"</td><td>"+(s.w/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p2/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p3/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.rs/Math.max(1,done)).toFixed(2)+"</td><td>"+base(s.h).toFixed(1)+"</td><td>"+abilityScore(s.h).toFixed(1)+"</td><td>"+timeScore(s.h).toFixed(1)+"</td><td>"+blood(s.h).toFixed(1)+"</td><td>"+trainingScore(s.h).toFixed(1)+"</td><td>"+(isNaN(parseFloat(s.h.Time4))?"-":parseFloat(s.h.Time4).toFixed(1))+"</td><td>"+(isNaN(parseFloat(s.h.Time1))?"-":parseFloat(s.h.Time1).toFixed(1))+"</td><td>"+(isNaN(parseFloat(s.h.ウッド1F))?"-":parseFloat(s.h.ウッド1F).toFixed(1))+"</td><td>"+(isNaN(parseFloat(s.h.ウッド6F))?"-":parseFloat(s.h.ウッド6F).toFixed(1))+"</td><td>"+jockeyScore(s.h).toFixed(1)+"</td><td>"+jockeyCourseAdj(s.h).toFixed(1)+"</td><td>"+temperamentRisk(s.h).toFixed(1)+"</td><td>"+winProfile(s.h).toFixed(1)+"</td><td>"+stableProfile(s.h).toFixed(1)+"</td><td>"+pinpaProfile(s.h).toFixed(1)+"</td><td>"+frameAdj(s.h).toFixed(1)+"</td><td>"+manualBiasAdj(s.h).toFixed(1)+"</td><td>"+breederConditionAdj(s.h).toFixed(1)+"</td></tr>").join("")+"</table>";
+ E("result").innerHTML=(finished?"":"<div class='small'>æ¤è¨¼ä¸­... "+done+" / "+n+"å</div>")+"<div class='small warn'>ã¦ã§ã¤ãï¼"+w.label+" / è½å"+Math.round(w.ab*100)+"%ã»è¡çµ±"+Math.round(w.bl*100)+"%ã»æ¨å®ã¿ã¤ã "+Math.round(w.ti*100)+"%ã»èª¿æ"+Math.round(w.tr*100)+"%ã»é¨æ"+Math.round(w.jo*100)+"%</div><table><tr><th>é </th><th>é¦¬çª</th><th>é¦¬å</th><th>åç</th><th>é£å¯¾</th><th>è¤å</th><th>å¹³å</th><th>ç·å</th><th>è½å</th><th>ã¿ã¤ã </th><th>è¡çµ±</th><th>èª¿æ</th><th>åçµ</th><th>å4F</th><th>W1</th><th>W6</th><th>é¨æ</th><th>é¨å ´</th><th>æ°æ§</th><th>åå</th><th>å®å®</th><th>ãã³ãã¼</th><th>æ </th><th>é¦¬å ´</th><th>è²æ</th></tr>"+sorted.map((s,i)=>"<tr><td>"+(i+1)+"</td><td>"+s.h.é¦¬çª+"</td><td>"+s.h.é¦¬å+"</td><td>"+(s.w/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p2/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p3/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.rs/Math.max(1,done)).toFixed(2)+"</td><td>"+base(s.h).toFixed(1)+"</td><td>"+abilityScore(s.h).toFixed(1)+"</td><td>"+timeScore(s.h).toFixed(1)+"</td><td>"+blood(s.h).toFixed(1)+"</td><td>"+trainingScore(s.h).toFixed(1)+"</td><td>"+(isNaN(parseFloat(s.h.Time4))?"-":parseFloat(s.h.Time4).toFixed(1))+"</td><td>"+(isNaN(parseFloat(s.h.Time1))?"-":parseFloat(s.h.Time1).toFixed(1))+"</td><td>"+(isNaN(parseFloat(s.h.ã¦ãã1F))?"-":parseFloat(s.h.ã¦ãã1F).toFixed(1))+"</td><td>"+(isNaN(parseFloat(s.h.ã¦ãã6F))?"-":parseFloat(s.h.ã¦ãã6F).toFixed(1))+"</td><td>"+jockeyScore(s.h).toFixed(1)+"</td><td>"+jockeyCourseAdj(s.h).toFixed(1)+"</td><td>"+temperamentRisk(s.h).toFixed(1)+"</td><td>"+winProfile(s.h).toFixed(1)+"</td><td>"+stableProfile(s.h).toFixed(1)+"</td><td>"+pinpaProfile(s.h).toFixed(1)+"</td><td>"+frameAdj(s.h).toFixed(1)+"</td><td>"+manualBiasAdj(s.h).toFixed(1)+"</td><td>"+breederConditionAdj(s.h).toFixed(1)+"</td></tr>").join("")+"</table>";
 }
 let manyRunning=false;
 function runMany(){
@@ -1539,7 +1672,7 @@ function runMany(){
  let n=parseInt(E("simCount").value||"1000",10);
  let st=horses.map(h=>({h,w:0,p2:0,p3:0,rs:0}));
  let done=0;
- E("result").innerHTML="<div class='small'>検証中... 0 / "+n+"回</div>";
+ E("result").innerHTML="<div class='small'>æ¤è¨¼ä¸­... 0 / "+n+"å</div>";
  function chunk(){
    let chunkSize=n>=5000?100:50;
    let end=Math.min(done+chunkSize,n);
@@ -1554,7 +1687,7 @@ function runMany(){
      p2Order.slice(0,2).forEach(idx=>st[idx].p2++);
      p3Order.slice(0,3).forEach(idx=>st[idx].p3++);
 
-     // 平均着順は勝ち切りモードの全順位で算出
+     // å¹³åçé ã¯åã¡åãã¢ã¼ãã®å¨é ä½ã§ç®åº
      winOrder.forEach((idx,j)=>{st[idx].rs+=j+1;});
    }
    drawResult(st,done,n,done>=n);
