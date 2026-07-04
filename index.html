@@ -6,7 +6,7 @@
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1080px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5;transition:left .30s linear,top .30s linear,box-shadow .2s}.horse.move{box-shadow:0 0 14px 5px rgba(255,255,255,.55)}.horse.fade{opacity:.55}.liveBox{background:#081525;border:1px solid #2c4664;border-radius:12px;padding:10px;margin-top:8px}.liveLine{font-size:14px;line-height:1.6}.meter{height:8px;background:#1c3048;border-radius:99px;overflow:hidden;margin:7px 0}.meter>div{height:100%;background:#e1c766;width:0%}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}
 </style></head><body><main>
 <h1 id="title">函館 未勝利 / 函館ダ1700</h1>
-<div class="small">CSV/TSV貼り付け対応。v8.32：分析エンジンとシミュレーターを分離。TARGET5年分は分析済みの圧縮指数だけを保持し、読込時に各馬へ騎手×コース・騎手×血統・血統実績指数をキャッシュ。5000回検証中はDB検索しません。基本スコアは能力36%・血統34%・推定タイム16%・調教10%・騎手4%。</div>
+<div class="small">CSV/TSV貼り付け対応。v8.33：稍重は通常寄りウェイトとして扱い、稍重〜重・重・不良だけを道悪ウェイトに分離。TARGET5年分は分析済みの圧縮指数だけを保持し、読込時に各馬へ指数をキャッシュ。5000回検証中はDB検索しません。</div>
 <div class="panel"><h3>出走表貼り付け</h3><div class="controls">
 <div><label>レース名</label><input id="raceName" value="函館6R 未勝利"></div>
 <div><label>コース</label><select id="course"><optgroup label="東京">
@@ -88,7 +88,7 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 
 
 <div class="panel"><h3>v8.32 分析エンジン分離運用</h3>
-<div class="small">TARGET過去5年分の分析はHTML外の分析エンジンで実施し、HTMLには58〜84の圧縮指数だけを保持します。出走表読込時に騎手×コース・騎手×血統・父/母父/父×母父の指数を各馬へ保存し、5000回シミュレーション中はDB検索を行いません。<br><span id="weightModeInfo" class="warn">現在のウェイト：ローカル小回り：v8.32基本型 / 能力36%・血統34%・推定タイム16%・調教10%・騎手4%</span></div></div>
+<div class="small">TARGET過去5年分の分析はHTML外の分析エンジンで実施し、HTMLには58〜84の圧縮指数だけを保持します。出走表読込時に騎手×コース・騎手×血統・父/母父/父×母父の指数を各馬へ保存し、5000回シミュレーション中はDB検索を行いません。<br><span id="weightModeInfo" class="warn">現在のウェイト：ローカル小回り：v8.33基本型 / 能力36%・血統34%・推定タイム16%・調教10%・騎手4%</span></div></div>
 <div class="panel"><h3>v7.3 東京芝Dコース補正</h3><div class="small">東京芝1800などでDコース替わり＋稍重時に内の傷みがカバーされて逃げ・内先行が止まりにくいケースを反映。CSVのコース列（A/B/C/D）または内柵/コース区分選択を参照し、東京芝1800Dは内枠逃げ・先行を加点、外枠差しの過大評価を抑制します。</div></div>
 <div class="panel"><h3>v7.1 コース別枠順補正</h3><div class="small">小回り芝1800〜2000は内枠＋逃げ/先行を強化。函館芝1800は1角まで短い条件として追加加点。芝スタートのダート（東京ダ1600、阪神ダ1400、函館/小倉ダ1000、福島ダ1150）は外枠＋逃げ/先行を評価し、非芝スタートのローカルダ1700は内〜中枠先行を評価します。</div></div>
 <div class="panel"><h3>v7.1.1 調教列名互換</h3><div class="small">坂路3Fだけでなく「坂3F」、坂路4F/2F/1Fの短縮表記、坂終も読み込み対応。ベルジュロネットのような坂路51.3-37.4-24.3-11.9が調教ランクだけに落ちる不具合を修正。</div></div>
@@ -945,7 +945,8 @@ function raceCategory(){
   const going=E("going").value;
   const bias=E("bias").value;
   const isNewcomer=/新馬|メイクデビュー|2歳|２歳/.test(rn);
-  const isBad=(going==="good_soft"||going==="soft_range"||going==="soft"||going==="bad"||bias==="power");
+  // v8.33：稍重(good_soft)は道悪扱いにしない。道悪ウェイトは稍重〜重・重・不良、または手動バイアス「力いる馬場」のみ。
+  const isBad=(going==="soft_range"||going==="soft"||going==="bad"||bias==="power");
   const isSpeed=(going==="ultrafirm"||bias==="speed");
   const isGraded=/G1|G2|G3|重賞|ＯＰ|OP|オープン|L/.test(rn);
   const isLocalSmall=(c.venue==="函館"||c.venue==="小倉"||c.venue==="福島") && (c.dist||0)>=1700;
@@ -962,12 +963,12 @@ function raceWeights(){
   const cat=raceCategory();
   const map={
     newcomer:{label:"新馬・2歳：血統/調教重視",ab:0.28,bl:0.42,ti:0.08,tr:0.18,jo:0.04},
-    badGoing:{label:"道悪：血統/調教重視",ab:0.34,bl:0.36,ti:0.14,tr:0.12,jo:0.04},
+    badGoing:{label:"道悪：血統/調教重視（稍重〜重以上）",ab:0.34,bl:0.36,ti:0.14,tr:0.12,jo:0.04},
     speedGoing:{label:"高速馬場：タイム重視",ab:0.34,bl:0.26,ti:0.28,tr:0.08,jo:0.04},
-    graded:{label:"古馬重賞/OP：v8.32基本型",ab:0.36,bl:0.34,ti:0.16,tr:0.10,jo:0.04},
+    graded:{label:"古馬重賞/OP：v8.33基本型",ab:0.36,bl:0.34,ti:0.16,tr:0.10,jo:0.04},
     kokuraDownhill:{label:"小倉：基本型＋前傾ラップ/持続力",ab:0.36,bl:0.34,ti:0.16,tr:0.10,jo:0.04},
-    localSmall:{label:"ローカル小回り：v8.32基本型",ab:0.36,bl:0.34,ti:0.16,tr:0.10,jo:0.04},
-    standard:{label:"標準：v8.32基本型",ab:0.36,bl:0.34,ti:0.16,tr:0.10,jo:0.04}
+    localSmall:{label:"ローカル小回り：v8.33基本型",ab:0.36,bl:0.34,ti:0.16,tr:0.10,jo:0.04},
+    standard:{label:"標準：v8.33基本型",ab:0.36,bl:0.34,ti:0.16,tr:0.10,jo:0.04}
   };
   return map[cat]||map.standard;
 }
