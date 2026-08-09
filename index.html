@@ -99,7 +99,7 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 const E=id=>document.getElementById(id);let horses=[],timer=null,divs=[],path=[],seg=[],total=0,currentState=null,lastManyResult=null;
 const grade={S:86,AA:83,A:81,B:76,C:71,D:66,E:62,"－":72,"":72};
 const jockey={"ルメール":10,"レーン":9,"川田将雅":8,"武豊":5,"戸崎圭太":4,"坂井瑠星":4,"松山弘平":3,"横山武史":3,"岩田望来":3,"横山和生":3,"丹内祐次":2};
-const ENGINE_VERSION="v8.42.2-trainer-code-db";
+const ENGINE_VERSION="v8.42.3-trainer-null-safe";
 const ANALYSIS_ENGINE_POLICY={mode:"external-analysis-compressed-index", range:[58,86], simulationUsesRawDb:false, cacheOnLoad:true};
 // v8.42 厩舎圧縮指数DB。TARGET抽出データから外部工程で58〜86へ圧縮して埋め込む。
 // overall=厩舎総合 / venue=厩舎×競馬場 / surface=厩舎×芝ダ / distance=厩舎×距離帯 / class=厩舎×クラス
@@ -1806,9 +1806,15 @@ function trainerClassBucket(h){
   if(/G1|G2|G3|重賞|ＯＰ|OP|オープン|\(L\)|\bL\b/.test(rn))return "open";
   return "other";
 }
+function trainerNullableNumber(v){
+  if(v===null || v===undefined)return null;
+  if(typeof v==="string" && v.trim()==="")return null;
+  const n=Number(v);
+  return Number.isFinite(n)?n:null;
+}
 function trainerDbValueFrom(db,group,key){
   const v=db?.[group]?.[key];
-  return Number.isFinite(Number(v))?Number(v):null;
+  return trainerNullableNumber(v);
 }
 function trainerDbValue(group,key){return trainerDbValueFrom(TRAINER_INDEX_DB,group,key);}
 function trainerCodeDbValue(group,key){return trainerDbValueFrom(TRAINER_CODE_INDEX_DB,group,key);}
@@ -1820,12 +1826,14 @@ function trainerIndexParts(h){
   const distBucket=trainerDistanceBucket(c.dist||h.距離||0);
   const classBucket=trainerClassBucket(h);
 
+  // v8.42.3: 空欄/null/undefined/空白だけを 0 と誤認しない。
+  // 直接指数が本当に数値のときだけ採用し、それ以外はコードDB→名前DBへ進む。
   const direct={
-    overall:Number.isFinite(Number(h.厩舎総合指数))?Number(h.厩舎総合指数):null,
-    venue:Number.isFinite(Number(h.厩舎競馬場指数))?Number(h.厩舎競馬場指数):null,
-    surface:Number.isFinite(Number(h.厩舎芝ダ指数))?Number(h.厩舎芝ダ指数):null,
-    distance:Number.isFinite(Number(h.厩舎距離指数))?Number(h.厩舎距離指数):null,
-    classIndex:Number.isFinite(Number(h.厩舎クラス指数))?Number(h.厩舎クラス指数):null
+    overall:trainerNullableNumber(h.厩舎総合指数),
+    venue:trainerNullableNumber(h.厩舎競馬場指数),
+    surface:trainerNullableNumber(h.厩舎芝ダ指数),
+    distance:trainerNullableNumber(h.厩舎距離指数),
+    classIndex:trainerNullableNumber(h.厩舎クラス指数)
   };
   const directWeighted=[[direct.overall,0.15],[direct.venue,0.30],[direct.surface,0.20],[direct.distance,0.20],[direct.classIndex,0.15]].filter(x=>x[0]!==null);
   if(directWeighted.length){
