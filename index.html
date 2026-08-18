@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0102)file:///C:/Users/admin/Downloads/Eikichi%20Racing%20Simulator%20v8.43.5%20CSV%20Race%20Lock%20Fix.html -->
+<!-- saved from url=(0108)file:///C:/Users/admin/Downloads/Eikichi%20Racing%20Simulator%20v8.43.6%20CSV%20Button%20Recovery%20(1).html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eikichi Racing Simulator v8.43.5 CSV Race Lock Fix</title>
+<title>Eikichi Racing Simulator v8.43.6 CSV Button Recovery</title>
 <style>
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1380px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}.blue{background:#2563a6}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5;transition:left .30s linear,top .30s linear,box-shadow .2s}.horse.move{box-shadow:0 0 14px 5px rgba(255,255,255,.55)}.horse.fade{opacity:.55}.liveBox{background:#081525;border:1px solid #2c4664;border-radius:12px;padding:10px;margin-top:8px}.liveLine{font-size:14px;line-height:1.6}.meter{height:8px;background:#1c3048;border-radius:99px;overflow:hidden;margin:7px 0}.meter>div{height:100%;background:#e1c766;width:0%}#result{overflow-x:auto;padding:2px 0 10px;scrollbar-color:#496986 #0a1727}#result table{min-width:1780px;width:100%;border-collapse:separate;border-spacing:0;font-size:13px}#result th{position:sticky;top:0;z-index:3;background:#0d1b2e;box-shadow:0 1px 0 #334b68}#result td,#result th{padding:8px 7px;border-bottom:1px solid #26364d;text-align:left;white-space:nowrap}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}.training-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.training-grid textarea{height:160px}.changelog-panel{opacity:.88}.changelog-panel h3{font-size:16px;color:#b8cae0}@media(max-width:760px){main{padding:8px}.training-grid{grid-template-columns:1fr}.controls{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style></head><body><script id="embeddedShareState" type="application/json"></script><main>
@@ -207,10 +207,11 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 
 
 
+
 <div class="panel"><h3>勝ち切り・安定・ピンパー補正</h3><div class="small">勝率は「勝ち切り型」、連対率は「勝ち切り＋安定」、複勝率は「安定型」を強めて別計算します。逃げ・後方・気性難はピンパー寄りになり、勝率と複勝率の順位がズレやすくなります。</div></div><div class="panel"><h3>検証結果</h3><div id="result"><div class="small">5000回検証を実行してください。</div></div></div>
 
 <div class="panel"><h3>能力内タイム補助方式</h3><div class="small">推定タイム評価列はCSV互換のため残していますが、総合スコアへ直接16%加点しません。能力ランクを土台に、コース・馬場・データ信頼度に応じて0〜20%だけ能力内部へ混合します。これにより能力とタイムの二重評価を防ぎ、ローカルダ1700mのタイム過信を抑えます。</div></div>
-<div class="panel changelog-panel"><h3>v8.43.5 CHANGELOG</h3><div class="small">5000回検証中にレース選択や条件が変わり、検証データとCSVのレース名・メタ情報が別レースになる不具合を修正。検証開始時のレースキー・レース名・コース・馬場・ペース・バイアスを固定保存し、処理中は関連操作をロック。CSVは検証開始時に保存したレース情報だけを使用し、別レースへの混入を防止します。</div></div><div class="panel changelog-panel"><h3>v8.43.4 CHANGELOG</h3><div class="small">5000回検証で基礎総合より固定補正が過剰に優先される問題を修正。枠・馬場バイアス・前残り・騎手コース補正の重複加算を解消し、各補正を一度だけ反映。画面の予想反映度を試行ごとの脚質選択へ接続し、予想反映度以外を前走脚質62.5%・ランダム37.5%で配分。結果の総合欄は実際の検証直前に使う実効総合へ変更し、基礎総合と固定補正を別列表示。調教指数、血統指数、能力ウェイトは変更なし。</div></div><div class="panel changelog-panel"><h3>v8.43.3 CHANGELOG</h3><div class="small">iPad／iPhone版Safariで共有用HTMLボタンが反応しない問題を修正。対応端末ではiOS標準の共有シートを直接開き、「ファイルに保存」「メール」「AirDrop」などを選択可能に変更。共有シートを利用できないSafariでは、作成した共有用HTMLを新しいタブで開く方式へフォールバック。Windows／Macでは従来どおりHTMLファイルをダウンロードします。</div></div><div class="panel changelog-panel"><h3>v8.43.2 CHANGELOG</h3><div class="small">検証結果をチェンジログより上へ配置し、チェンジログ群をページ最下部へ集約。検証結果テーブルの表示幅・横スクロール・固定見出しを改善。読み込んだ出走表、坂路・ウッド2週間データ、競馬場別馬場・バイアス、レース別ペース、現在の操作設定を内蔵した共有用HTML出力を追加。共有用HTMLを開くとデータを自動復元し、レース選択と5000回検証をそのまま実行できます。</div></div><div class="panel changelog-panel"><h3>v8.43.1 CHANGELOG</h3><div class="small">2週間調教指数を再校正。直前0〜5日55%・6〜11日前30%・12〜14日前15%を固定し、該当期間のデータがない場合は72ニュートラルで補完するため、古い調教1本だけで指数上位になる問題を修正。各期間は最高点60%＋平均40%。セッション90点超をソフト圧縮して100点到達率を約2〜3%へ抑制。11.0〜11.4秒の加速はセッション評価で重点加点し、総合点側での同一加速の再加点を撤去。前日坂路4Fの強・中・小加点は維持。調教は独立13%ではなく最大3.0点の後押し補正として表示を明確化。血統登録番号優先／馬名フォールバック、5000回試行、能力・血統・騎手ロジックは変更なし。</div></div><div class="panel changelog-panel"><h3>v8.43.0 CHANGELOG</h3><div class="small">出馬表側の坂路4F〜1F・ウッド6F〜1Fの10時計列を廃止。調教評価は坂路2週間CSV＋ウッド2週間CSVを唯一の正本とし、血統登録番号優先／馬名フォールバックで統合。2週間調教未読込・未一致の馬は72ニュートラル。旧出馬表時計によるフォールバック・直接加点を撤去し、二重評価を防止。基本ウェイト42/40/13/5、血統45/25/30、5000回試行は変更なし。</div></div><div class="panel changelog-panel"><h3>v8.42.9 CHANGELOG</h3><div class="small">坂路2週間＋ウッド2週間の専用入力を追加。血統登録番号優先／馬名フォールバックで出馬表へ自動統合。調教は直前5日55%・6〜11日前30%・12〜14日前15%で圧縮。ラスト1F 11.0〜11.4秒かつ加速した追い切りを強化評価。v8.42.9ではレース前日の坂路4Fを追加評価し、59.9秒以下=強、60.0〜61.9=中、62.0〜65.0=小、65.1秒以上=加点なし。基本ウェイト42/40/13/5、血統45/25/30、5000回試行、調教13%の枠内を維持。</div></div><div class="panel changelog-panel"><h3>v8.42.7 CHANGELOG</h3><div class="small">全レース一括貼り付け・レース選択プルダウンを追加。場所＋レースで自動分割し、芝ダ＋距離からコースを自動照合。馬場・バイアスは競馬場×芝/ダート単位、ペースはレース単位で保持。1回再生・レース動画UIを撤去し、5000回検証に特化。予測ロジック・DB・42/40/13/5・血統45/25/30は変更なし。</div></div><div class="panel changelog-panel"><h3>v8.41.2 CHANGELOG</h3><div class="small">能力4〜7位かつ血統上位・適性複数一致の馬を最大2.2点だけ救済。能力8位以下は適性試行上振れを制限。能力1〜3位で適性2項目一致は安定＋1.0、3項目一致は＋1.5を主に連対・複勝へ反映。複勝率40〜50%帯は表示・CSVを5ポイント下方補正。<br>CSV出力処理をブラウザ互換方式へ修正し、成功・失敗メッセージを追加。<br>新潟・中京・札幌の主要芝／ダートコースを追加。新潟芝1000直線の外枠、新潟外回りの末脚、中京の急坂・パワー、札幌の洋芝・小回り持続をコースプロファイル、血統適性、脚質・枠順、タイム信頼度へ接続。既存機能は維持。<br>コース・馬場・ペースの血統適性が高い馬について、5000回の各試行で①小さな適性加点、②下振れ軽減、③条件一致時の上振れを追加。血統40%の基本ウェイト、調教の後押し加点、乱数・生き物ブレ、既存UI・CSV互換・アニメーションは維持。適性が1項目だけ高い馬の過剰評価を防ぎ、複数条件が一致した馬ほど効果が強くなる上限制御を実装。<br>検証完了後に、勝率・連対率・複勝率と各順位、各評価項目をUTF-8 BOM付きCSVで出力できる機能を追加。実着順入力用の空列も付与。既存の検証ロジック・UI・アニメーション・CSV互換は維持。<br>推定タイムの独立16%ウェイトを廃止し、能力総合の内部補助へ統合。標準は能力ランク85%＋推定タイム15%、函館・福島・小倉ダ1700mは95%＋5%、高速芝は80%＋20%で自動調整します。基本ウェイトは能力42%・血統40%・調教13%・騎手5%。CSVの推定タイム列、反映度UI、結果表示は互換維持。既存UI、レースアニメーション、5000回検証、圧縮指数キャッシュ、血統上限96、福島芝1800〜2000m補正を維持しています。</div></div></main>
+<div class="panel changelog-panel"><h3>v8.43.6 CHANGELOG</h3><div class="small">v8.43.5の検証中操作ロックでCSVボタンが無効のまま残る場合がある問題を修正。CSVボタンをロック対象から除外し、常にクリック可能な状態を保証。検証未完了時は案内を表示し、完了後は検証開始時に固定保存した正しいレース情報でCSVを出力します。</div></div><div class="panel changelog-panel"><h3>v8.43.5 CHANGELOG</h3><div class="small">5000回検証中にレース選択や条件が変わり、検証データとCSVのレース名・メタ情報が別レースになる不具合を修正。検証開始時のレースキー・レース名・コース・馬場・ペース・バイアスを固定保存し、処理中は関連操作をロック。CSVは検証開始時に保存したレース情報だけを使用し、別レースへの混入を防止します。</div></div><div class="panel changelog-panel"><h3>v8.43.4 CHANGELOG</h3><div class="small">5000回検証で基礎総合より固定補正が過剰に優先される問題を修正。枠・馬場バイアス・前残り・騎手コース補正の重複加算を解消し、各補正を一度だけ反映。画面の予想反映度を試行ごとの脚質選択へ接続し、予想反映度以外を前走脚質62.5%・ランダム37.5%で配分。結果の総合欄は実際の検証直前に使う実効総合へ変更し、基礎総合と固定補正を別列表示。調教指数、血統指数、能力ウェイトは変更なし。</div></div><div class="panel changelog-panel"><h3>v8.43.3 CHANGELOG</h3><div class="small">iPad／iPhone版Safariで共有用HTMLボタンが反応しない問題を修正。対応端末ではiOS標準の共有シートを直接開き、「ファイルに保存」「メール」「AirDrop」などを選択可能に変更。共有シートを利用できないSafariでは、作成した共有用HTMLを新しいタブで開く方式へフォールバック。Windows／Macでは従来どおりHTMLファイルをダウンロードします。</div></div><div class="panel changelog-panel"><h3>v8.43.2 CHANGELOG</h3><div class="small">検証結果をチェンジログより上へ配置し、チェンジログ群をページ最下部へ集約。検証結果テーブルの表示幅・横スクロール・固定見出しを改善。読み込んだ出走表、坂路・ウッド2週間データ、競馬場別馬場・バイアス、レース別ペース、現在の操作設定を内蔵した共有用HTML出力を追加。共有用HTMLを開くとデータを自動復元し、レース選択と5000回検証をそのまま実行できます。</div></div><div class="panel changelog-panel"><h3>v8.43.1 CHANGELOG</h3><div class="small">2週間調教指数を再校正。直前0〜5日55%・6〜11日前30%・12〜14日前15%を固定し、該当期間のデータがない場合は72ニュートラルで補完するため、古い調教1本だけで指数上位になる問題を修正。各期間は最高点60%＋平均40%。セッション90点超をソフト圧縮して100点到達率を約2〜3%へ抑制。11.0〜11.4秒の加速はセッション評価で重点加点し、総合点側での同一加速の再加点を撤去。前日坂路4Fの強・中・小加点は維持。調教は独立13%ではなく最大3.0点の後押し補正として表示を明確化。血統登録番号優先／馬名フォールバック、5000回試行、能力・血統・騎手ロジックは変更なし。</div></div><div class="panel changelog-panel"><h3>v8.43.0 CHANGELOG</h3><div class="small">出馬表側の坂路4F〜1F・ウッド6F〜1Fの10時計列を廃止。調教評価は坂路2週間CSV＋ウッド2週間CSVを唯一の正本とし、血統登録番号優先／馬名フォールバックで統合。2週間調教未読込・未一致の馬は72ニュートラル。旧出馬表時計によるフォールバック・直接加点を撤去し、二重評価を防止。基本ウェイト42/40/13/5、血統45/25/30、5000回試行は変更なし。</div></div><div class="panel changelog-panel"><h3>v8.42.9 CHANGELOG</h3><div class="small">坂路2週間＋ウッド2週間の専用入力を追加。血統登録番号優先／馬名フォールバックで出馬表へ自動統合。調教は直前5日55%・6〜11日前30%・12〜14日前15%で圧縮。ラスト1F 11.0〜11.4秒かつ加速した追い切りを強化評価。v8.42.9ではレース前日の坂路4Fを追加評価し、59.9秒以下=強、60.0〜61.9=中、62.0〜65.0=小、65.1秒以上=加点なし。基本ウェイト42/40/13/5、血統45/25/30、5000回試行、調教13%の枠内を維持。</div></div><div class="panel changelog-panel"><h3>v8.42.7 CHANGELOG</h3><div class="small">全レース一括貼り付け・レース選択プルダウンを追加。場所＋レースで自動分割し、芝ダ＋距離からコースを自動照合。馬場・バイアスは競馬場×芝/ダート単位、ペースはレース単位で保持。1回再生・レース動画UIを撤去し、5000回検証に特化。予測ロジック・DB・42/40/13/5・血統45/25/30は変更なし。</div></div><div class="panel changelog-panel"><h3>v8.41.2 CHANGELOG</h3><div class="small">能力4〜7位かつ血統上位・適性複数一致の馬を最大2.2点だけ救済。能力8位以下は適性試行上振れを制限。能力1〜3位で適性2項目一致は安定＋1.0、3項目一致は＋1.5を主に連対・複勝へ反映。複勝率40〜50%帯は表示・CSVを5ポイント下方補正。<br>CSV出力処理をブラウザ互換方式へ修正し、成功・失敗メッセージを追加。<br>新潟・中京・札幌の主要芝／ダートコースを追加。新潟芝1000直線の外枠、新潟外回りの末脚、中京の急坂・パワー、札幌の洋芝・小回り持続をコースプロファイル、血統適性、脚質・枠順、タイム信頼度へ接続。既存機能は維持。<br>コース・馬場・ペースの血統適性が高い馬について、5000回の各試行で①小さな適性加点、②下振れ軽減、③条件一致時の上振れを追加。血統40%の基本ウェイト、調教の後押し加点、乱数・生き物ブレ、既存UI・CSV互換・アニメーションは維持。適性が1項目だけ高い馬の過剰評価を防ぎ、複数条件が一致した馬ほど効果が強くなる上限制御を実装。<br>検証完了後に、勝率・連対率・複勝率と各順位、各評価項目をUTF-8 BOM付きCSVで出力できる機能を追加。実着順入力用の空列も付与。既存の検証ロジック・UI・アニメーション・CSV互換は維持。<br>推定タイムの独立16%ウェイトを廃止し、能力総合の内部補助へ統合。標準は能力ランク85%＋推定タイム15%、函館・福島・小倉ダ1700mは95%＋5%、高速芝は80%＋20%で自動調整します。基本ウェイトは能力42%・血統40%・調教13%・騎手5%。CSVの推定タイム列、反映度UI、結果表示は互換維持。既存UI、レースアニメーション、5000回検証、圧縮指数キャッシュ、血統上限96、福島芝1800〜2000m補正を維持しています。</div></div></main>
 <script>
 (function(){
 const E=id=>document.getElementById(id);let horses=[],timer=null,divs=[],path=[],seg=[],total=0,currentState=null,lastManyResult=null,activeManyContext=null,allRaceRows=[],raceGroups=[],currentRaceKey="",venueSurfaceSettings={},racePaceSettings={};
@@ -219,7 +220,7 @@ let embeddedShareState=null;
 try{const shareNode=E("embeddedShareState"),raw=shareNode&&shareNode.textContent.trim();if(raw)embeddedShareState=JSON.parse(raw);}catch(err){console.warn("共有データの解析に失敗しました",err);}
 const grade={S:86,AA:83,A:81,B:76,C:71,D:66,E:62,"－":72,"":72};
 const jockey={"ルメール":10,"レーン":9,"川田将雅":8,"武豊":5,"戸崎圭太":4,"坂井瑠星":4,"松山弘平":3,"横山武史":3,"岩田望来":3,"横山和生":3,"丹内祐次":2};
-const ENGINE_VERSION="v8.43.5-csv-race-lock-fix";
+const ENGINE_VERSION="v8.43.6-csv-button-recovery";
 const ANALYSIS_ENGINE_POLICY={mode:"external-analysis-compressed-index", range:[58,86], simulationUsesRawDb:false, cacheOnLoad:true};
 // v8.42.6 厩舎圧縮指数DB。2021〜2025圧縮DBを基礎に、2026/01/04〜08/02の29,008走を追加更新。
 // overall=厩舎総合 / venue=厩舎×競馬場 / surface=厩舎×芝ダ / distance=厩舎×距離帯 / class=厩舎×クラス
@@ -2525,7 +2526,9 @@ function currentManyContext(){
  };
 }
 function setManyUiLocked(locked){
- ["raceSelect","load","loadTraining","course","railCourse","pace","going","bias","weight","noise","life","abilityWeight","timeWeight","simCount","many","exportCsv","reset"].forEach(id=>{const el=E(id);if(el)el.disabled=!!locked;});
+ // CSVボタンはロックしない。検証中に押された場合はexportValidationCsv側が結果未完了を案内する。
+ ["raceSelect","load","loadTraining","course","railCourse","pace","going","bias","weight","noise","life","abilityWeight","timeWeight","simCount","many","reset"].forEach(id=>{const el=E(id);if(el)el.disabled=!!locked;});
+ const csv=E("exportCsv");if(csv)csv.disabled=false;
 }
 function drawResult(st,done,n,finished){
  let sorted=[...st].sort((a,b)=>b.w-a.w||b.p3-a.p3);
@@ -2730,11 +2733,18 @@ function runMany(){
 
    if(done>=n){
      // 詳細テーブルは検証完了時に1回だけ描画する
-     drawResult(st,done,n,true);
-     conditionRankCache=null;
-     manyRunning=false;
-     setManyUiLocked(false);
-     activeManyContext=null;
+     try{
+       drawResult(st,done,n,true);
+     }catch(err){
+       console.error("Result rendering failed",err);
+       lastManyResult={st:st.map(x=>({h:x.h,w:x.w,p2:x.p2,p3:x.p3,rs:x.rs})),done,n,createdAt:new Date().toISOString(),context:activeManyContext?{...activeManyContext}:currentManyContext()};
+       E("result").innerHTML="<div class='small warn'>結果表の表示でエラーが発生しましたが、CSV結果は保存できます。</div>";
+     }finally{
+       conditionRankCache=null;
+       manyRunning=false;
+       setManyUiLocked(false);
+       activeManyContext=null;
+     }
      return;
    }
 
