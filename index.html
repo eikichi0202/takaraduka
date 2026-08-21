@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0115)file:///C:/Users/admin/Downloads/Eikichi%20Racing%20Simulator%20v8.44.0%20Training%20Temperament%20Calibration.html -->
+<!-- saved from url=(0115)file:///C:/Users/admin/Downloads/Eikichi%20Racing%20Simulator%20v8.46.0%20Four%20Line%20Pedigree%20Integration.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eikichi Racing Simulator v8.44.0 Training Temperament Calibration</title>
+<title>Eikichi Racing Simulator v8.46.0 Four Line Pedigree Integration</title>
 <style>
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1380px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}.blue{background:#2563a6}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5;transition:left .30s linear,top .30s linear,box-shadow .2s}.horse.move{box-shadow:0 0 14px 5px rgba(255,255,255,.55)}.horse.fade{opacity:.55}.liveBox{background:#081525;border:1px solid #2c4664;border-radius:12px;padding:10px;margin-top:8px}.liveLine{font-size:14px;line-height:1.6}.meter{height:8px;background:#1c3048;border-radius:99px;overflow:hidden;margin:7px 0}.meter>div{height:100%;background:#e1c766;width:0%}#result{overflow-x:auto;padding:2px 0 10px;scrollbar-color:#496986 #0a1727}#result table{min-width:1780px;width:100%;border-collapse:separate;border-spacing:0;font-size:13px}#result th{position:sticky;top:0;z-index:3;background:#0d1b2e;box-shadow:0 1px 0 #334b68}#result td,#result th{padding:8px 7px;border-bottom:1px solid #26364d;text-align:left;white-space:nowrap}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}.training-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.training-grid textarea{height:160px}.changelog-panel{opacity:.88}.changelog-panel h3{font-size:16px;color:#b8cae0}@media(max-width:760px){main{padding:8px}.training-grid{grid-template-columns:1fr}.controls{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style></head><body><script id="embeddedShareState" type="application/json"></script><main>
@@ -47,10 +47,12 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 <optgroup label="新潟">
 <option value="niigata_t1000">新潟芝1000直線</option>
 <option value="niigata_t1200">新潟芝1200</option>
-<option value="niigata_t1400">新潟芝1400</option>
+<option value="niigata_t1400_inner">新潟芝1400（内）</option>
+<option value="niigata_t1400_outer">新潟芝1400（外）</option>
 <option value="niigata_t1600">新潟芝1600</option>
 <option value="niigata_t1800">新潟芝1800</option>
-<option value="niigata_t2000">新潟芝2000</option>
+<option value="niigata_t2000_inner">新潟芝2000（内）</option>
+<option value="niigata_t2000_outer">新潟芝2000（外）</option>
 <option value="niigata_t2200">新潟芝2200</option>
 <option value="niigata_t2400">新潟芝2400</option>
 <option value="niigata_t3000">新潟芝3000</option>
@@ -113,10 +115,13 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 <optgroup label="京都">
 <option value="kyoto_t1100">京都芝1100</option>
 <option value="kyoto_t1200">京都芝1200</option>
-<option value="kyoto_t1400">京都芝1400</option>
-<option value="kyoto_t1600">京都芝1600</option>
+<option value="kyoto_t1400_inner">京都芝1400（内）</option>
+<option value="kyoto_t1400_outer">京都芝1400（外）</option>
+<option value="kyoto_t1600_inner">京都芝1600（内）</option>
+<option value="kyoto_t1600_outer">京都芝1600（外）</option>
 <option value="kyoto_t1800">京都芝1800</option>
-<option value="kyoto_t2000">京都芝2000</option>
+<option value="kyoto_t2000_inner">京都芝2000（内）</option>
+<option value="kyoto_t2000_outer">京都芝2000（外）</option>
 <option value="kyoto_t2200">京都芝2200</option>
 <option value="kyoto_t2400">京都芝2400</option>
 <option value="kyoto_t3000">京都芝3000</option>
@@ -131,7 +136,8 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 </optgroup>
 <optgroup label="阪神">
 <option value="hanshin_t1200">阪神芝1200</option>
-<option value="hanshin_t1400">阪神芝1400</option>
+<option value="hanshin_t1400_inner">阪神芝1400（内）</option>
+<option value="hanshin_t1400_outer">阪神芝1400（外）</option>
 <option value="hanshin_t1600">阪神芝1600</option>
 <option value="hanshin_t1800">阪神芝1800</option>
 <option value="hanshin_t2000">阪神芝2000</option>
@@ -212,10 +218,12 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 
 
 
+
+
 <div class="panel"><h3>勝ち切り・安定・ピンパー補正</h3><div class="small">勝率は「勝ち切り型」、連対率は「勝ち切り＋安定」、複勝率は「安定型」を強めて別計算します。逃げ・後方・気性難はピンパー寄りになり、勝率と複勝率の順位がズレやすくなります。</div></div><div class="panel"><h3>検証結果</h3><div id="result"><div class="small">5000回検証を実行してください。</div></div></div>
 
 <div class="panel"><h3>能力内タイム補助方式</h3><div class="small">推定タイム評価列はCSV互換のため残していますが、総合スコアへ直接16%加点しません。能力ランクを土台に、コース・馬場・データ信頼度に応じて0〜20%だけ能力内部へ混合します。これにより能力とタイムの二重評価を防ぎ、ローカルダ1700mのタイム過信を抑えます。</div></div>
-<div class="panel changelog-panel"><h3>v8.44.0 CHANGELOG</h3><div class="small">調教後押しを（調教指数−72）×0.15へ強化し、78点以上・82点以上の仕上がりボーナス、能力・血統上位との相乗加点を追加。最終上限は4.0点。能力・血統・調教がすべて上位の三要素一致馬は安定値を最低2.0とし、気性イベント発生率を全体で約半分、三要素一致馬はさらに25％軽減。気性イベント失点も圧縮し、ピンパーの複勝減点を−0.15から−0.08へ緩和。総合上位馬の勝率・連対率・複勝率が気性・後方脚質だけで過度に低下する問題を校正しました。</div></div><div class="panel changelog-panel"><h3>v8.43.9 CHANGELOG</h3><div class="small">坂路・ウッド双方が高評価の馬で調教加点を行う際、変更不可変数への加算エラーによりレース切替が途中停止し、プルダウンだけ選択レース、内部データ・レース名・コース・CSVが直前レース（札幌1R等）のまま残る問題を修正。レース読込の成功判定を追加し、読込完了前は5000回検証を開始しません。</div></div><div class="panel changelog-panel"><h3>v8.43.8 CHANGELOG</h3><div class="small">v8.43.7で検証元レース識別子が一部空欄となり、単一レースでも「複数レース混在」と誤判定する問題を修正。CSVのレース名は①検証結果内で最も多い正式レース名、②検証開始時に固定したレース名、③現在の画面名の順で安全に決定。空欄は混在扱いにせず、一部に古い識別子が残っていても最多一致した正式レース名でCSVを出力します。</div></div><div class="panel changelog-panel"><h3>v8.43.7 CHANGELOG</h3><div class="small">iPad Safariでレース選択表示と内部の出走馬データ更新がずれ、選択した中京9Rではなく初期レースの札幌1Rとして検証・CSV出力される問題を修正。5000回検証ボタンを押した時点で選択プルダウンのレースを必ず再読込し、全馬へ検証元レースキーと正式表示名を埋め込み。CSVは画面状態ではなく検証結果の馬データを正本としてレース名を決定し、混在時は出力を停止して警告します。</div></div><div class="panel changelog-panel"><h3>v8.43.6 CHANGELOG</h3><div class="small">v8.43.5の検証中操作ロックでCSVボタンが無効のまま残る場合がある問題を修正。CSVボタンをロック対象から除外し、常にクリック可能な状態を保証。検証未完了時は案内を表示し、完了後は検証開始時に固定保存した正しいレース情報でCSVを出力します。</div></div><div class="panel changelog-panel"><h3>v8.43.5 CHANGELOG</h3><div class="small">5000回検証中にレース選択や条件が変わり、検証データとCSVのレース名・メタ情報が別レースになる不具合を修正。検証開始時のレースキー・レース名・コース・馬場・ペース・バイアスを固定保存し、処理中は関連操作をロック。CSVは検証開始時に保存したレース情報だけを使用し、別レースへの混入を防止します。</div></div><div class="panel changelog-panel"><h3>v8.43.4 CHANGELOG</h3><div class="small">5000回検証で基礎総合より固定補正が過剰に優先される問題を修正。枠・馬場バイアス・前残り・騎手コース補正の重複加算を解消し、各補正を一度だけ反映。画面の予想反映度を試行ごとの脚質選択へ接続し、予想反映度以外を前走脚質62.5%・ランダム37.5%で配分。結果の総合欄は実際の検証直前に使う実効総合へ変更し、基礎総合と固定補正を別列表示。調教指数、血統指数、能力ウェイトは変更なし。</div></div><div class="panel changelog-panel"><h3>v8.43.3 CHANGELOG</h3><div class="small">iPad／iPhone版Safariで共有用HTMLボタンが反応しない問題を修正。対応端末ではiOS標準の共有シートを直接開き、「ファイルに保存」「メール」「AirDrop」などを選択可能に変更。共有シートを利用できないSafariでは、作成した共有用HTMLを新しいタブで開く方式へフォールバック。Windows／Macでは従来どおりHTMLファイルをダウンロードします。</div></div><div class="panel changelog-panel"><h3>v8.43.2 CHANGELOG</h3><div class="small">検証結果をチェンジログより上へ配置し、チェンジログ群をページ最下部へ集約。検証結果テーブルの表示幅・横スクロール・固定見出しを改善。読み込んだ出走表、坂路・ウッド2週間データ、競馬場別馬場・バイアス、レース別ペース、現在の操作設定を内蔵した共有用HTML出力を追加。共有用HTMLを開くとデータを自動復元し、レース選択と5000回検証をそのまま実行できます。</div></div><div class="panel changelog-panel"><h3>v8.43.1 CHANGELOG</h3><div class="small">2週間調教指数を再校正。直前0〜5日55%・6〜11日前30%・12〜14日前15%を固定し、該当期間のデータがない場合は72ニュートラルで補完するため、古い調教1本だけで指数上位になる問題を修正。各期間は最高点60%＋平均40%。セッション90点超をソフト圧縮して100点到達率を約2〜3%へ抑制。11.0〜11.4秒の加速はセッション評価で重点加点し、総合点側での同一加速の再加点を撤去。前日坂路4Fの強・中・小加点は維持。調教は独立13%ではなく最大3.0点の後押し補正として表示を明確化。血統登録番号優先／馬名フォールバック、5000回試行、能力・血統・騎手ロジックは変更なし。</div></div><div class="panel changelog-panel"><h3>v8.43.0 CHANGELOG</h3><div class="small">出馬表側の坂路4F〜1F・ウッド6F〜1Fの10時計列を廃止。調教評価は坂路2週間CSV＋ウッド2週間CSVを唯一の正本とし、血統登録番号優先／馬名フォールバックで統合。2週間調教未読込・未一致の馬は72ニュートラル。旧出馬表時計によるフォールバック・直接加点を撤去し、二重評価を防止。基本ウェイト42/40/13/5、血統45/25/30、5000回試行は変更なし。</div></div><div class="panel changelog-panel"><h3>v8.42.9 CHANGELOG</h3><div class="small">坂路2週間＋ウッド2週間の専用入力を追加。血統登録番号優先／馬名フォールバックで出馬表へ自動統合。調教は直前5日55%・6〜11日前30%・12〜14日前15%で圧縮。ラスト1F 11.0〜11.4秒かつ加速した追い切りを強化評価。v8.42.9ではレース前日の坂路4Fを追加評価し、59.9秒以下=強、60.0〜61.9=中、62.0〜65.0=小、65.1秒以上=加点なし。基本ウェイト42/40/13/5、血統45/25/30、5000回試行、調教13%の枠内を維持。</div></div><div class="panel changelog-panel"><h3>v8.42.7 CHANGELOG</h3><div class="small">全レース一括貼り付け・レース選択プルダウンを追加。場所＋レースで自動分割し、芝ダ＋距離からコースを自動照合。馬場・バイアスは競馬場×芝/ダート単位、ペースはレース単位で保持。1回再生・レース動画UIを撤去し、5000回検証に特化。予測ロジック・DB・42/40/13/5・血統45/25/30は変更なし。</div></div><div class="panel changelog-panel"><h3>v8.41.2 CHANGELOG</h3><div class="small">能力4〜7位かつ血統上位・適性複数一致の馬を最大2.2点だけ救済。能力8位以下は適性試行上振れを制限。能力1〜3位で適性2項目一致は安定＋1.0、3項目一致は＋1.5を主に連対・複勝へ反映。複勝率40〜50%帯は表示・CSVを5ポイント下方補正。<br>CSV出力処理をブラウザ互換方式へ修正し、成功・失敗メッセージを追加。<br>新潟・中京・札幌の主要芝／ダートコースを追加。新潟芝1000直線の外枠、新潟外回りの末脚、中京の急坂・パワー、札幌の洋芝・小回り持続をコースプロファイル、血統適性、脚質・枠順、タイム信頼度へ接続。既存機能は維持。<br>コース・馬場・ペースの血統適性が高い馬について、5000回の各試行で①小さな適性加点、②下振れ軽減、③条件一致時の上振れを追加。血統40%の基本ウェイト、調教の後押し加点、乱数・生き物ブレ、既存UI・CSV互換・アニメーションは維持。適性が1項目だけ高い馬の過剰評価を防ぎ、複数条件が一致した馬ほど効果が強くなる上限制御を実装。<br>検証完了後に、勝率・連対率・複勝率と各順位、各評価項目をUTF-8 BOM付きCSVで出力できる機能を追加。実着順入力用の空列も付与。既存の検証ロジック・UI・アニメーション・CSV互換は維持。<br>推定タイムの独立16%ウェイトを廃止し、能力総合の内部補助へ統合。標準は能力ランク85%＋推定タイム15%、函館・福島・小倉ダ1700mは95%＋5%、高速芝は80%＋20%で自動調整します。基本ウェイトは能力42%・血統40%・調教13%・騎手5%。CSVの推定タイム列、反映度UI、結果表示は互換維持。既存UI、レースアニメーション、5000回検証、圧縮指数キャッシュ、血統上限96、福島芝1800〜2000m補正を維持しています。</div></div></main>
+<div class="panel changelog-panel"><h3>v8.46.0 CHANGELOG</h3><div class="small">父タイプ・母父タイプ・父母父タイプ・母母父タイプを血統指数本体へ正式統合。4系統は父38%・母父30%・父母父18%・母母父14%の役割差を持たせ、芝ダ・距離・内外回り・馬場・ペースごとの適性一致をソフト圧縮。個別父×母父実績がある場合は配合25%・4系統12%、未登録時は配合18%・4系統22%へ自動切替し、同一系統の重複加点を上限制御。内外回り新コードは旧距離別DBを継承し、競馬場×芝ダへの過度なフォールバックを解消。CSVへ4系統指数・血統DB一致区分を追加。</div></div><div class="panel changelog-panel"><h3>v8.45.0 CHANGELOG</h3><div class="small">JRA公式コース形状に合わせ、新潟芝1400/2000・京都芝1400/1600/2000・阪神芝1400を内回り／外回りへ分離。CSVに内外表記があれば自動判定し、表記なしは既定コースを選択。東京芝2000は外枠一律加点を廃止して内〜中枠を評価、中山芝1600は外枠と外枠先行の距離ロスを反映。東京ダートは芝スタートの1600だけ現行外枠補正を維持し、1300/1400は枠差を中立化、2100/2400は外枠先行のロスを軽く反映。既存の芝スタートダート補正は重複なしで維持。</div></div><div class="panel changelog-panel"><h3>v8.44.1 CHANGELOG</h3><div class="small">ダート芝スタート判定を8コースへ統一（福島1150・新潟1200・東京1600・中山1200・中京1400・京都1400・阪神1400/2000）。誤登録されていた函館・小倉ダ1000を共通芝スタート処理から除外。外枠×逃げ・先行の既存補正は一度だけ適用し、ハイペースでもコース適性を完全相殺しないよう逃げ減点を半減。連対・複勝モードでは残存補正を追加し、特に複勝側の相殺を弱めました。</div></div><div class="panel changelog-panel"><h3>v8.43.9 CHANGELOG</h3><div class="small">坂路・ウッド双方が高評価の馬で調教加点を行う際、変更不可変数への加算エラーによりレース切替が途中停止し、プルダウンだけ選択レース、内部データ・レース名・コース・CSVが直前レース（札幌1R等）のまま残る問題を修正。レース読込の成功判定を追加し、読込完了前は5000回検証を開始しません。</div></div><div class="panel changelog-panel"><h3>v8.43.8 CHANGELOG</h3><div class="small">v8.43.7で検証元レース識別子が一部空欄となり、単一レースでも「複数レース混在」と誤判定する問題を修正。CSVのレース名は①検証結果内で最も多い正式レース名、②検証開始時に固定したレース名、③現在の画面名の順で安全に決定。空欄は混在扱いにせず、一部に古い識別子が残っていても最多一致した正式レース名でCSVを出力します。</div></div><div class="panel changelog-panel"><h3>v8.43.7 CHANGELOG</h3><div class="small">iPad Safariでレース選択表示と内部の出走馬データ更新がずれ、選択した中京9Rではなく初期レースの札幌1Rとして検証・CSV出力される問題を修正。5000回検証ボタンを押した時点で選択プルダウンのレースを必ず再読込し、全馬へ検証元レースキーと正式表示名を埋め込み。CSVは画面状態ではなく検証結果の馬データを正本としてレース名を決定し、混在時は出力を停止して警告します。</div></div><div class="panel changelog-panel"><h3>v8.43.6 CHANGELOG</h3><div class="small">v8.43.5の検証中操作ロックでCSVボタンが無効のまま残る場合がある問題を修正。CSVボタンをロック対象から除外し、常にクリック可能な状態を保証。検証未完了時は案内を表示し、完了後は検証開始時に固定保存した正しいレース情報でCSVを出力します。</div></div><div class="panel changelog-panel"><h3>v8.43.5 CHANGELOG</h3><div class="small">5000回検証中にレース選択や条件が変わり、検証データとCSVのレース名・メタ情報が別レースになる不具合を修正。検証開始時のレースキー・レース名・コース・馬場・ペース・バイアスを固定保存し、処理中は関連操作をロック。CSVは検証開始時に保存したレース情報だけを使用し、別レースへの混入を防止します。</div></div><div class="panel changelog-panel"><h3>v8.43.4 CHANGELOG</h3><div class="small">5000回検証で基礎総合より固定補正が過剰に優先される問題を修正。枠・馬場バイアス・前残り・騎手コース補正の重複加算を解消し、各補正を一度だけ反映。画面の予想反映度を試行ごとの脚質選択へ接続し、予想反映度以外を前走脚質62.5%・ランダム37.5%で配分。結果の総合欄は実際の検証直前に使う実効総合へ変更し、基礎総合と固定補正を別列表示。調教指数、血統指数、能力ウェイトは変更なし。</div></div><div class="panel changelog-panel"><h3>v8.43.3 CHANGELOG</h3><div class="small">iPad／iPhone版Safariで共有用HTMLボタンが反応しない問題を修正。対応端末ではiOS標準の共有シートを直接開き、「ファイルに保存」「メール」「AirDrop」などを選択可能に変更。共有シートを利用できないSafariでは、作成した共有用HTMLを新しいタブで開く方式へフォールバック。Windows／Macでは従来どおりHTMLファイルをダウンロードします。</div></div><div class="panel changelog-panel"><h3>v8.43.2 CHANGELOG</h3><div class="small">検証結果をチェンジログより上へ配置し、チェンジログ群をページ最下部へ集約。検証結果テーブルの表示幅・横スクロール・固定見出しを改善。読み込んだ出走表、坂路・ウッド2週間データ、競馬場別馬場・バイアス、レース別ペース、現在の操作設定を内蔵した共有用HTML出力を追加。共有用HTMLを開くとデータを自動復元し、レース選択と5000回検証をそのまま実行できます。</div></div><div class="panel changelog-panel"><h3>v8.43.1 CHANGELOG</h3><div class="small">2週間調教指数を再校正。直前0〜5日55%・6〜11日前30%・12〜14日前15%を固定し、該当期間のデータがない場合は72ニュートラルで補完するため、古い調教1本だけで指数上位になる問題を修正。各期間は最高点60%＋平均40%。セッション90点超をソフト圧縮して100点到達率を約2〜3%へ抑制。11.0〜11.4秒の加速はセッション評価で重点加点し、総合点側での同一加速の再加点を撤去。前日坂路4Fの強・中・小加点は維持。調教は独立13%ではなく最大3.0点の後押し補正として表示を明確化。血統登録番号優先／馬名フォールバック、5000回試行、能力・血統・騎手ロジックは変更なし。</div></div><div class="panel changelog-panel"><h3>v8.43.0 CHANGELOG</h3><div class="small">出馬表側の坂路4F〜1F・ウッド6F〜1Fの10時計列を廃止。調教評価は坂路2週間CSV＋ウッド2週間CSVを唯一の正本とし、血統登録番号優先／馬名フォールバックで統合。2週間調教未読込・未一致の馬は72ニュートラル。旧出馬表時計によるフォールバック・直接加点を撤去し、二重評価を防止。基本ウェイト42/40/13/5、血統45/25/30、5000回試行は変更なし。</div></div><div class="panel changelog-panel"><h3>v8.42.9 CHANGELOG</h3><div class="small">坂路2週間＋ウッド2週間の専用入力を追加。血統登録番号優先／馬名フォールバックで出馬表へ自動統合。調教は直前5日55%・6〜11日前30%・12〜14日前15%で圧縮。ラスト1F 11.0〜11.4秒かつ加速した追い切りを強化評価。v8.42.9ではレース前日の坂路4Fを追加評価し、59.9秒以下=強、60.0〜61.9=中、62.0〜65.0=小、65.1秒以上=加点なし。基本ウェイト42/40/13/5、血統45/25/30、5000回試行、調教13%の枠内を維持。</div></div><div class="panel changelog-panel"><h3>v8.42.7 CHANGELOG</h3><div class="small">全レース一括貼り付け・レース選択プルダウンを追加。場所＋レースで自動分割し、芝ダ＋距離からコースを自動照合。馬場・バイアスは競馬場×芝/ダート単位、ペースはレース単位で保持。1回再生・レース動画UIを撤去し、5000回検証に特化。予測ロジック・DB・42/40/13/5・血統45/25/30は変更なし。</div></div><div class="panel changelog-panel"><h3>v8.41.2 CHANGELOG</h3><div class="small">能力4〜7位かつ血統上位・適性複数一致の馬を最大2.2点だけ救済。能力8位以下は適性試行上振れを制限。能力1〜3位で適性2項目一致は安定＋1.0、3項目一致は＋1.5を主に連対・複勝へ反映。複勝率40〜50%帯は表示・CSVを5ポイント下方補正。<br>CSV出力処理をブラウザ互換方式へ修正し、成功・失敗メッセージを追加。<br>新潟・中京・札幌の主要芝／ダートコースを追加。新潟芝1000直線の外枠、新潟外回りの末脚、中京の急坂・パワー、札幌の洋芝・小回り持続をコースプロファイル、血統適性、脚質・枠順、タイム信頼度へ接続。既存機能は維持。<br>コース・馬場・ペースの血統適性が高い馬について、5000回の各試行で①小さな適性加点、②下振れ軽減、③条件一致時の上振れを追加。血統40%の基本ウェイト、調教の後押し加点、乱数・生き物ブレ、既存UI・CSV互換・アニメーションは維持。適性が1項目だけ高い馬の過剰評価を防ぎ、複数条件が一致した馬ほど効果が強くなる上限制御を実装。<br>検証完了後に、勝率・連対率・複勝率と各順位、各評価項目をUTF-8 BOM付きCSVで出力できる機能を追加。実着順入力用の空列も付与。既存の検証ロジック・UI・アニメーション・CSV互換は維持。<br>推定タイムの独立16%ウェイトを廃止し、能力総合の内部補助へ統合。標準は能力ランク85%＋推定タイム15%、函館・福島・小倉ダ1700mは95%＋5%、高速芝は80%＋20%で自動調整します。基本ウェイトは能力42%・血統40%・調教13%・騎手5%。CSVの推定タイム列、反映度UI、結果表示は互換維持。既存UI、レースアニメーション、5000回検証、圧縮指数キャッシュ、血統上限96、福島芝1800〜2000m補正を維持しています。</div></div></main>
 <script>
 (function(){
 const E=id=>document.getElementById(id);let horses=[],timer=null,divs=[],path=[],seg=[],total=0,currentState=null,lastManyResult=null,activeManyContext=null,allRaceRows=[],raceGroups=[],currentRaceKey="",venueSurfaceSettings={},racePaceSettings={};
@@ -224,7 +232,7 @@ let embeddedShareState=null;
 try{const shareNode=E("embeddedShareState"),raw=shareNode&&shareNode.textContent.trim();if(raw)embeddedShareState=JSON.parse(raw);}catch(err){console.warn("共有データの解析に失敗しました",err);}
 const grade={S:86,AA:83,A:81,B:76,C:71,D:66,E:62,"－":72,"":72};
 const jockey={"ルメール":10,"レーン":9,"川田将雅":8,"武豊":5,"戸崎圭太":4,"坂井瑠星":4,"松山弘平":3,"横山武史":3,"岩田望来":3,"横山和生":3,"丹内祐次":2};
-const ENGINE_VERSION="v8.44.0-training-temperament-calibration";
+const ENGINE_VERSION="v8.46.0-four-line-pedigree-integration";
 let raceLoadSucceeded=false;
 const ANALYSIS_ENGINE_POLICY={mode:"external-analysis-compressed-index", range:[58,86], simulationUsesRawDb:false, cacheOnLoad:true};
 // v8.42.6 厩舎圧縮指数DB。2021〜2025圧縮DBを基礎に、2026/01/04〜08/02の29,008走を追加更新。
@@ -252,11 +260,22 @@ const REAL_FALLBACK_DB = {"j":{"コレット|中京_ダ":70.5,"ディー|中京_
 const JOCKEY_BLOOD_INDEX = {"ルメール|ss":82.9,"ルメール|kingmambo":81.9,"ルメール|stamina":81.1,"ルメール|nd":80,"川田|kingmambo":82.6,"川田|dirt_power":81.0,"川田|ss":80.2,"川田|sprint_speed":79.2,"モレイラ|kingmambo":84,"モレイラ|ss":83,"モレイラ|nd":82,"レーン|stamina":83,"レーン|kingmambo":80.9,"レーン|ss":80.1,"武豊|stamina":80.9,"武豊|ss":79.1,"武豊|danzig":78,"戸崎|ss":80,"戸崎|kingmambo":80,"戸崎|dirt_power":79,"横山武史|stamina":80.1,"横山武史|kingmambo":79.1,"横山武史|dirt_power":79.1,"横山和生|stamina":79.2,"横山和生|nd":79,"坂井瑠星|dirt_power":80.9,"坂井瑠星|kingmambo":79.2,"坂井瑠星|sprint_speed":79.1,"松山弘平|dirt_power":80.0,"松山弘平|kingmambo":78.3,"松山弘平|ss":78.0,"岩田望来|kingmambo":79.2,"岩田望来|ss":78.3,"岩田望来|dirt_power":78.7,"丹内祐次|stamina":80.2,"丹内祐次|danzig":80,"丹内祐次|dirt_power":78.2,"丹内祐次|sprint_speed":78.2,"佐々木大|dirt_power":79.9,"佐々木大|danzig":80,"佐々木大|stamina":79.0,"キング|dirt_power":73.0,"キング|ss":72.9,"コレット|dirt_power":71.9,"コレット|ss":71.2,"ゴンサル|dirt_power":71.6,"ゴンサル|kingmambo":72.4,"ゴンサル|sprint_speed":73.1,"ゴンサル|ss":71.0,"ゴンサル|stamina":71.7,"ディー|dirt_power":72.2,"ディー|kingmambo":71.5,"ディー|sprint_speed":71.1,"ディー|ss":70.8,"ディー|stamina":72.1,"ハマーハ|dirt_power":71.8,"ハマーハ|kingmambo":71.9,"ハマーハ|ss":72.3,"ルメール|dirt_power":74.7,"ルメール|sprint_speed":74.4,"三浦皇成|dirt_power":71.5,"三浦皇成|kingmambo":70.9,"三浦皇成|sprint_speed":73.0,"三浦皇成|ss":72.7,"三浦皇成|stamina":71.3,"上里直汰|dirt_power":69.7,"上里直汰|kingmambo":70.0,"上里直汰|sprint_speed":71.0,"上里直汰|ss":70.9,"上里直汰|stamina":71.4,"中井裕二|dirt_power":71.7,"中井裕二|kingmambo":70.4,"中井裕二|stamina":71.2,"丸山元気|dirt_power":72.2,"丸山元気|kingmambo":72.3,"丸山元気|sprint_speed":71.7,"丸山元気|ss":70.4,"丸山元気|stamina":69.6,"丸田恭介|dirt_power":69.9,"丸田恭介|kingmambo":71.7,"丸田恭介|sprint_speed":72.2,"丸田恭介|ss":70.5,"丸田恭介|stamina":70.8,"丹内祐次|kingmambo":73.9,"丹内祐次|ss":72.5,"亀田温心|dirt_power":70.2,"亀田温心|kingmambo":71.9,"亀田温心|sprint_speed":71.1,"亀田温心|ss":70.5,"亀田温心|stamina":71.2,"今村聖奈|dirt_power":70.5,"今村聖奈|kingmambo":72.5,"今村聖奈|sprint_speed":71.0,"今村聖奈|ss":70.3,"今村聖奈|stamina":69.7,"佐々木大|kingmambo":69.0,"佐々木大|sprint_speed":73.1,"佐々木大|ss":72.7,"佐藤翔馬|dirt_power":71.7,"佐藤翔馬|kingmambo":70.9,"佐藤翔馬|sprint_speed":71.5,"佐藤翔馬|ss":70.7,"佐藤翔馬|stamina":70.8,"加藤祥太|dirt_power":72.1,"加藤祥太|ss":71.4,"加藤祥太|stamina":71.5,"北村友一|dirt_power":70.4,"北村友一|kingmambo":72.6,"北村友一|sprint_speed":72.4,"北村友一|ss":73.4,"北村友一|stamina":70.9,"北村宏司|dirt_power":71.3,"北村宏司|kingmambo":71.1,"北村宏司|ss":71.9,"原優介|dirt_power":69.3,"原優介|kingmambo":70.5,"原優介|sprint_speed":71.5,"原優介|ss":69.4,"原優介|stamina":69.2,"原田和真|sprint_speed":71.3,"古川吉洋|dirt_power":69.9,"古川吉洋|kingmambo":73.4,"古川吉洋|sprint_speed":72.1,"古川吉洋|ss":69.8,"古川吉洋|stamina":73.2,"古川奈穂|dirt_power":71.6,"古川奈穂|kingmambo":71.9,"古川奈穂|sprint_speed":72.3,"古川奈穂|ss":70.0,"吉村誠之|dirt_power":72.4,"吉村誠之|kingmambo":70.7,"吉村誠之|sprint_speed":70.7,"吉村誠之|ss":70.4,"吉村誠之|stamina":69.8,"吉田豊|dirt_power":69.7,"吉田豊|kingmambo":72.2,"吉田豊|ss":69.3,"吉田豊|stamina":71.5,"吉田隼人|dirt_power":71.6,"吉田隼人|kingmambo":71.2,"吉田隼人|sprint_speed":73.7,"吉田隼人|ss":72.1,"吉田隼人|stamina":71.4,"和田陽希|dirt_power":70.6,"和田陽希|kingmambo":70.9,"和田陽希|sprint_speed":70.0,"和田陽希|ss":70.0,"和田陽希|stamina":71.5,"団野大成|dirt_power":71.9,"団野大成|kingmambo":72.0,"団野大成|sprint_speed":73.1,"団野大成|ss":71.6,"団野大成|stamina":71.2,"国分優作|dirt_power":70.4,"国分優作|kingmambo":71.3,"国分優作|sprint_speed":70.7,"国分優作|ss":70.9,"国分優作|stamina":71.7,"国分恭介|dirt_power":71.2,"国分恭介|kingmambo":71.2,"国分恭介|sprint_speed":70.9,"国分恭介|ss":70.9,"国分恭介|stamina":70.6,"坂井瑠星|ss":74.3,"坂井瑠星|stamina":70.7,"城戸義政|dirt_power":70.6,"大久保友|ss":71.0,"大野拓弥|dirt_power":70.4,"大野拓弥|kingmambo":70.8,"大野拓弥|sprint_speed":70.4,"大野拓弥|ss":72.3,"大野拓弥|stamina":70.8,"太宰啓介|dirt_power":71.6,"太宰啓介|kingmambo":72.0,"太宰啓介|sprint_speed":73.0,"太宰啓介|ss":71.2,"太宰啓介|stamina":72.6,"富田暁|dirt_power":71.4,"富田暁|kingmambo":69.4,"富田暁|sprint_speed":72.1,"富田暁|ss":72.2,"富田暁|stamina":70.3,"小崎綾也|dirt_power":72.2,"小崎綾也|kingmambo":70.1,"小崎綾也|sprint_speed":70.3,"小崎綾也|ss":70.1,"小崎綾也|stamina":72.8,"小林凌大|ss":70.8,"小林美駒|dirt_power":71.6,"小林美駒|kingmambo":71.1,"小林美駒|sprint_speed":71.9,"小林美駒|ss":72.0,"小林美駒|stamina":71.6,"小林脩斗|ss":70.0,"小林脩斗|stamina":71.2,"小沢大仁|dirt_power":70.6,"小沢大仁|kingmambo":70.6,"小沢大仁|sprint_speed":71.8,"小沢大仁|ss":71.2,"小沢大仁|stamina":72.3,"岩田康誠|dirt_power":71.1,"岩田康誠|kingmambo":71.5,"岩田康誠|sprint_speed":69.8,"岩田康誠|ss":70.7,"岩田康誠|stamina":70.5,"岩田望来|sprint_speed":73.3,"岩田望来|stamina":73.6,"嶋田純次|dirt_power":71.4,"嶋田純次|sprint_speed":71.1,"嶋田純次|ss":72.7,"川又賢治|dirt_power":71.3,"川又賢治|ss":71.0,"川田|stamina":73.5,"川端海翼|dirt_power":70.3,"川端海翼|kingmambo":70.3,"川端海翼|ss":70.6,"幸英明|dirt_power":71.2,"幸英明|kingmambo":69.9,"幸英明|sprint_speed":71.3,"幸英明|ss":70.9,"幸英明|stamina":72.8,"戸崎圭太|dirt_power":73.1,"戸崎圭太|kingmambo":72.0,"戸崎圭太|sprint_speed":73.6,"戸崎圭太|ss":72.7,"戸崎圭太|stamina":74.2,"斎藤新|dirt_power":74.8,"斎藤新|kingmambo":72.0,"斎藤新|sprint_speed":70.6,"斎藤新|ss":72.0,"斎藤新|stamina":73.4,"木幡初也|stamina":70.7,"木幡巧也|dirt_power":73.0,"木幡巧也|kingmambo":71.3,"木幡巧也|sprint_speed":67.8,"木幡巧也|ss":69.9,"木幡巧也|stamina":73.0,"木幡育也|sprint_speed":71.6,"杉原誠人|dirt_power":71.5,"杉原誠人|kingmambo":70.2,"杉原誠人|sprint_speed":71.8,"杉原誠人|ss":69.4,"杉原誠人|stamina":71.0,"松山弘平|sprint_speed":75.4,"松山弘平|stamina":72.4,"松岡正海|dirt_power":69.6,"松岡正海|kingmambo":70.7,"松岡正海|sprint_speed":72.1,"松岡正海|ss":71.2,"松岡正海|stamina":70.6,"松本大輝|dirt_power":72.1,"松本大輝|kingmambo":70.4,"松本大輝|sprint_speed":71.9,"松本大輝|ss":71.4,"松本大輝|stamina":72.3,"松若風馬|dirt_power":72.2,"松若風馬|kingmambo":70.5,"松若風馬|sprint_speed":71.4,"松若風馬|ss":74.3,"松若風馬|stamina":69.7,"柴田善臣|dirt_power":72.0,"柴田善臣|ss":72.3,"柴田大知|dirt_power":69.3,"柴田大知|kingmambo":70.8,"柴田大知|ss":71.1,"柴田大知|stamina":71.4,"柴田裕一|dirt_power":71.4,"柴田裕一|kingmambo":71.9,"柴田裕一|sprint_speed":70.8,"柴田裕一|ss":69.2,"柴田裕一|stamina":70.9,"森田誠也|dirt_power":70.0,"森田誠也|kingmambo":71.1,"森田誠也|sprint_speed":71.1,"森田誠也|ss":71.7,"森田誠也|stamina":70.8,"横山典弘|dirt_power":72.8,"横山典弘|kingmambo":71.1,"横山典弘|sprint_speed":72.5,"横山典弘|ss":70.1,"横山典弘|stamina":72.3,"横山和生|dirt_power":72.1,"横山和生|kingmambo":72.4,"横山和生|sprint_speed":73.2,"横山和生|ss":73.1,"横山武史|sprint_speed":74.1,"横山武史|ss":73.4,"横山琉人|dirt_power":74.0,"横山琉人|kingmambo":70.1,"横山琉人|sprint_speed":69.1,"横山琉人|ss":69.8,"横山琉人|stamina":69.5,"武藤雅|dirt_power":70.8,"武藤雅|kingmambo":72.0,"武藤雅|sprint_speed":70.7,"武藤雅|ss":71.2,"武藤雅|stamina":72.5,"武豊|dirt_power":73.5,"武豊|kingmambo":72.3,"武豊|sprint_speed":73.7,"永島まな|dirt_power":69.1,"永島まな|kingmambo":70.8,"永島まな|sprint_speed":70.8,"永島まな|ss":70.8,"永島まな|stamina":71.3,"江田照男|dirt_power":70.1,"江田照男|ss":71.9,"江田照男|stamina":70.8,"池添謙一|dirt_power":71.0,"池添謙一|kingmambo":73.2,"池添謙一|sprint_speed":72.1,"池添謙一|ss":71.0,"池添謙一|stamina":70.3,"河原田菜|dirt_power":71.0,"河原田菜|kingmambo":70.3,"河原田菜|sprint_speed":70.6,"河原田菜|ss":71.3,"泉谷楓真|sprint_speed":71.8,"泉谷楓真|ss":71.3,"津村明秀|dirt_power":73.4,"津村明秀|kingmambo":72.4,"津村明秀|sprint_speed":73.5,"津村明秀|ss":72.0,"津村明秀|stamina":73.9,"浜中俊|dirt_power":69.8,"浜中俊|kingmambo":73.3,"浜中俊|sprint_speed":71.4,"浜中俊|ss":72.5,"浜中俊|stamina":73.2,"田口貫太|dirt_power":70.2,"田口貫太|kingmambo":71.6,"田口貫太|sprint_speed":69.8,"田口貫太|ss":71.3,"田口貫太|stamina":70.6,"田山旺佑|dirt_power":73.6,"田山旺佑|kingmambo":73.2,"田山旺佑|sprint_speed":70.9,"田山旺佑|ss":72.3,"田山旺佑|stamina":69.9,"田辺裕信|dirt_power":71.7,"田辺裕信|kingmambo":70.2,"田辺裕信|sprint_speed":71.2,"田辺裕信|ss":73.0,"田辺裕信|stamina":72.1,"石川裕紀|dirt_power":70.4,"石川裕紀|kingmambo":71.6,"石川裕紀|sprint_speed":71.5,"石川裕紀|ss":73.8,"石川裕紀|stamina":70.7,"石橋脩|dirt_power":70.4,"石橋脩|sprint_speed":71.7,"石橋脩|ss":71.1,"石橋脩|stamina":71.0,"石田拓郎|dirt_power":70.1,"石田拓郎|kingmambo":71.1,"石田拓郎|sprint_speed":71.6,"石田拓郎|ss":70.4,"石田拓郎|stamina":69.9,"石神深道|dirt_power":71.6,"石神深道|kingmambo":71.8,"石神深道|sprint_speed":72.0,"石神深道|ss":70.8,"石神深道|stamina":70.4,"秋山稔樹|dirt_power":73.1,"秋山稔樹|kingmambo":71.0,"秋山稔樹|sprint_speed":70.8,"秋山稔樹|ss":70.7,"秋山稔樹|stamina":71.6,"舟山瑠泉|dirt_power":72.7,"舟山瑠泉|kingmambo":73.0,"舟山瑠泉|sprint_speed":73.3,"舟山瑠泉|ss":72.6,"舟山瑠泉|stamina":73.0,"荻野極|dirt_power":73.3,"荻野極|kingmambo":72.1,"荻野極|sprint_speed":71.0,"荻野極|ss":74.6,"荻野極|stamina":73.6,"荻野琢真|dirt_power":72.0,"荻野琢真|sprint_speed":70.9,"荻野琢真|ss":71.6,"荻野琢真|stamina":71.3,"菅原明良|dirt_power":70.5,"菅原明良|kingmambo":70.1,"菅原明良|sprint_speed":72.0,"菅原明良|ss":72.0,"菅原明良|stamina":71.5,"菊沢一樹|dirt_power":72.8,"菊沢一樹|kingmambo":70.5,"菊沢一樹|sprint_speed":70.3,"菊沢一樹|ss":70.3,"菊沢一樹|stamina":71.8,"菱田裕二|dirt_power":71.9,"菱田裕二|kingmambo":72.2,"菱田裕二|sprint_speed":71.5,"菱田裕二|ss":70.4,"菱田裕二|stamina":71.0,"藤岡佑介|sprint_speed":72.1,"藤岡佑介|ss":73.3,"藤懸貴志|dirt_power":71.8,"藤懸貴志|sprint_speed":69.3,"藤懸貴志|ss":70.3,"藤懸貴志|stamina":71.0,"西塚洸二|dirt_power":70.0,"西塚洸二|kingmambo":71.5,"西塚洸二|sprint_speed":71.5,"西塚洸二|ss":73.8,"西塚洸二|stamina":72.8,"西村淳也|dirt_power":73.5,"西村淳也|kingmambo":73.4,"西村淳也|sprint_speed":72.8,"西村淳也|ss":73.3,"西村淳也|stamina":73.1,"角田大和|dirt_power":71.4,"角田大和|kingmambo":71.9,"角田大和|sprint_speed":70.9,"角田大和|ss":70.7,"角田大和|stamina":71.8,"遠藤汰月|dirt_power":69.6,"遠藤汰月|kingmambo":70.5,"遠藤汰月|sprint_speed":71.3,"遠藤汰月|ss":69.5,"遠藤汰月|stamina":70.3,"酒井学|dirt_power":70.2,"酒井学|kingmambo":69.9,"酒井学|sprint_speed":70.1,"酒井学|ss":70.6,"酒井学|stamina":72.1,"野中悠太|dirt_power":71.0,"野中悠太|kingmambo":71.2,"野中悠太|sprint_speed":70.8,"野中悠太|ss":71.0,"野中悠太|stamina":70.8,"長岡禎仁|dirt_power":70.0,"長岡禎仁|kingmambo":71.1,"長岡禎仁|sprint_speed":70.8,"長岡禎仁|ss":71.5,"長浜鴻緒|dirt_power":70.6,"長浜鴻緒|kingmambo":71.7,"長浜鴻緒|sprint_speed":70.5,"長浜鴻緒|ss":72.3,"長浜鴻緒|stamina":71.5,"高倉稜|dirt_power":71.4,"高倉稜|kingmambo":72.2,"高倉稜|sprint_speed":71.2,"高倉稜|ss":70.8,"高杉吏麒|dirt_power":72.0,"高杉吏麒|kingmambo":73.5,"高杉吏麒|sprint_speed":73.0,"高杉吏麒|ss":70.8,"高杉吏麒|stamina":71.3,"鮫島克駿|dirt_power":73.1,"鮫島克駿|kingmambo":71.9,"鮫島克駿|sprint_speed":72.8,"鮫島克駿|ss":72.8,"鮫島克駿|stamina":71.6,"鮫島良太|dirt_power":71.6,"鮫島良太|ss":71.9,"鷲頭虎太|dirt_power":72.1,"鷲頭虎太|sprint_speed":71.3,"鷲頭虎太|ss":72.1,"黛弘人|dirt_power":70.8,"黛弘人|sprint_speed":71.8,"黛弘人|ss":71.6,"黛弘人|stamina":71.3,"Ｍ．デム|kingmambo":71.2,"Ｍ．デム|sprint_speed":71.4,"Ｍ．デム|ss":72.0,"Ｍ．デム|stamina":71.4};
 
 function realDbKey(name, courseKey){return (name||"").trim()+"|"+courseKey;}
+// v8.46.0：内外回り分離前の距離別DBを継承し、競馬場×芝ダの粗いfallback化を防ぐ。
+const LEGACY_COURSE_DB_KEY={
+  niigata_t1400_inner:"niigata_t1400",niigata_t1400_outer:"niigata_t1400",
+  niigata_t2000_inner:"niigata_t2000",niigata_t2000_outer:"niigata_t2000",
+  kyoto_t1400_inner:"kyoto_t1400",kyoto_t1400_outer:"kyoto_t1400",
+  kyoto_t1600_inner:"kyoto_t1600",kyoto_t1600_outer:"kyoto_t1600",
+  kyoto_t2000_inner:"kyoto_t2000",kyoto_t2000_outer:"kyoto_t2000",
+  hanshin_t1400_inner:"hanshin_t1400",hanshin_t1400_outer:"hanshin_t1400"
+};
 function currentCourseKey(){return E("course").value||"";}
 function realIndex(kind, name, courseKey){
   const table=REAL_INDEX_DB[kind]; if(!table||!name||!courseKey)return null;
   const exact=table[realDbKey(name,courseKey)];
   if(exact!==undefined)return parseFloat(exact);
+  const legacyKey=LEGACY_COURSE_DB_KEY[courseKey];
+  if(legacyKey){const legacy=table[realDbKey(name,legacyKey)];if(legacy!==undefined)return parseFloat(legacy);}
   const c=(typeof courses!=="undefined"&&courses[courseKey])?courses[courseKey]:null;
   const fbTable=(typeof REAL_FALLBACK_DB!=="undefined")?REAL_FALLBACK_DB[kind]:null;
   if(c&&fbTable){
@@ -264,6 +283,13 @@ function realIndex(kind, name, courseKey){
     if(fb!==undefined)return parseFloat(fb);
   }
   return null;
+}
+function bloodDbMatchLabel(h){
+  const parts=[];
+  if(h?._sireCourseIndex!==null&&h?._sireCourseIndex!==undefined)parts.push("父");
+  if(h?._damSireCourseIndex!==null&&h?._damSireCourseIndex!==undefined)parts.push("母父");
+  if(h?._pairCourseIndex!==null&&h?._pairCourseIndex!==undefined)parts.push("配合");
+  return parts.length?parts.join("+"):"4系統推定";
 }
 function realJockeyScore(h){if(cachedCourseMatches(h))return h._jockeyCourseIndex;return realIndex("j", h.騎手||"", currentCourseKey());}
 function realBloodScore(h){
@@ -339,6 +365,21 @@ const baseShapes={
   rightSapporo:[[820,365],[700,400],[520,410],[345,400],[205,365],[80,300],[75,205],[155,135],[330,105],[540,105],[735,130],[885,205],[900,300],[820,365],[675,392],[500,402],[330,392],[205,365]],
   straightNiigata:[[900,300],[820,300],[730,300],[640,300],[550,300],[460,300],[370,300],[280,300],[190,300],[100,300]]
 };
+// v8.44.1以降：JRAのダート芝スタートを一元管理。枠・脚質・ペースの各処理は必ずこの定義を参照する。
+// outerFrontStrengthは「外枠だけ」ではなく、外枠から前を取る相乗効果のコース別強度。
+const DIRT_TURF_START_CONFIG=Object.freeze({
+  fukushima_d1150:{outerFrontStrength:1.00,shortFront:true},
+  niigata_d1200:{outerFrontStrength:1.00,shortFront:true},
+  tokyo_d1600:{outerFrontStrength:0.90,shortFront:false},
+  nakayama_d1200:{outerFrontStrength:1.00,shortFront:true},
+  chukyo_d1400:{outerFrontStrength:0.85,shortFront:true},
+  kyoto_d1400:{outerFrontStrength:0.80,shortFront:true},
+  hanshin_d1400:{outerFrontStrength:0.90,shortFront:true},
+  hanshin_d2000:{outerFrontStrength:0.55,shortFront:false}
+});
+function dirtTurfStartConfig(){return DIRT_TURF_START_CONFIG[E("course").value]||null}
+function isDirtTurfStartCourse(){return !!dirtTurfStartConfig()}
+function isTurfStartOuterFront(h){const st=h?.脚質||"",f=typeof frameNo==="function"?frameNo(h):0;return isDirtTurfStartCourse()&&(st==="逃げ"||st==="先行")&&f>=6}
 const courses={
   sapporo_t1000:{name:"札幌芝1000",bias:"右回り・洋芝・小回り持続",kind:"turf",dir:"右回り",shape:"rightSapporo",venue:"札幌",surface:"芝",dist:1000,turn:"right",profile:"sapporo_sprint"},
   sapporo_t1200:{name:"札幌芝1200",bias:"右回り・洋芝・先行持続",kind:"turf",dir:"右回り",shape:"rightSapporo",venue:"札幌",surface:"芝",dist:1200,turn:"right",profile:"sapporo_sprint"},
@@ -370,10 +411,12 @@ const courses={
   fukushima_d2400:{name:"福島ダ2400",bias:"右回り・小回り・先行持続",kind:"dirt",dir:"右回り",shape:"rightSmall",venue:"福島",surface:"ダ",dist:2400,turn:"right",profile:"fukushima_dirt_stamina"},
   niigata_t1000:{name:"新潟芝1000直線",bias:"直線・外枠・純粋なスピード",kind:"turf",dir:"直線",shape:"straightNiigata",venue:"新潟",surface:"芝",dist:1000,turn:"straight",profile:"niigata_straight_sprint"},
   niigata_t1200:{name:"新潟芝1200",bias:"左回り・内回り・先行持続",kind:"turf",dir:"左回り",shape:"leftNiigata",venue:"新潟",surface:"芝",dist:1200,turn:"left",profile:"niigata_inner_sprint"},
-  niigata_t1400:{name:"新潟芝1400",bias:"左回り・内回り・スピード持続",kind:"turf",dir:"左回り",shape:"leftNiigata",venue:"新潟",surface:"芝",dist:1400,turn:"left",profile:"niigata_inner_mile"},
+  niigata_t1400_inner:{name:"新潟芝1400（内）",bias:"左回り・内回り・好位持続と差し",kind:"turf",dir:"左回り",shape:"leftNiigata",venue:"新潟",surface:"芝",dist:1400,turn:"left",layout:"inner",profile:"niigata_inner_mile"},
+  niigata_t1400_outer:{name:"新潟芝1400（外）",bias:"左回り・外回り・長い直線と末脚",kind:"turf",dir:"左回り",shape:"leftNiigata",venue:"新潟",surface:"芝",dist:1400,turn:"left",layout:"outer",profile:"niigata_outer_mile"},
   niigata_t1600:{name:"新潟芝1600",bias:"左回り・外回り・長い直線",kind:"turf",dir:"左回り",shape:"leftNiigata",venue:"新潟",surface:"芝",dist:1600,turn:"left",profile:"niigata_outer_mile"},
   niigata_t1800:{name:"新潟芝1800",bias:"左回り・外回り・瞬発持続",kind:"turf",dir:"左回り",shape:"leftNiigata",venue:"新潟",surface:"芝",dist:1800,turn:"left",profile:"niigata_outer_mid"},
-  niigata_t2000:{name:"新潟芝2000",bias:"左回り・外回り・末脚と持続力",kind:"turf",dir:"左回り",shape:"leftNiigata",venue:"新潟",surface:"芝",dist:2000,turn:"left",profile:"niigata_outer_mid"},
+  niigata_t2000_inner:{name:"新潟芝2000（内）",bias:"左回り・内回り・機動力と持続力",kind:"turf",dir:"左回り",shape:"leftNiigata",venue:"新潟",surface:"芝",dist:2000,turn:"left",layout:"inner",profile:"niigata_inner_mid"},
+  niigata_t2000_outer:{name:"新潟芝2000（外）",bias:"左回り・外回り・末脚と持続力",kind:"turf",dir:"左回り",shape:"leftNiigata",venue:"新潟",surface:"芝",dist:2000,turn:"left",layout:"outer",profile:"niigata_outer_mid"},
   niigata_t2200:{name:"新潟芝2200",bias:"左回り・内回り・持続スタミナ",kind:"turf",dir:"左回り",shape:"leftNiigata",venue:"新潟",surface:"芝",dist:2200,turn:"left",profile:"niigata_inner_stamina"},
   niigata_t2400:{name:"新潟芝2400",bias:"左回り・内回り・スタミナ持続",kind:"turf",dir:"左回り",shape:"leftNiigata",venue:"新潟",surface:"芝",dist:2400,turn:"left",profile:"niigata_inner_stamina"},
   niigata_t3000:{name:"新潟芝3000",bias:"左回り・長い直線/平坦・持続力",kind:"turf",dir:"左回り",shape:"leftNiigata",venue:"新潟",surface:"芝",dist:3000,turn:"left",profile:"niigata_outer_stamina"},
@@ -428,10 +471,13 @@ const courses={
   chukyo_d2500:{name:"中京ダ2500",bias:"左回り・急坂・能力持続",kind:"dirt",dir:"左回り",shape:"leftChukyo",venue:"中京",surface:"ダ",dist:2500,turn:"left",profile:"chukyo_dirt_stamina"},
   kyoto_t1100:{name:"京都芝1100",bias:"右回り・坂越え・内外回り総合力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"芝",dist:1100,turn:"right",profile:"kyoto_sprint"},
   kyoto_t1200:{name:"京都芝1200",bias:"右回り・坂越え・内外回り総合力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"芝",dist:1200,turn:"right",profile:"kyoto_sprint"},
-  kyoto_t1400:{name:"京都芝1400",bias:"右回り・坂越え・内外回り総合力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"芝",dist:1400,turn:"right",profile:"kyoto_sprint"},
-  kyoto_t1600:{name:"京都芝1600",bias:"右回り・坂越え・内外回り総合力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"芝",dist:1600,turn:"right",profile:"kyoto_mile"},
+  kyoto_t1400_inner:{name:"京都芝1400（内）",bias:"右回り・内回り・好位機動力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"芝",dist:1400,turn:"right",layout:"inner",profile:"kyoto_inner_sprint"},
+  kyoto_t1400_outer:{name:"京都芝1400（外）",bias:"右回り・外回り・下り加速と末脚",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"芝",dist:1400,turn:"right",layout:"outer",profile:"kyoto_outer_sprint"},
+  kyoto_t1600_inner:{name:"京都芝1600（内）",bias:"右回り・内回り・先行持続",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"芝",dist:1600,turn:"right",layout:"inner",profile:"kyoto_inner_mile"},
+  kyoto_t1600_outer:{name:"京都芝1600（外）",bias:"右回り・外回り・下り加速と末脚",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"芝",dist:1600,turn:"right",layout:"outer",profile:"kyoto_outer_mile"},
   kyoto_t1800:{name:"京都芝1800",bias:"右回り・坂越え・内外回り総合力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"芝",dist:1800,turn:"right",profile:"kyoto_mid"},
-  kyoto_t2000:{name:"京都芝2000",bias:"右回り・坂越え・内外回り総合力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"芝",dist:2000,turn:"right",profile:"kyoto_mid"},
+  kyoto_t2000_inner:{name:"京都芝2000（内）",bias:"右回り・内回り・内前と機動力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"芝",dist:2000,turn:"right",layout:"inner",profile:"kyoto_inner_mid"},
+  kyoto_t2000_outer:{name:"京都芝2000（外）",bias:"右回り・外回り・持続差し",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"芝",dist:2000,turn:"right",layout:"outer",profile:"kyoto_outer_mid"},
   kyoto_t2200:{name:"京都芝2200",bias:"右回り・坂越え・内外回り総合力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"芝",dist:2200,turn:"right",profile:"kyoto_mid"},
   kyoto_t2400:{name:"京都芝2400",bias:"右回り・坂越え・内外回り総合力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"芝",dist:2400,turn:"right",profile:"kyoto_stamina"},
   kyoto_t3000:{name:"京都芝3000",bias:"右回り・坂越え・内外回り総合力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"芝",dist:3000,turn:"right",profile:"kyoto_stamina"},
@@ -444,7 +490,8 @@ const courses={
   kyoto_d1900:{name:"京都ダ1900",bias:"右回り・下り加速・持続力",kind:"dirt",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"ダ",dist:1900,turn:"right",profile:"kyoto_dirt_mid"},
   kyoto_d2600:{name:"京都ダ2600",bias:"右回り・下り加速・持続力",kind:"dirt",dir:"右回り",shape:"rightHanshin",venue:"京都",surface:"ダ",dist:2600,turn:"right",profile:"kyoto_dirt_stamina"},
   hanshin_t1200:{name:"阪神芝1200",bias:"右回り・急坂・先行持続",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"阪神",surface:"芝",dist:1200,turn:"right",profile:"hanshin_sprint"},
-  hanshin_t1400:{name:"阪神芝1400",bias:"右回り・急坂・内外回り総合力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"阪神",surface:"芝",dist:1400,turn:"right",profile:"hanshin_sprint"},
+  hanshin_t1400_inner:{name:"阪神芝1400（内）",bias:"右回り・内回り・先行持続と急坂",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"阪神",surface:"芝",dist:1400,turn:"right",layout:"inner",profile:"hanshin_inner_sprint"},
+  hanshin_t1400_outer:{name:"阪神芝1400（外）",bias:"右回り・外回り・末脚持続と急坂",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"阪神",surface:"芝",dist:1400,turn:"right",layout:"outer",profile:"hanshin_outer_sprint"},
   hanshin_t1600:{name:"阪神芝1600",bias:"右回り・外回り・瞬発力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"阪神",surface:"芝",dist:1600,turn:"right",profile:"hanshin_mile"},
   hanshin_t1800:{name:"阪神芝1800",bias:"右回り・外回り・末脚",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"阪神",surface:"芝",dist:1800,turn:"right",profile:"hanshin_mid"},
   hanshin_t2000:{name:"阪神芝2000",bias:"右回り・内回り・持続力",kind:"turf",dir:"右回り",shape:"rightHanshin",venue:"阪神",surface:"芝",dist:2000,turn:"right",profile:"hanshin_inner"},
@@ -578,7 +625,7 @@ function styleOrEmpty(s){s=String(s||"").trim();return s?style(s):""}
 function styleValue(st){st=style(st);if(st==="逃げ")return 100;if(st==="先行")return 76;if(st==="中団")return 52;if(st==="差し")return 38;if(st==="後方")return 24;return 52}
 function valueToStyle(v){if(v>=86)return"逃げ";if(v>=64)return"先行";if(v>=46)return"中団";if(v>=32)return"差し";return"後方"}
 function jockeyQueueAdj(h){const j=h.騎手||"";let s=0;if(j.includes("川田")||j.includes("坂井")||j.includes("レーン")||j.includes("モレイラ"))s+=3.0;else if(j.includes("武豊")||j.includes("幸")||j.includes("松山")||j.includes("西村淳")||j.includes("岩田望")||j.includes("田口"))s+=1.5;else if(j.includes("横山典"))s-=1.0;else if(j.includes("Ｍ．デム")||j.includes("デム"))s-=0.3;return s}
-function courseQueueAdj(h,baseStyle){const c=courses[E("course").value]||{},key=E("course").value||"",f=typeof frameNo==="function"?frameNo(h):0;let s=0;const local=(c.venue==="函館"||c.venue==="小倉"||c.venue==="福島"||c.venue==="札幌");const front=(baseStyle==="逃げ"||baseStyle==="先行");const turfStartDirt=(key==="tokyo_d1600"||key==="hanshin_d1400"||key==="hakodate_d1000"||key==="kokura_d1000"||key==="fukushima_d1150"||key==="chukyo_d1400"||key==="niigata_d1200");if(local&&front){if(f<=3)s+=4.0;else if(f>=7)s-=2.5;else if(f>=5)s-=0.8}if(local&&c.kind==="dirt"&&c.dist===1700&&front){if(f<=4)s+=2.0;if(f>=7)s-=1.3}if(turfStartDirt&&front){if(f>=6)s+=3.0;if(f<=2)s-=1.5}if(c.venue==="東京"&&c.kind==="turf"&&railCourseOf(h)==="D"&&isSoftishGoing()&&front){if(f<=4)s+=2.2;if(f>=7)s-=1.2}if(c.venue==="東京"&&c.kind==="turf"&&!front){if(f>=5)s+=1.0}return s}
+function courseQueueAdj(h,baseStyle){const c=courses[E("course").value]||{},f=typeof frameNo==="function"?frameNo(h):0;let s=0;const local=(c.venue==="函館"||c.venue==="小倉"||c.venue==="福島"||c.venue==="札幌");const front=(baseStyle==="逃げ"||baseStyle==="先行");const turfCfg=dirtTurfStartConfig();if(local&&front){if(f<=3)s+=4.0;else if(f>=7)s-=2.5;else if(f>=5)s-=0.8}if(local&&c.kind==="dirt"&&c.dist===1700&&front){if(f<=4)s+=2.0;if(f>=7)s-=1.3}if(turfCfg&&front){const k=turfCfg.outerFrontStrength;if(f>=6)s+=3.0*k;if(f<=2)s-=1.5*k}if(c.venue==="東京"&&c.kind==="turf"&&railCourseOf(h)==="D"&&isSoftishGoing()&&front){if(f<=4)s+=2.2;if(f>=7)s-=1.2}if(c.venue==="東京"&&c.kind==="turf"&&c.dist!==2000&&!front){if(f>=5)s+=1.0}if(c.venue==="東京"&&c.kind==="turf"&&c.dist===2000&&front){if(f<=4)s+=0.8;if(f>=7)s-=0.8}return s}
 function randomRaceStyle(){const r=Math.random();if(r<0.16)return"逃げ";if(r<0.46)return"先行";if(r<0.70)return"中団";if(r<0.88)return"差し";return"後方"}
 function trialStyle(h){
   const prev=styleOrEmpty(h.前走脚質)||styleOrEmpty(h.脚質)||"中団";
@@ -661,7 +708,17 @@ function kokuraDownhillAdj(h,p){
 function raceSurfaceKeyFromRows(rows){const r=rows&&rows[0]||{};const s=String(r["芝ダ"]||"").includes("芝")?"芝":"ダ";return String(r["場所"]||"")+"|"+s;}
 function raceKeyOf(r){return [String(r["日付"]||""),String(r["場所"]||""),String(r["レース"]||"")].join("|");}
 function raceNoOf(r){const m=String(r["レース"]||"").match(/(\d+)/);return m?parseInt(m[1],10):99;}
-function findAutoCourseKey(r){const venue=String(r["場所"]||"").trim();const surface=String(r["芝ダ"]||"").includes("芝")?"芝":"ダ";const dist=num(r["距離"],0);const target=venue+surface+dist;return Object.keys(courses).find(k=>String(courses[k]?.name||"").replace("直線","")===target)||Object.keys(courses).find(k=>String(courses[k]?.name||"").startsWith(target))||"";}
+function findAutoCourseKey(r){
+  const venue=String(r["場所"]||"").trim(),rawSurface=String(r["芝ダ"]||"");
+  const surface=rawSurface.includes("芝")?"芝":"ダ",dist=num(r["距離"],0),target=venue+surface+dist;
+  const layoutText=[rawSurface,r["コース"],r["内外"],r["回り"]].map(v=>String(v||"")).join(" ");
+  const layout=layoutText.includes("外")?"outer":layoutText.includes("内")?"inner":"";
+  const candidates=Object.keys(courses).filter(k=>{const c=courses[k]||{};return c.venue===venue&&c.surface===surface&&c.dist===dist;});
+  if(layout){const exactLayout=candidates.find(k=>courses[k]?.layout===layout);if(exactLayout)return exactLayout;}
+  const defaults={"新潟芝1400":"niigata_t1400_inner","新潟芝2000":"niigata_t2000_outer","京都芝1400":"kyoto_t1400_outer","京都芝1600":"kyoto_t1600_outer","京都芝2000":"kyoto_t2000_inner","阪神芝1400":"hanshin_t1400_inner"};
+  if(defaults[target]&&courses[defaults[target]])return defaults[target];
+  return candidates[0]||Object.keys(courses).find(k=>String(courses[k]?.name||"").replace("直線","")===target)||"";
+}
 function saveCurrentRaceSettings(){if(!currentRaceKey)return;const g=raceGroups.find(x=>x.key===currentRaceKey);if(!g)return;const vs=raceSurfaceKeyFromRows(g.rows);venueSurfaceSettings[vs]={going:E("going").value,bias:E("bias").value};racePaceSettings[currentRaceKey]=E("pace").value;}
 function applyStoredSettings(g){const vs=raceSurfaceKeyFromRows(g.rows);const vb=venueSurfaceSettings[vs]||{going:"firm",bias:"flat"};E("going").value=vb.going;E("bias").value=vb.bias;E("pace").value=racePaceSettings[g.key]||"middle";if(E("venueSettingInfo"))E("venueSettingInfo").textContent=vs.replace("|","・")+"設定を適用中（馬場・バイアスは競馬場×芝ダで保持 / ペースはレース別）";}
 function buildRaceGroups(){const map=new Map();allRaceRows.forEach(r=>{const key=raceKeyOf(r);if(!map.has(key))map.set(key,[]);map.get(key).push(r)});raceGroups=[...map.entries()].map(([key,rows])=>({key,rows})).sort((a,b)=>{const ar=a.rows[0]||{},br=b.rows[0]||{};return String(ar["日付"]||"").localeCompare(String(br["日付"]||""),"ja",{numeric:true})||String(ar["場所"]||"").localeCompare(String(br["場所"]||""),"ja")||raceNoOf(ar)-raceNoOf(br)});const sel=E("raceSelect");sel.innerHTML=raceGroups.map(g=>{const r=g.rows[0]||{};const rn=raceNoOf(r);const label=`${r["場所"]||""}${rn===99?String(r["レース"]||""):rn+"R"} ${r["レース名"]||""} ${r["芝ダ"]||""}${r["距離"]||""}`.trim();return `<option value="${g.key.replace(/&/g,"&amp;").replace(/"/g,"&quot;")}">${label}</option>`}).join("");}
@@ -891,6 +948,64 @@ function sexBodyBloodScore(h){
   return Math.max(40,Math.min(80,s));
 }
 
+function pedigreeTypeFamilies(typeName){
+  const t=String(typeName||"");
+  const out=new Set();
+  if(t.includes("サンデー"))out.add("ss");
+  if(t.includes("ロイヤルチャージャー")||t.includes("ヘイルトゥリーズン"))out.add("royal");
+  if(t.includes("キングマンボ"))out.add("kingmambo");
+  if(t.includes("ダンチヒ"))out.add("danzig");
+  if(t.includes("ストームキャット"))out.add("storm");
+  if(t.includes("ニアークティック"))out.add("nearctic");
+  if(t.includes("ネイティヴダンサー"))out.add("native");
+  if(t.includes("ナスルーラ")||t.includes("トニービン"))out.add("nasrullah");
+  if(t.includes("ロベルト"))out.add("roberto");
+  if(t.includes("サドラー")||t.includes("ノーザンダンサー"))out.add("euro");
+  if(t.includes("マンノウォー"))out.add("manowar");
+  if(t.includes("セントサイモン"))out.add("stamina");
+  if(t.includes("トゥルビヨン"))out.add("tourbillon");
+  if(t.includes("その他のエクリプス"))out.add("eclipse");
+  return out;
+}
+function fourLineTypeScore(h){
+  const c=courses[E("course").value]||{},g=E("going")?.value||"firm",p=E("pace")?.value||"middle";
+  const lines=[h.父タイプ名,h.母父タイプ名,h.父母父タイプ名,h.母母父タイプ名].map(pedigreeTypeFamilies);
+  // 主能力→補完→父系底力→牝系底力の役割差。単純4等分にしない。
+  const role=[0.38,0.30,0.18,0.14];
+  const coverage=targets=>lines.reduce((sum,set,i)=>sum+(targets.some(x=>set.has(x))?role[i]:0),0);
+  const speed=["danzig","storm","native","nearctic","kingmambo"];
+  const turn=["kingmambo","danzig","roberto","royal","native"];
+  const finish=["ss","nasrullah","kingmambo","royal"];
+  const stamina=["ss","nasrullah","roberto","euro","stamina","tourbillon"];
+  const dirt=["storm","nearctic","native","royal","manowar","kingmambo"];
+  let courseTargets;
+  if(c.kind==="dirt")courseTargets=dirt;
+  else if((c.dist||0)<=1400)courseTargets=speed;
+  else if((c.dist||0)>=2200)courseTargets=stamina;
+  else if(c.layout==="inner"||["札幌","函館","福島","小倉"].includes(c.venue))courseTargets=turn;
+  else courseTargets=finish;
+  let goingTargets;
+  if(g==="bad"||g==="soft"||g==="soft_range")goingTargets=["roberto","euro","nasrullah","danzig","stamina","royal"];
+  else if(g==="ultrafirm"||g==="firm")goingTargets=["ss","kingmambo","danzig","native","storm"];
+  else goingTargets=["royal","kingmambo","roberto","nasrullah"];
+  const paceTargets=p==="high"?["nasrullah","roberto","royal","danzig","nearctic"]:p==="slow"?["ss","kingmambo","native","storm"]:["kingmambo","royal","ss","danzig"];
+  const courseFit=coverage(courseTargets),goingFit=coverage(goingTargets),paceFit=coverage(paceTargets);
+  // 父側の主特性を母系が補完する配合を評価。該当が複数でも最大4点。
+  const paternal=new Set([...lines[0],...lines[2]]),maternal=new Set([...lines[1],...lines[3]]);
+  const has=(set,list)=>list.some(x=>set.has(x));
+  let complement=0;
+  if(has(paternal,speed)&&has(maternal,stamina))complement+=2.4;
+  if(has(paternal,stamina)&&has(maternal,speed))complement+=1.8;
+  if(c.kind==="dirt"&&has(paternal,dirt)&&has(maternal,["roberto","royal","manowar","nasrullah"]))complement+=1.5;
+  if(c.layout==="outer"&&has(paternal,finish)&&has(maternal,["nasrullah","roberto","euro"]))complement+=1.2;
+  complement=Math.min(4.0,complement);
+  // 一致数は加算ではなく被覆率で圧縮。同系統が4代並んでも無制限に増えない。
+  const filled=[h.父タイプ名,h.母父タイプ名,h.父母父タイプ名,h.母母父タイプ名].filter(Boolean).length;
+  const completeness=(filled-2)*0.45;
+  const score=52+courseFit*15+goingFit*6+paceFit*4+complement+Math.max(0,completeness);
+  return Math.max(40,Math.min(80,score));
+}
+
 function blood(h){
   // いつものお願い完全版：前走脚質は不使用
   const sire = sireAptitudeScore(h);
@@ -900,9 +1015,13 @@ function blood(h){
   const going = goingBloodScore(h);
   const pace = paceBloodScore(h);
   const sexbody = sexBodyBloodScore(h);
+  const fourLine = fourLineTypeScore(h);
+  const hasPairReal=(cachedCourseMatches(h)?h._pairCourseIndex:realIndex("p",((h.種牡馬||"").trim()&&((h.母父名||"").trim()))?((h.種牡馬||"").trim()+"×"+(h.母父名||"").trim()):"",currentCourseKey()))!==null;
 
-  // 父35%、母父25%、配合20%、コース10%、馬場5%、ペース3%、性別/馬体2%
-  let raw = sire*0.35 + bm*0.25 + pair*0.20 + course*0.10 + going*0.05 + pace*0.03 + sexbody*0.02;
+  // 個別配合実績がない時は4系統フォールバックを強める。合計は常に100%。
+  let raw;
+  if(hasPairReal) raw=sire*0.25+bm*0.18+pair*0.25+fourLine*0.12+course*0.10+going*0.05+pace*0.03+sexbody*0.02;
+  else raw=sire*0.23+bm*0.17+pair*0.18+fourLine*0.22+course*0.10+going*0.05+pace*0.03+sexbody*0.02;
 
   // シミュレーター本体が50〜100を想定するため、血統偏差値40〜80を60〜96へ変換。
   // 100点量産を避ける。
@@ -1506,7 +1625,7 @@ function courseTimeReliabilityFactor(){
     hakodate_t2000:0.84,hakodate_d1000:0.86,
     fukushima_t1200:0.84,fukushima_t1800:0.84,fukushima_t2000:0.84,fukushima_t2600:0.84,fukushima_d1150:0.84,
     kokura_t1200:0.84,kokura_t1800:0.84,kokura_t2000:0.84,kokura_d1000:0.84,
-    niigata_t1000:0.78,niigata_t1200:0.90,niigata_t1400:0.92,niigata_t1600:0.98,niigata_t1800:0.98,niigata_t2000:0.98,niigata_t2200:0.92,niigata_t2400:0.92,niigata_d1200:0.88,niigata_d1800:0.88,
+    niigata_t1000:0.78,niigata_t1200:0.90,niigata_t1400_inner:0.92,niigata_t1400_outer:0.96,niigata_t1600:0.98,niigata_t1800:0.98,niigata_t2000_inner:0.92,niigata_t2000_outer:0.98,niigata_t2200:0.92,niigata_t2400:0.92,niigata_d1200:0.88,niigata_d1800:0.88,
     chukyo_t1200:0.92,chukyo_t1400:0.94,chukyo_t1600:0.95,chukyo_t2000:0.95,chukyo_t2200:0.94,chukyo_d1200:0.88,chukyo_d1400:0.88,chukyo_d1800:0.90,chukyo_d1900:0.90,
     sapporo_t1200:0.85,sapporo_t1500:0.86,sapporo_t1800:0.86,sapporo_t2000:0.85,sapporo_t2600:0.84,sapporo_d1000:0.86,sapporo_d1700:0.81
   };
@@ -1602,7 +1721,7 @@ function courseAdj(h,p){
   let s=0;
   const front=(st==="逃げ"||st==="先行"), closer=(st==="差し"||st==="後方"||st==="中団");
   if(["函館","札幌","小倉","福島"].includes(c.venue)){if(front)s+=2;if(st==="後方"&&p>.65)s-=2;}
-  if(c.venue==="東京"){if(st==="差し"||st==="中団")s+=2;if(h.馬番>=13)s+=1;}
+  if(c.venue==="東京"){if(st==="差し"||st==="中団")s+=2;}
   if(c.venue==="新潟"){
     if(key==="niigata_t1000"){if(h.馬番>=10)s+=3.0;else if(h.馬番<=4)s-=1.8;if(front)s+=1.2;}
     else if((c.profile||"").includes("outer")){if(closer)s+=1.7;if(st==="逃げ"&&c.dist>=1600)s-=0.5;}
@@ -1621,7 +1740,9 @@ function courseAdj(h,p){
     if(st==="後方"&&p>.60)s-=0.5;
   }
   if(c.venue==="京都"){
-    if(c.kind==="turf"&&c.dist>=1600&&(st==="差し"||st==="中団"))s+=0.5;
+    if(c.kind==="turf"&&c.layout==="outer"&&(st==="差し"||st==="中団"||st==="後方"))s+=1.0;
+    else if(c.kind==="turf"&&c.layout==="inner"&&front)s+=0.7;
+    else if(c.kind==="turf"&&c.dist>=1600&&(st==="差し"||st==="中団"))s+=0.5;
     if(c.kind==="dirt"&&front)s+=0.5;
     if(c.dist>=2400&&(st==="中団"||st==="差し"))s+=0.3;
   }
@@ -1632,7 +1753,9 @@ function adj(h,p){
   let pace=E("pace").value,going=E("going").value,st=h.脚質,s=courseAdj(h,p);
   // v8.33：展開補正は順位を大きく変えず、勝率を少し上下する程度にマイルド化。
   if(pace==="slow"&&(st==="逃げ"||st==="先行"))s+=1.8;
-  if(pace==="high"&&st==="逃げ"&&p>.55)s-=2.8;
+  // v8.44.1：芝スタートダートでは、外枠から前を取れる利点をハイペースだけで消さない。
+  // 通常の逃げ減点2.8に対し、対象コースは1.4（50%）へ制限する。
+  if(pace==="high"&&st==="逃げ"&&p>.55)s-=isDirtTurfStartCourse()?1.4:2.8;
   if(pace==="high"&&(st==="差し"||st==="後方")&&p>.55)s+=2.0;
   if(pace==="middle"&&st==="先行")s+=0.9;
   if(pace==="middle"&&(st==="差し"||st==="中団")&&p>.65)s+=0.8;
@@ -1880,20 +2003,21 @@ function frameAdj(h){
   const c=courses[E("course").value]||{}, key=E("course").value||"", profile=c.profile||"", f=frameNo(h), st=h.脚質;
   const isFront=(st==="逃げ"||st==="先行"), isCloser=(st==="差し"||st==="後方"||st==="中団");
   const isLocalSmall=(c.venue==="函館"||c.venue==="小倉"||c.venue==="福島"||c.venue==="札幌");
-  const isTurfStartDirt=(key==="tokyo_d1600"||key==="hanshin_d1400"||key==="hakodate_d1000"||key==="kokura_d1000"||key==="fukushima_d1150"||key==="chukyo_d1400"||key==="niigata_d1200");
+  const turfCfg=dirtTurfStartConfig(), isTurfStartDirt=!!turfCfg;
   let s=0;
 
   // v7.1：芝スタートのダートは、芝部分を長く走れる外枠を明確に評価。
   // ただし外差しではなく、外枠からスムーズに加速できる逃げ・先行を最も評価する。
   if(isTurfStartDirt){
-    if(f<=2) s-=1.4;
-    else if(f<=4) s-=0.3;
-    else if(f>=7) s+=1.7;
-    else if(f>=6) s+=1.1;
+    const k=turfCfg.outerFrontStrength;
+    if(f<=2) s-=1.4*k;
+    else if(f<=4) s-=0.3*k;
+    else if(f>=7) s+=1.7*k;
+    else if(f>=6) s+=1.1*k;
 
-    if(isFront&&f>=6) s+=1.3;
-    if(isFront&&f<=2) s-=0.6;
-    if(st==="後方") s-=0.4;
+    if(isFront&&f>=6) s+=1.3*k;
+    if(isFront&&f<=2) s-=0.6*k;
+    if(st==="後方") s-=0.4*k;
 
     // 東京ダ1600は芝スタート外枠有利を強める代表条件。
     if(key==="tokyo_d1600"){
@@ -1903,10 +2027,10 @@ function frameAdj(h){
       if(isCloser&&f>=6) s+=0.5;
     }
     // ローカル短距離の芝スタートダートは外枠逃げ・先行をさらに評価。
-    if(key==="hakodate_d1000"||key==="kokura_d1000"||key==="fukushima_d1150"||key==="chukyo_d1400"||key==="niigata_d1200"){
-      if(isFront&&f>=7) s+=1.2;
-      if(f<=2&&isFront) s-=0.4;
-      if(st==="後方") s-=0.8;
+    if(turfCfg.shortFront){
+      if(isFront&&f>=7) s+=1.2*k;
+      if(f<=2&&isFront) s-=0.4*k;
+      if(st==="後方") s-=0.8*k;
     }
     return Math.max(-4.5,Math.min(5.0,s));
   }
@@ -1930,6 +2054,11 @@ function frameAdj(h){
         if(st==="逃げ")s+=0.7;
         if(isFront&&f<=3)s+=0.5;
       }
+    }else if(c.dist===2000){
+      if(f<=2)s+=1.4; else if(f<=4)s+=0.8; else if(f>=7)s-=1.3;
+      if(isFront&&f<=4)s+=0.6;
+      if(isFront&&f>=7)s-=0.9;
+      if(isCloser&&f>=7)s+=0.3;
     }else{
       if(f>=5)s+=0.9;
       if(isCloser&&f>=5)s+=1.0;
@@ -1938,12 +2067,35 @@ function frameAdj(h){
     }
   }
 
-  // 東京ダート：ダ1600は上の芝スタート専用で処理済み。ダ1400/2100は外枠をやや評価。
+  // 東京ダート：芝スタートのダ1600は上で処理済み。1300/1400は枠中立、2100/2400は外先行の距離ロスだけを反映。
   if(c.venue==="東京"&&c.kind==="dirt"){
-    if(f<=2)s-=1.2;
-    if(f>=6)s+=1.2;
-    if(profile.includes("tokyo_dirt_stamina")&&f>=7)s-=0.3;
-    if(isCloser&&f>=6)s+=0.5;
+    if(c.dist===1200){
+      if(f<=2)s-=0.3;if(f>=7)s+=0.3;
+    }else if(c.dist===2100||c.dist===2400){
+      if(isFront&&f>=7)s-=0.8;
+      if(f<=4&&isFront)s+=0.3;
+      if(isCloser&&f>=7)s+=0.2;
+    }
+  }
+
+  // 中山芝1600：1角までの進入で外枠の距離ロスが出やすい。差しは外枠減点を弱める。
+  if(c.venue==="中山"&&c.kind==="turf"&&c.dist===1600){
+    if(f<=2)s+=1.2; else if(f<=4)s+=0.6; else if(f===7)s-=1.0; else if(f>=8)s-=1.6;
+    if(isFront&&f>=7)s-=0.9;
+    if(isCloser&&f>=7)s+=0.5;
+  }
+
+  // 京都：内回りは内〜中枠の好位、外回りは末脚を評価。枠そのものは極端に固定しない。
+  if(c.venue==="京都"&&c.kind==="turf"&&c.layout){
+    if(c.layout==="inner"){
+      if(f<=2)s+=1.1;else if(f<=4)s+=0.5;else if(f>=7)s-=0.6;
+      if(isFront&&f<=4)s+=0.8;
+      if(isFront&&f>=7)s-=0.5;
+    }else{
+      if(isCloser)s+=0.8;
+      if(isCloser&&f>=5)s+=0.4;
+      if(st==="逃げ"&&c.dist>=1600)s-=0.3;
+    }
   }
 
   // 阪神：内回り・ダ1800は内〜中枠先行、外回り芝は外差しも残す。
@@ -2413,7 +2565,8 @@ function stableProfile(h){
 
   if(trainingScore(h)>=88) s+=0.8;
   if(blood(h)>=92) s+=0.5;
-  if(E("pace").value==="high" && st==="逃げ") s-=1.5;
+  // 複勝側へ強く効く安定値は、芝スタートダートのハイペース逃げでも過剰に落とさない。
+  if(E("pace").value==="high" && st==="逃げ") s-=isDirtTurfStartCourse()?0.5:1.5;
   if(isKokuraDownhillCourse()){
     const apt=frontLoadedAptitude(h);
     if(apt>=3.0) s+=0.6;
@@ -2434,6 +2587,14 @@ function pinpaProfile(h){
   if(isKokuraDownhillCourse() && st==="逃げ" && frontLoadedAptitude(h)<2.0) s+=0.8;
   return Math.max(0,Math.min(8,s));
 }
+function turfStartHighPaceModeProtection(h,mode){
+  if(E("pace").value!=="high"||!isTurfStartOuterFront(h))return 0;
+  const cfg=dirtTurfStartConfig(),k=cfg?.outerFrontStrength||0;
+  // frameAdjの外枠×前補正を再加点せず、ハイペースで失われる分だけを確率別に保護する。
+  if(mode==="place3")return 0.70*k;
+  if(mode==="place2")return 0.35*k;
+  return 0;
+}
 function finishScoreByMode(h, baseScore, mode, trialHorses){
   const win=winProfile(h), stable=stableProfile(h), pinpa=pinpaProfile(h);
   const topStable=topAbilityStabilityBonus(h,trialHorses||horses);
@@ -2445,6 +2606,7 @@ function finishScoreByMode(h, baseScore, mode, trialHorses){
   }else if(mode==="place3"){
     score += stable*0.95 + win*0.20 - pinpa*0.08 + topStable;
   }
+  score += turfStartHighPaceModeProtection(h,mode);
   return score;
 }
 function courseSpecificHorseAdj(h){
@@ -2701,6 +2863,7 @@ function exportValidationCsv(){
    検証回数:done,エンジン:ENGINE_VERSION,レース信頼度:confidenceLabel(st,done)
   };
   const headers=["出力日時","レース名","コース","コースコード","内柵","馬場","ペース","バイアス","検証回数","エンジン","レース信頼度","総合順位","勝率順位","連対率順位","複勝率順位","能力順位","血統順位","調教順位","馬番","馬名","脚質","勝率","連対率","複勝率","平均着順","実効総合","基礎総合","固定補正","能力総合","能力ランク","タイム補助","タイム信頼","血統","血統条件適性","コース血統適性","馬場血統適性","ペース血統適性","調教","騎手","騎場","気性","勝切","安定","ピンパー","枠","馬場補正","育成","厩舎","調教師コード","厩舎指数","厩舎補正","厩舎DB一致","2週調教指数","2週坂路本数","2週W本数","11秒前半加速本数","11秒前半ベスト","前日坂路4F","前日坂路加点区分","調教照合","買いランク","実着順","1着的中","連対的中","複勝的中"];
+  headers.splice(37,0,"4系統タイプ指数","血統DB一致");
   const lines=[headers.map(csvEscape).join(",")];
   rows.forEach(s=>{
    const win=s.w/Math.max(1,done)*100,p2=s.p2/Math.max(1,done)*100,p3=s.p3/Math.max(1,done)*100;
@@ -2709,6 +2872,7 @@ function exportValidationCsv(){
     overallRank.get(s.h),winRank.get(s.h),p2Rank.get(s.h),p3Rank.get(s.h),abilityRank.get(s.h),bloodRank.get(s.h),trainingRank.get(s.h),s.h.馬番,s.h.馬名,(s.h.脚質||""),
     win.toFixed(1),p2.toFixed(1),p3.toFixed(1),(s.rs/Math.max(1,done)).toFixed(2),effectiveBaseScore(s.h).toFixed(1),base(s.h).toFixed(1),(effectiveBaseScore(s.h)-base(s.h)).toFixed(1),abilityCompositeScore(s.h).toFixed(1),abilityScore(s.h).toFixed(1),adjustedTimeScore(s.h).toFixed(1),(timeReliabilityFactor(s.h)*100).toFixed(0),blood(s.h).toFixed(1),apt.index.toFixed(1),apt.course.toFixed(0),apt.going.toFixed(0),apt.pace.toFixed(0),trainingScore(s.h).toFixed(1),
     jockeyScore(s.h).toFixed(1),jockeyCourseAdj(s.h).toFixed(1),temperamentRisk(s.h).toFixed(1),winProfile(s.h).toFixed(1),stableProfile(s.h).toFixed(1),pinpaProfile(s.h).toFixed(1),frameAdj(s.h).toFixed(1),manualBiasAdj(s.h).toFixed(1),breederConditionAdj(s.h).toFixed(1),(s.h.厩舎||""),(s.h.調教師コード||""),trainerIndexScore(s.h).toFixed(1),trainerTrialConditionAdj(s.h).toFixed(2),trainerDbMatchLabel(s.h),(s.h._training2wScore===null||s.h._training2wScore===undefined)?"":Number(s.h._training2wScore).toFixed(1),(s.h._training2wSlopeCount||0),(s.h._training2wWoodCount||0),(s.h._training2wAccelCount||0),training2wAccelLabel(s.h),(s.h._training2wEveSlope&&s.h._training2wEveSlope.eveSlopeTime!==null)?Number(s.h._training2wEveSlope.eveSlopeTime).toFixed(1):"",(s.h._training2wEveSlope?.eveSlopeTier||""),(s.h._training2wMatch||""),buyRank(win,p3,winRank.get(s.h),p3Rank.get(s.h)),"","","",""];
+   vals.splice(37,0,fourLineTypeScore(s.h).toFixed(1),bloodDbMatchLabel(s.h));
    lines.push(vals.map(csvEscape).join(","));
   });
   const csv="\uFEFF"+lines.join("\r\n");
