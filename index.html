@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0101)file:///C:/Users/admin/Downloads/Eikichi%20Racing%20Simulator%20v8.47.1%20Blood%20Discrimination.html -->
+<!-- saved from url=(0116)file:///C:/Users/admin/Downloads/Eikichi%20Racing%20Simulator%20v8.48.0%20True%20Monte%20Carlo%20Finish%20Order.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eikichi Racing Simulator v8.47.1 Blood Discrimination</title>
+<title>Eikichi Racing Simulator v8.48.0 True Monte Carlo Finish Order</title>
 <style>
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1380px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}.blue{background:#2563a6}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5;transition:left .30s linear,top .30s linear,box-shadow .2s}.horse.move{box-shadow:0 0 14px 5px rgba(255,255,255,.55)}.horse.fade{opacity:.55}.liveBox{background:#081525;border:1px solid #2c4664;border-radius:12px;padding:10px;margin-top:8px}.liveLine{font-size:14px;line-height:1.6}.meter{height:8px;background:#1c3048;border-radius:99px;overflow:hidden;margin:7px 0}.meter>div{height:100%;background:#e1c766;width:0%}#result{overflow-x:auto;padding:2px 0 10px;scrollbar-color:#496986 #0a1727}#result table{min-width:1780px;width:100%;border-collapse:separate;border-spacing:0;font-size:13px}#result th{position:sticky;top:0;z-index:3;background:#0d1b2e;box-shadow:0 1px 0 #334b68}#result td,#result th{padding:8px 7px;border-bottom:1px solid #26364d;text-align:left;white-space:nowrap}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}.training-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.training-grid textarea{height:160px}.changelog-panel{opacity:.88}.changelog-panel h3{font-size:16px;color:#b8cae0}@media(max-width:760px){main{padding:8px}.training-grid{grid-template-columns:1fr}.controls{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style></head><body><script id="embeddedShareState" type="application/json"></script><main>
@@ -226,7 +226,7 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 <div class="panel"><h3>勝ち切り・安定・ピンパー補正</h3><div class="small">勝率は「勝ち切り型」、連対率は「勝ち切り＋安定」、複勝率は「安定型」を強めて別計算します。逃げ・後方・気性難はピンパー寄りになり、勝率と複勝率の順位がズレやすくなります。</div></div><div class="panel"><h3>検証結果</h3><div id="result"><div class="small">5000回検証を実行してください。</div></div></div>
 
 <div class="panel"><h3>能力内タイム補助方式</h3><div class="small">推定タイム評価列はCSV互換のため残していますが、総合スコアへ直接16%加点しません。能力ランクを土台に、コース・馬場・データ信頼度に応じて0〜20%だけ能力内部へ混合します。これにより能力とタイムの二重評価を防ぎ、ローカルダ1700mのタイム過信を抑えます。</div></div>
-<div class="panel changelog-panel"><h3>v8.47.1 CHANGELOG</h3><div class="small">血統スコアの判別力を強化。父×母父の個別コース実績またはTARGET過去5年DBがある高信頼血統はレース内差を28%拡大し、4系統推定中心の血統は15%拡大します。77点を中立中心として上下双方へ広げるため、適性上位だけでなく不適性側も明確化。能力 ＞ 血統 ＞ 調教 ＞ その他補正の優先順位と血統40%ウェイトは維持し、根拠の弱い推定血統の過大評価を防ぎます。</div></div><div class="panel changelog-panel"><h3>v8.47.0 CHANGELOG</h3><div class="small">評価の優先順位を「能力 ＞ 血統 ＞ 調教 ＞ その他補正」に固定。脚質は予想情報であることを前提に、コース・ペース・馬場・枠・騎手・気性を含む二次補正の合計を制限し、能力・血統上位馬の過剰な下振れを保護します。脚質由来の勝切・安定・ピンパー差、気性イベント、試行内脚質上振れを縮小。能力SS/Sおよび能力上位馬は補正要素だけで基本評価を大きく失わない設計へ変更しました。血統本体、調教後押し、5000回検証、CSV列は維持。</div></div><div class="panel changelog-panel"><h3>v8.46.1 CHANGELOG</h3><div class="small">能力ランクSSを正式追加。SS=91、S=86、AA=83、A=81、B=76、C=71、D=66、E=62として読み込み、能力反映度・馬場補正・能力内タイム補助・5000回検証へ既存経路のまま反映します。全角英字・小文字・前後空白も正規化。結果・CSVの能力数値へ反映し、既存CSV列・共有HTML・血統・調教・騎手ロジックは維持。</div></div><div class="panel changelog-panel"><h3>v8.46.0 CHANGELOG</h3><div class="small">父タイプ・母父タイプ・父母父タイプ・母母父タイプを血統指数本体へ正式統合。4系統は父38%・母父30%・父母父18%・母母父14%の役割差を持たせ、芝ダ・距離・内外回り・馬場・ペースごとの適性一致をソフト圧縮。個別父×母父実績がある場合は配合25%・4系統12%、未登録時は配合18%・4系統22%へ自動切替し、同一系統の重複加点を上限制御。内外回り新コードは旧距離別DBを継承し、競馬場×芝ダへの過度なフォールバックを解消。CSVへ4系統指数・血統DB一致区分を追加。</div></div><div class="panel changelog-panel"><h3>v8.45.0 CHANGELOG</h3><div class="small">JRA公式コース形状に合わせ、新潟芝1400/2000・京都芝1400/1600/2000・阪神芝1400を内回り／外回りへ分離。CSVに内外表記があれば自動判定し、表記なしは既定コースを選択。東京芝2000は外枠一律加点を廃止して内〜中枠を評価、中山芝1600は外枠と外枠先行の距離ロスを反映。東京ダートは芝スタートの1600だけ現行外枠補正を維持し、1300/1400は枠差を中立化、2100/2400は外枠先行のロスを軽く反映。既存の芝スタートダート補正は重複なしで維持。</div></div><div class="panel changelog-panel"><h3>v8.44.1 CHANGELOG</h3><div class="small">ダート芝スタート判定を8コースへ統一（福島1150・新潟1200・東京1600・中山1200・中京1400・京都1400・阪神1400/2000）。誤登録されていた函館・小倉ダ1000を共通芝スタート処理から除外。外枠×逃げ・先行の既存補正は一度だけ適用し、ハイペースでもコース適性を完全相殺しないよう逃げ減点を半減。連対・複勝モードでは残存補正を追加し、特に複勝側の相殺を弱めました。</div></div><div class="panel changelog-panel"><h3>v8.43.9 CHANGELOG</h3><div class="small">坂路・ウッド双方が高評価の馬で調教加点を行う際、変更不可変数への加算エラーによりレース切替が途中停止し、プルダウンだけ選択レース、内部データ・レース名・コース・CSVが直前レース（札幌1R等）のまま残る問題を修正。レース読込の成功判定を追加し、読込完了前は5000回検証を開始しません。</div></div><div class="panel changelog-panel"><h3>v8.43.8 CHANGELOG</h3><div class="small">v8.43.7で検証元レース識別子が一部空欄となり、単一レースでも「複数レース混在」と誤判定する問題を修正。CSVのレース名は①検証結果内で最も多い正式レース名、②検証開始時に固定したレース名、③現在の画面名の順で安全に決定。空欄は混在扱いにせず、一部に古い識別子が残っていても最多一致した正式レース名でCSVを出力します。</div></div><div class="panel changelog-panel"><h3>v8.43.7 CHANGELOG</h3><div class="small">iPad Safariでレース選択表示と内部の出走馬データ更新がずれ、選択した中京9Rではなく初期レースの札幌1Rとして検証・CSV出力される問題を修正。5000回検証ボタンを押した時点で選択プルダウンのレースを必ず再読込し、全馬へ検証元レースキーと正式表示名を埋め込み。CSVは画面状態ではなく検証結果の馬データを正本としてレース名を決定し、混在時は出力を停止して警告します。</div></div><div class="panel changelog-panel"><h3>v8.43.6 CHANGELOG</h3><div class="small">v8.43.5の検証中操作ロックでCSVボタンが無効のまま残る場合がある問題を修正。CSVボタンをロック対象から除外し、常にクリック可能な状態を保証。検証未完了時は案内を表示し、完了後は検証開始時に固定保存した正しいレース情報でCSVを出力します。</div></div><div class="panel changelog-panel"><h3>v8.43.5 CHANGELOG</h3><div class="small">5000回検証中にレース選択や条件が変わり、検証データとCSVのレース名・メタ情報が別レースになる不具合を修正。検証開始時のレースキー・レース名・コース・馬場・ペース・バイアスを固定保存し、処理中は関連操作をロック。CSVは検証開始時に保存したレース情報だけを使用し、別レースへの混入を防止します。</div></div><div class="panel changelog-panel"><h3>v8.43.4 CHANGELOG</h3><div class="small">5000回検証で基礎総合より固定補正が過剰に優先される問題を修正。枠・馬場バイアス・前残り・騎手コース補正の重複加算を解消し、各補正を一度だけ反映。画面の予想反映度を試行ごとの脚質選択へ接続し、予想反映度以外を前走脚質62.5%・ランダム37.5%で配分。結果の総合欄は実際の検証直前に使う実効総合へ変更し、基礎総合と固定補正を別列表示。調教指数、血統指数、能力ウェイトは変更なし。</div></div><div class="panel changelog-panel"><h3>v8.43.3 CHANGELOG</h3><div class="small">iPad／iPhone版Safariで共有用HTMLボタンが反応しない問題を修正。対応端末ではiOS標準の共有シートを直接開き、「ファイルに保存」「メール」「AirDrop」などを選択可能に変更。共有シートを利用できないSafariでは、作成した共有用HTMLを新しいタブで開く方式へフォールバック。Windows／Macでは従来どおりHTMLファイルをダウンロードします。</div></div><div class="panel changelog-panel"><h3>v8.43.2 CHANGELOG</h3><div class="small">検証結果をチェンジログより上へ配置し、チェンジログ群をページ最下部へ集約。検証結果テーブルの表示幅・横スクロール・固定見出しを改善。読み込んだ出走表、坂路・ウッド2週間データ、競馬場別馬場・バイアス、レース別ペース、現在の操作設定を内蔵した共有用HTML出力を追加。共有用HTMLを開くとデータを自動復元し、レース選択と5000回検証をそのまま実行できます。</div></div><div class="panel changelog-panel"><h3>v8.43.1 CHANGELOG</h3><div class="small">2週間調教指数を再校正。直前0〜5日55%・6〜11日前30%・12〜14日前15%を固定し、該当期間のデータがない場合は72ニュートラルで補完するため、古い調教1本だけで指数上位になる問題を修正。各期間は最高点60%＋平均40%。セッション90点超をソフト圧縮して100点到達率を約2〜3%へ抑制。11.0〜11.4秒の加速はセッション評価で重点加点し、総合点側での同一加速の再加点を撤去。前日坂路4Fの強・中・小加点は維持。調教は独立13%ではなく最大3.0点の後押し補正として表示を明確化。血統登録番号優先／馬名フォールバック、5000回試行、能力・血統・騎手ロジックは変更なし。</div></div><div class="panel changelog-panel"><h3>v8.43.0 CHANGELOG</h3><div class="small">出馬表側の坂路4F〜1F・ウッド6F〜1Fの10時計列を廃止。調教評価は坂路2週間CSV＋ウッド2週間CSVを唯一の正本とし、血統登録番号優先／馬名フォールバックで統合。2週間調教未読込・未一致の馬は72ニュートラル。旧出馬表時計によるフォールバック・直接加点を撤去し、二重評価を防止。基本ウェイト42/40/13/5、血統45/25/30、5000回試行は変更なし。</div></div><div class="panel changelog-panel"><h3>v8.42.9 CHANGELOG</h3><div class="small">坂路2週間＋ウッド2週間の専用入力を追加。血統登録番号優先／馬名フォールバックで出馬表へ自動統合。調教は直前5日55%・6〜11日前30%・12〜14日前15%で圧縮。ラスト1F 11.0〜11.4秒かつ加速した追い切りを強化評価。v8.42.9ではレース前日の坂路4Fを追加評価し、59.9秒以下=強、60.0〜61.9=中、62.0〜65.0=小、65.1秒以上=加点なし。基本ウェイト42/40/13/5、血統45/25/30、5000回試行、調教13%の枠内を維持。</div></div><div class="panel changelog-panel"><h3>v8.42.7 CHANGELOG</h3><div class="small">全レース一括貼り付け・レース選択プルダウンを追加。場所＋レースで自動分割し、芝ダ＋距離からコースを自動照合。馬場・バイアスは競馬場×芝/ダート単位、ペースはレース単位で保持。1回再生・レース動画UIを撤去し、5000回検証に特化。予測ロジック・DB・42/40/13/5・血統45/25/30は変更なし。</div></div><div class="panel changelog-panel"><h3>v8.41.2 CHANGELOG</h3><div class="small">能力4〜7位かつ血統上位・適性複数一致の馬を最大2.2点だけ救済。能力8位以下は適性試行上振れを制限。能力1〜3位で適性2項目一致は安定＋1.0、3項目一致は＋1.5を主に連対・複勝へ反映。複勝率40〜50%帯は表示・CSVを5ポイント下方補正。<br>CSV出力処理をブラウザ互換方式へ修正し、成功・失敗メッセージを追加。<br>新潟・中京・札幌の主要芝／ダートコースを追加。新潟芝1000直線の外枠、新潟外回りの末脚、中京の急坂・パワー、札幌の洋芝・小回り持続をコースプロファイル、血統適性、脚質・枠順、タイム信頼度へ接続。既存機能は維持。<br>コース・馬場・ペースの血統適性が高い馬について、5000回の各試行で①小さな適性加点、②下振れ軽減、③条件一致時の上振れを追加。血統40%の基本ウェイト、調教の後押し加点、乱数・生き物ブレ、既存UI・CSV互換・アニメーションは維持。適性が1項目だけ高い馬の過剰評価を防ぎ、複数条件が一致した馬ほど効果が強くなる上限制御を実装。<br>検証完了後に、勝率・連対率・複勝率と各順位、各評価項目をUTF-8 BOM付きCSVで出力できる機能を追加。実着順入力用の空列も付与。既存の検証ロジック・UI・アニメーション・CSV互換は維持。<br>推定タイムの独立16%ウェイトを廃止し、能力総合の内部補助へ統合。標準は能力ランク85%＋推定タイム15%、函館・福島・小倉ダ1700mは95%＋5%、高速芝は80%＋20%で自動調整します。基本ウェイトは能力42%・血統40%・調教13%・騎手5%。CSVの推定タイム列、反映度UI、結果表示は互換維持。既存UI、レースアニメーション、5000回検証、圧縮指数キャッシュ、血統上限96、福島芝1800〜2000m補正を維持しています。</div></div></main>
+<div class="panel changelog-panel"><h3>v8.48.0 CHANGELOG</h3><div class="small">5000回検証を実着順集計型のモンテカルロへ再構築。各試行で脚質・位置取り・展開・状態・不利を変動させ、生成された単一の着順から1着、2着以内、3着以内を同時集計します。勝率用・連対率用・複勝率用に別々の着順を作る旧方式と、複勝率40〜50%帯の表示後補正を廃止。能力・血統・調教を走行値の中心、安定を分散縮小、ピンパーを分散拡大、気性を事故確率と振幅へ反映します。勝率・連対率・複勝率は5000回の実回数そのものです。</div></div><div class="panel changelog-panel"><h3>v8.47.0 CHANGELOG</h3><div class="small">評価の優先順位を「能力 ＞ 血統 ＞ 調教 ＞ その他補正」に固定。脚質は予想情報であることを前提に、コース・ペース・馬場・枠・騎手・気性を含む二次補正の合計を制限し、能力・血統上位馬の過剰な下振れを保護します。脚質由来の勝切・安定・ピンパー差、気性イベント、試行内脚質上振れを縮小。能力SS/Sおよび能力上位馬は補正要素だけで基本評価を大きく失わない設計へ変更しました。血統本体、調教後押し、5000回検証、CSV列は維持。</div></div><div class="panel changelog-panel"><h3>v8.46.1 CHANGELOG</h3><div class="small">能力ランクSSを正式追加。SS=91、S=86、AA=83、A=81、B=76、C=71、D=66、E=62として読み込み、能力反映度・馬場補正・能力内タイム補助・5000回検証へ既存経路のまま反映します。全角英字・小文字・前後空白も正規化。結果・CSVの能力数値へ反映し、既存CSV列・共有HTML・血統・調教・騎手ロジックは維持。</div></div><div class="panel changelog-panel"><h3>v8.46.0 CHANGELOG</h3><div class="small">父タイプ・母父タイプ・父母父タイプ・母母父タイプを血統指数本体へ正式統合。4系統は父38%・母父30%・父母父18%・母母父14%の役割差を持たせ、芝ダ・距離・内外回り・馬場・ペースごとの適性一致をソフト圧縮。個別父×母父実績がある場合は配合25%・4系統12%、未登録時は配合18%・4系統22%へ自動切替し、同一系統の重複加点を上限制御。内外回り新コードは旧距離別DBを継承し、競馬場×芝ダへの過度なフォールバックを解消。CSVへ4系統指数・血統DB一致区分を追加。</div></div><div class="panel changelog-panel"><h3>v8.45.0 CHANGELOG</h3><div class="small">JRA公式コース形状に合わせ、新潟芝1400/2000・京都芝1400/1600/2000・阪神芝1400を内回り／外回りへ分離。CSVに内外表記があれば自動判定し、表記なしは既定コースを選択。東京芝2000は外枠一律加点を廃止して内〜中枠を評価、中山芝1600は外枠と外枠先行の距離ロスを反映。東京ダートは芝スタートの1600だけ現行外枠補正を維持し、1300/1400は枠差を中立化、2100/2400は外枠先行のロスを軽く反映。既存の芝スタートダート補正は重複なしで維持。</div></div><div class="panel changelog-panel"><h3>v8.44.1 CHANGELOG</h3><div class="small">ダート芝スタート判定を8コースへ統一（福島1150・新潟1200・東京1600・中山1200・中京1400・京都1400・阪神1400/2000）。誤登録されていた函館・小倉ダ1000を共通芝スタート処理から除外。外枠×逃げ・先行の既存補正は一度だけ適用し、ハイペースでもコース適性を完全相殺しないよう逃げ減点を半減。連対・複勝モードでは残存補正を追加し、特に複勝側の相殺を弱めました。</div></div><div class="panel changelog-panel"><h3>v8.43.9 CHANGELOG</h3><div class="small">坂路・ウッド双方が高評価の馬で調教加点を行う際、変更不可変数への加算エラーによりレース切替が途中停止し、プルダウンだけ選択レース、内部データ・レース名・コース・CSVが直前レース（札幌1R等）のまま残る問題を修正。レース読込の成功判定を追加し、読込完了前は5000回検証を開始しません。</div></div><div class="panel changelog-panel"><h3>v8.43.8 CHANGELOG</h3><div class="small">v8.43.7で検証元レース識別子が一部空欄となり、単一レースでも「複数レース混在」と誤判定する問題を修正。CSVのレース名は①検証結果内で最も多い正式レース名、②検証開始時に固定したレース名、③現在の画面名の順で安全に決定。空欄は混在扱いにせず、一部に古い識別子が残っていても最多一致した正式レース名でCSVを出力します。</div></div><div class="panel changelog-panel"><h3>v8.43.7 CHANGELOG</h3><div class="small">iPad Safariでレース選択表示と内部の出走馬データ更新がずれ、選択した中京9Rではなく初期レースの札幌1Rとして検証・CSV出力される問題を修正。5000回検証ボタンを押した時点で選択プルダウンのレースを必ず再読込し、全馬へ検証元レースキーと正式表示名を埋め込み。CSVは画面状態ではなく検証結果の馬データを正本としてレース名を決定し、混在時は出力を停止して警告します。</div></div><div class="panel changelog-panel"><h3>v8.43.6 CHANGELOG</h3><div class="small">v8.43.5の検証中操作ロックでCSVボタンが無効のまま残る場合がある問題を修正。CSVボタンをロック対象から除外し、常にクリック可能な状態を保証。検証未完了時は案内を表示し、完了後は検証開始時に固定保存した正しいレース情報でCSVを出力します。</div></div><div class="panel changelog-panel"><h3>v8.43.5 CHANGELOG</h3><div class="small">5000回検証中にレース選択や条件が変わり、検証データとCSVのレース名・メタ情報が別レースになる不具合を修正。検証開始時のレースキー・レース名・コース・馬場・ペース・バイアスを固定保存し、処理中は関連操作をロック。CSVは検証開始時に保存したレース情報だけを使用し、別レースへの混入を防止します。</div></div><div class="panel changelog-panel"><h3>v8.43.4 CHANGELOG</h3><div class="small">5000回検証で基礎総合より固定補正が過剰に優先される問題を修正。枠・馬場バイアス・前残り・騎手コース補正の重複加算を解消し、各補正を一度だけ反映。画面の予想反映度を試行ごとの脚質選択へ接続し、予想反映度以外を前走脚質62.5%・ランダム37.5%で配分。結果の総合欄は実際の検証直前に使う実効総合へ変更し、基礎総合と固定補正を別列表示。調教指数、血統指数、能力ウェイトは変更なし。</div></div><div class="panel changelog-panel"><h3>v8.43.3 CHANGELOG</h3><div class="small">iPad／iPhone版Safariで共有用HTMLボタンが反応しない問題を修正。対応端末ではiOS標準の共有シートを直接開き、「ファイルに保存」「メール」「AirDrop」などを選択可能に変更。共有シートを利用できないSafariでは、作成した共有用HTMLを新しいタブで開く方式へフォールバック。Windows／Macでは従来どおりHTMLファイルをダウンロードします。</div></div><div class="panel changelog-panel"><h3>v8.43.2 CHANGELOG</h3><div class="small">検証結果をチェンジログより上へ配置し、チェンジログ群をページ最下部へ集約。検証結果テーブルの表示幅・横スクロール・固定見出しを改善。読み込んだ出走表、坂路・ウッド2週間データ、競馬場別馬場・バイアス、レース別ペース、現在の操作設定を内蔵した共有用HTML出力を追加。共有用HTMLを開くとデータを自動復元し、レース選択と5000回検証をそのまま実行できます。</div></div><div class="panel changelog-panel"><h3>v8.43.1 CHANGELOG</h3><div class="small">2週間調教指数を再校正。直前0〜5日55%・6〜11日前30%・12〜14日前15%を固定し、該当期間のデータがない場合は72ニュートラルで補完するため、古い調教1本だけで指数上位になる問題を修正。各期間は最高点60%＋平均40%。セッション90点超をソフト圧縮して100点到達率を約2〜3%へ抑制。11.0〜11.4秒の加速はセッション評価で重点加点し、総合点側での同一加速の再加点を撤去。前日坂路4Fの強・中・小加点は維持。調教は独立13%ではなく最大3.0点の後押し補正として表示を明確化。血統登録番号優先／馬名フォールバック、5000回試行、能力・血統・騎手ロジックは変更なし。</div></div><div class="panel changelog-panel"><h3>v8.43.0 CHANGELOG</h3><div class="small">出馬表側の坂路4F〜1F・ウッド6F〜1Fの10時計列を廃止。調教評価は坂路2週間CSV＋ウッド2週間CSVを唯一の正本とし、血統登録番号優先／馬名フォールバックで統合。2週間調教未読込・未一致の馬は72ニュートラル。旧出馬表時計によるフォールバック・直接加点を撤去し、二重評価を防止。基本ウェイト42/40/13/5、血統45/25/30、5000回試行は変更なし。</div></div><div class="panel changelog-panel"><h3>v8.42.9 CHANGELOG</h3><div class="small">坂路2週間＋ウッド2週間の専用入力を追加。血統登録番号優先／馬名フォールバックで出馬表へ自動統合。調教は直前5日55%・6〜11日前30%・12〜14日前15%で圧縮。ラスト1F 11.0〜11.4秒かつ加速した追い切りを強化評価。v8.42.9ではレース前日の坂路4Fを追加評価し、59.9秒以下=強、60.0〜61.9=中、62.0〜65.0=小、65.1秒以上=加点なし。基本ウェイト42/40/13/5、血統45/25/30、5000回試行、調教13%の枠内を維持。</div></div><div class="panel changelog-panel"><h3>v8.42.7 CHANGELOG</h3><div class="small">全レース一括貼り付け・レース選択プルダウンを追加。場所＋レースで自動分割し、芝ダ＋距離からコースを自動照合。馬場・バイアスは競馬場×芝/ダート単位、ペースはレース単位で保持。1回再生・レース動画UIを撤去し、5000回検証に特化。予測ロジック・DB・42/40/13/5・血統45/25/30は変更なし。</div></div><div class="panel changelog-panel"><h3>v8.41.2 CHANGELOG</h3><div class="small">能力4〜7位かつ血統上位・適性複数一致の馬を最大2.2点だけ救済。能力8位以下は適性試行上振れを制限。能力1〜3位で適性2項目一致は安定＋1.0、3項目一致は＋1.5を主に連対・複勝へ反映。複勝率40〜50%帯は表示・CSVを5ポイント下方補正。<br>CSV出力処理をブラウザ互換方式へ修正し、成功・失敗メッセージを追加。<br>新潟・中京・札幌の主要芝／ダートコースを追加。新潟芝1000直線の外枠、新潟外回りの末脚、中京の急坂・パワー、札幌の洋芝・小回り持続をコースプロファイル、血統適性、脚質・枠順、タイム信頼度へ接続。既存機能は維持。<br>コース・馬場・ペースの血統適性が高い馬について、5000回の各試行で①小さな適性加点、②下振れ軽減、③条件一致時の上振れを追加。血統40%の基本ウェイト、調教の後押し加点、乱数・生き物ブレ、既存UI・CSV互換・アニメーションは維持。適性が1項目だけ高い馬の過剰評価を防ぎ、複数条件が一致した馬ほど効果が強くなる上限制御を実装。<br>検証完了後に、勝率・連対率・複勝率と各順位、各評価項目をUTF-8 BOM付きCSVで出力できる機能を追加。実着順入力用の空列も付与。既存の検証ロジック・UI・アニメーション・CSV互換は維持。<br>推定タイムの独立16%ウェイトを廃止し、能力総合の内部補助へ統合。標準は能力ランク85%＋推定タイム15%、函館・福島・小倉ダ1700mは95%＋5%、高速芝は80%＋20%で自動調整します。基本ウェイトは能力42%・血統40%・調教13%・騎手5%。CSVの推定タイム列、反映度UI、結果表示は互換維持。既存UI、レースアニメーション、5000回検証、圧縮指数キャッシュ、血統上限96、福島芝1800〜2000m補正を維持しています。</div></div></main>
 <script>
 (function(){
 const E=id=>document.getElementById(id);let horses=[],timer=null,divs=[],path=[],seg=[],total=0,currentState=null,lastManyResult=null,activeManyContext=null,allRaceRows=[],raceGroups=[],currentRaceKey="",venueSurfaceSettings={},racePaceSettings={};
@@ -240,7 +240,7 @@ function normalizeAbilityGrade(value){
   return normalized||"C";
 }
 const jockey={"ルメール":10,"レーン":9,"川田将雅":8,"武豊":5,"戸崎圭太":4,"坂井瑠星":4,"松山弘平":3,"横山武史":3,"岩田望来":3,"横山和生":3,"丹内祐次":2};
-const ENGINE_VERSION="v8.46.1-ss-ability-rank";
+const ENGINE_VERSION="v8.48.0-true-monte-carlo-order";
 let raceLoadSucceeded=false;
 const ANALYSIS_ENGINE_POLICY={mode:"external-analysis-compressed-index", range:[58,91], simulationUsesRawDb:false, cacheOnLoad:true};
 // v8.42.6 厩舎圧縮指数DB。2021〜2025圧縮DBを基礎に、2026/01/04〜08/02の29,008走を追加更新。
@@ -1044,13 +1044,7 @@ function blood(h){
   // v8.37：福島芝1800〜2000mの小回り持続力血統補正。
   // 100点量産を避けるため、既存上限96点は維持。
   score += fukushimaMiddleTurfBloodlineBonus(h);
-
-  // v8.47.1：血統を重視しつつ、根拠の信頼度に応じてスコア差を拡大する。
-  // 父×母父の個別実績またはTARGET過去5年DBがある場合は強め、
-  // 4系統推定中心の場合は控えめ。77点を中立中心として上下双方へ広げる。
-  const evidenceMultiplier=(hasPairReal||real!==null)?1.28:1.15;
-  score=77+(score-77)*evidenceMultiplier;
-  return Math.max(56, Math.min(98, score));
+  return Math.max(58, Math.min(96, score));
 }
 
 
@@ -1191,11 +1185,10 @@ function topAbilityStabilityBonus(h,hs){
   return p.apt.strongCount===3?1.5:1.0;
 }
 
-// 40〜50%帯の複勝率を実績寄りに表示するキャリブレーション。
+// v8.48.0：確率は5000回の実着順回数をそのまま表示する。
+// 旧共有HTMLとの互換用に関数名だけ残し、後処理は行わない。
 function calibratePlaceRate(rate){
-  const r=Math.max(0,Math.min(100,Number(rate)||0));
-  if(r>=40&&r<50) return Math.max(0,r-5);
-  return r;
+  return Math.max(0,Math.min(100,Number(rate)||0));
 }
 
 function abilityScore(h){
@@ -2627,6 +2620,31 @@ function pinpaProfile(h){
   if(isKokuraDownhillCourse() && st==="逃げ" && frontLoadedAptitude(h)<2.0) s+=0.8;
   return Math.max(0,Math.min(8,s));
 }
+
+// v8.48.0：安定・ピンパー・気性は順位への後付け加点ではなく、
+// 1試行ごとの走行値分布（通常ブレ、事故、上振れ）の幅へ反映する。
+function trialDistributionProfile(h,trialHorses){
+  const hs=trialHorses||horses;
+  const stable=stableProfile(h);
+  const pinpa=pinpaProfile(h);
+  const temp=Math.max(0,Math.min(12,temperamentRisk(h)));
+  const ab=abilityCompositeScore(h);
+  const bl=blood(h);
+  const topStable=topAbilityStabilityBonus(h,hs);
+
+  // 強さそのものはbase側。ここでは「同じ強さを何回再現できるか」を決める。
+  const foundation=Math.max(0,(ab-76)/15)+Math.max(0,(bl-88)/16)+topStable*0.28;
+  const normalScale=Math.max(0.58,Math.min(1.35,
+    1.08-stable*0.055+pinpa*0.050+temp*0.010-foundation*0.075));
+  const adverseScale=Math.max(0.55,Math.min(1.35,
+    1.06-stable*0.060+pinpa*0.045+temp*0.018-foundation*0.080));
+  const accidentChanceScale=Math.max(0.55,Math.min(1.40,
+    1.05-stable*0.050+pinpa*0.035+temp*0.020-foundation*0.060));
+  const upsideScale=Math.max(0.75,Math.min(1.45,
+    0.94+pinpa*0.060+Math.max(0,winProfile(h)-3)*0.025));
+  const meanBonus=winProfile(h)*0.16+stable*0.10-pinpa*0.04+topStable*0.24;
+  return {normalScale,adverseScale,accidentChanceScale,upsideScale,meanBonus,stable,pinpa};
+}
 function turfStartHighPaceModeProtection(h,mode){
   if(E("pace").value!=="high"||!isTurfStartOuterFront(h))return 0;
   const cfg=dirtTurfStartConfig(),k=cfg?.outerFrontStrength||0;
@@ -2699,12 +2717,18 @@ function raceScores(trialHorses){
     let bloodFx=bloodTrialEffects(h,life);
     const rankAdj=conditionRankTrialAdjust(h,hs,bloodFx);
     bloodFx=rankAdj.bloodFx;
-    if(r<Math.max(0.012,0.060*life-br*0.006)) accident-=9+Math.random()*11;
-    else if(r<Math.max(0.030,0.150*life-br*0.008)) accident-=3+Math.random()*6;
-    else if(r>1-0.055*life) accident+=4+Math.random()*7;
+    const dist=trialDistributionProfile(h,hs);
+    const severeCut=Math.max(0.008,(0.060*life-br*0.006)*dist.accidentChanceScale);
+    const moderateCut=Math.max(severeCut+0.012,(0.150*life-br*0.008)*dist.accidentChanceScale);
+    if(r<severeCut) accident-=(9+Math.random()*11)*dist.adverseScale;
+    else if(r<moderateCut) accident-=(3+Math.random()*6)*dist.adverseScale;
+    else if(r>1-0.055*life*dist.upsideScale) accident+=(4+Math.random()*7)*dist.upsideScale;
     let cap=0;
-    if(b>88&&Math.random()<0.22*life) cap-=4+Math.random()*8;
-    if(b>94&&Math.random()<0.12*life) cap-=5+Math.random()*10;
+    if(b>88&&Math.random()<0.22*life*dist.accidentChanceScale) cap-=(4+Math.random()*8)*dist.adverseScale;
+    if(b>94&&Math.random()<0.12*life*dist.accidentChanceScale) cap-=(5+Math.random()*10)*dist.adverseScale;
+
+    noise*=dist.normalScale;
+    condition*=dist.normalScale;
 
     // 条件血統が合う馬は、通常乱数・状態・不利・能力上位の凡走イベントの下振れだけを軽減。
     // プラス側は削らず、競馬のブレや事故自体は残す。
@@ -2713,23 +2737,29 @@ function raceScores(trialHorses){
     accident=relieveBloodDownside(accident,bloodFx.downsideRelief*0.72);
     cap=relieveBloodDownside(cap,bloodFx.downsideRelief*0.65);
     let bomb=0;
-    if(b<66&&Math.random()<0.018*life) bomb+=16+Math.random()*16;
-    else if(b<72&&Math.random()<0.014*life) bomb+=11+Math.random()*12;
-    else if(b<78&&Math.random()<0.010*life) bomb+=8+Math.random()*9;
+    if(b<66&&Math.random()<0.018*life*dist.upsideScale) bomb+=(16+Math.random()*16)*dist.upsideScale;
+    else if(b<72&&Math.random()<0.014*life*dist.upsideScale) bomb+=(11+Math.random()*12)*dist.upsideScale;
+    else if(b<78&&Math.random()<0.010*life*dist.upsideScale) bomb+=(8+Math.random()*9)*dist.upsideScale;
     let styleBomb=0;
     // v8.47.0：脚質一致の上振れは残すが、予想だけで大逆転しない規模へ縮小。
-    if((h.脚質==="逃げ"||h.脚質==="先行")&&E("pace").value==="slow"&&Math.random()<0.012*life) styleBomb+=3+Math.random()*4;
-    if((h.脚質==="差し"||h.脚質==="後方")&&E("pace").value==="high"&&Math.random()<0.012*life) styleBomb+=3+Math.random()*4;
+    if((h.脚質==="逃げ"||h.脚質==="先行")&&E("pace").value==="slow"&&Math.random()<0.012*life) styleBomb+=(3+Math.random()*4)*dist.upsideScale;
+    if((h.脚質==="差し"||h.脚質==="後方")&&E("pace").value==="high"&&Math.random()<0.012*life) styleBomb+=(3+Math.random()*4)*dist.upsideScale;
     let temp=temperamentEvent(h,life);
     temp.event=relieveBloodDownside(temp.event,bloodFx.downsideRelief*0.55);
+    temp.event*=temp.event<0?dist.adverseScale:dist.normalScale;
     let extra=(typeof totalExtraAdj==="function") ? totalExtraAdj(h,life) : frameAdj(h);
     // v8.43.4：courseSpecificHorseAdjはadj/totalExtraと内容が重なるため撤去。
     // v8.47.0：固定的な二次補正は合算後に一度だけ制限。乱数・事故は競馬のブレとして別管理。
     const secondary=boundedSecondaryCorrection(h,a+extra,hs);
     temp.event=Math.max(-7,Math.min(7,temp.event));
-    let raw=b+secondary+noise+condition+accident+cap+bomb+styleBomb+temp.event+bloodFx.steady+bloodFx.hit+rankAdj.rawBonus;
+    let raw=b+secondary+dist.meanBonus+noise+condition+accident+cap+bomb+styleBomb+temp.event+bloodFx.steady+bloodFx.hit+rankAdj.rawBonus;
     return {i,raw};
   });
+}
+
+// 1回の試行につき着順は一つだけ。勝率・連対率・複勝率はこの同じ着順から集計する。
+function orderByTrialPerformance(scores){
+  return scores.slice().sort((a,b)=>b.raw-a.raw).map(x=>x.i);
 }
 function orderByMode(scores,mode,trialHorses){
   const hs=trialHorses||horses;
@@ -2739,7 +2769,7 @@ function orderByMode(scores,mode,trialHorses){
 function oneRaceOrder(){
   const trialHorses=raceHorsesForTrial();
   const scores=raceScores(trialHorses);
-  return orderByMode(scores,"win",trialHorses);
+  return orderByTrialPerformance(scores);
 }
 function currentManyContext(){
  const course=E("course"),going=E("going"),pace=E("pace"),bias=E("bias"),rail=E("railCourse");
@@ -2764,7 +2794,7 @@ function drawResult(st,done,n,finished){
  if(finished){lastManyResult={st:st.map(x=>({h:x.h,w:x.w,p2:x.p2,p3:x.p3,rs:x.rs})),done,n,createdAt:new Date().toISOString(),context:activeManyContext?{...activeManyContext}:currentManyContext()};}
  updateWeightModeInfo();
  const w=raceWeights();
- E("result").innerHTML=(finished?"":"<div class='small'>検証中... "+done+" / "+n+"回</div>")+"<div class='small warn'>ウェイト："+w.label+" / 馬場判定："+goingWeightLabel()+" / 能力総合"+Math.round(w.ab*100)+"%（タイム補助"+Math.round(abilityTimeShare()*100)+"%・信頼度"+Math.round(courseTimeReliabilityFactor()*goingTimeReliabilityFactor()*100)+"%）・血統"+Math.round(w.bl*100)+"%・騎手"+Math.round(w.jo*100)+"%・調教後押し補正0〜4.0点</div><table><tr><th>順</th><th>馬番</th><th>馬名</th><th>勝率</th><th>連対</th><th>複勝</th><th>平均</th><th>実効総合</th><th>基礎総合</th><th>固定補正</th><th>能力総合</th><th>能力ランク</th><th>タイム補助</th><th>タイム信頼</th><th>血統</th><th>調教</th><th>2週本数</th><th>11秒前半加速</th><th>前日坂路4F</th><th>調教照合</th><th>騎手</th><th>騎場</th><th>気性</th><th>勝切</th><th>安定</th><th>ピンパー</th><th>枠</th><th>馬場</th><th>育成</th><th>厩舎</th><th>調教師コード</th><th>厩舎指数</th><th>厩舎補正</th><th>厩舎DB一致</th></tr>"+sorted.map((s,i)=>"<tr><td>"+(i+1)+"</td><td>"+s.h.馬番+"</td><td>"+s.h.馬名+"</td><td>"+(s.w/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p2/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+calibratePlaceRate(s.p3/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.rs/Math.max(1,done)).toFixed(2)+"</td><td>"+effectiveBaseScore(s.h).toFixed(1)+"</td><td>"+base(s.h).toFixed(1)+"</td><td>"+(effectiveBaseScore(s.h)-base(s.h)).toFixed(1)+"</td><td>"+abilityCompositeScore(s.h).toFixed(1)+"</td><td>"+abilityScore(s.h).toFixed(1)+"</td><td>"+adjustedTimeScore(s.h).toFixed(1)+"</td><td>"+(timeReliabilityFactor(s.h)*100).toFixed(0)+"%</td><td>"+blood(s.h).toFixed(1)+"</td><td>"+trainingScore(s.h).toFixed(1)+"</td><td>"+((s.h._training2wSlopeCount||0)+(s.h._training2wWoodCount||0))+"（坂"+(s.h._training2wSlopeCount||0)+"/W"+(s.h._training2wWoodCount||0)+"）</td><td>"+training2wAccelLabel(s.h)+"</td><td>"+training2wEveSlopeLabel(s.h)+"</td><td>"+(s.h._training2wMatch||"-")+"</td><td>"+jockeyScore(s.h).toFixed(1)+"</td><td>"+jockeyCourseAdj(s.h).toFixed(1)+"</td><td>"+temperamentRisk(s.h).toFixed(1)+"</td><td>"+winProfile(s.h).toFixed(1)+"</td><td>"+stableProfile(s.h).toFixed(1)+"</td><td>"+pinpaProfile(s.h).toFixed(1)+"</td><td>"+frameAdj(s.h).toFixed(1)+"</td><td>"+manualBiasAdj(s.h).toFixed(1)+"</td><td>"+breederConditionAdj(s.h).toFixed(1)+"</td><td>"+(s.h.厩舎||"-")+"</td><td>"+(s.h.調教師コード||"-")+"</td><td>"+trainerIndexScore(s.h).toFixed(1)+"</td><td>"+trainerTrialConditionAdj(s.h).toFixed(2)+"</td><td>"+trainerDbMatchLabel(s.h)+"</td></tr>").join("")+"</table>";
+ E("result").innerHTML=(finished?"":"<div class='small'>検証中... "+done+" / "+n+"回</div>")+"<div class='small warn'>ウェイト："+w.label+" / 馬場判定："+goingWeightLabel()+" / 能力総合"+Math.round(w.ab*100)+"%（タイム補助"+Math.round(abilityTimeShare()*100)+"%・信頼度"+Math.round(courseTimeReliabilityFactor()*goingTimeReliabilityFactor()*100)+"%）・血統"+Math.round(w.bl*100)+"%・騎手"+Math.round(w.jo*100)+"%・調教後押し補正0〜4.0点 / 確率=5000回の単一着順実集計</div><table><tr><th>順</th><th>馬番</th><th>馬名</th><th>勝率</th><th>連対</th><th>複勝</th><th>平均</th><th>実効総合</th><th>基礎総合</th><th>固定補正</th><th>能力総合</th><th>能力ランク</th><th>タイム補助</th><th>タイム信頼</th><th>血統</th><th>調教</th><th>2週本数</th><th>11秒前半加速</th><th>前日坂路4F</th><th>調教照合</th><th>騎手</th><th>騎場</th><th>気性</th><th>勝切</th><th>安定</th><th>ピンパー</th><th>枠</th><th>馬場</th><th>育成</th><th>厩舎</th><th>調教師コード</th><th>厩舎指数</th><th>厩舎補正</th><th>厩舎DB一致</th></tr>"+sorted.map((s,i)=>"<tr><td>"+(i+1)+"</td><td>"+s.h.馬番+"</td><td>"+s.h.馬名+"</td><td>"+(s.w/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p2/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.p3/Math.max(1,done)*100).toFixed(1)+"%</td><td>"+(s.rs/Math.max(1,done)).toFixed(2)+"</td><td>"+effectiveBaseScore(s.h).toFixed(1)+"</td><td>"+base(s.h).toFixed(1)+"</td><td>"+(effectiveBaseScore(s.h)-base(s.h)).toFixed(1)+"</td><td>"+abilityCompositeScore(s.h).toFixed(1)+"</td><td>"+abilityScore(s.h).toFixed(1)+"</td><td>"+adjustedTimeScore(s.h).toFixed(1)+"</td><td>"+(timeReliabilityFactor(s.h)*100).toFixed(0)+"%</td><td>"+blood(s.h).toFixed(1)+"</td><td>"+trainingScore(s.h).toFixed(1)+"</td><td>"+((s.h._training2wSlopeCount||0)+(s.h._training2wWoodCount||0))+"（坂"+(s.h._training2wSlopeCount||0)+"/W"+(s.h._training2wWoodCount||0)+"）</td><td>"+training2wAccelLabel(s.h)+"</td><td>"+training2wEveSlopeLabel(s.h)+"</td><td>"+(s.h._training2wMatch||"-")+"</td><td>"+jockeyScore(s.h).toFixed(1)+"</td><td>"+jockeyCourseAdj(s.h).toFixed(1)+"</td><td>"+temperamentRisk(s.h).toFixed(1)+"</td><td>"+winProfile(s.h).toFixed(1)+"</td><td>"+stableProfile(s.h).toFixed(1)+"</td><td>"+pinpaProfile(s.h).toFixed(1)+"</td><td>"+frameAdj(s.h).toFixed(1)+"</td><td>"+manualBiasAdj(s.h).toFixed(1)+"</td><td>"+breederConditionAdj(s.h).toFixed(1)+"</td><td>"+(s.h.厩舎||"-")+"</td><td>"+(s.h.調教師コード||"-")+"</td><td>"+trainerIndexScore(s.h).toFixed(1)+"</td><td>"+trainerTrialConditionAdj(s.h).toFixed(2)+"</td><td>"+trainerDbMatchLabel(s.h)+"</td></tr>").join("")+"</table>";
 }
 
 function csvEscape(v){
@@ -2965,26 +2995,30 @@ function runMany(){
    for(;done<end;done++){
      let trialHorses=raceHorsesForTrial();
      let scores=raceScores(trialHorses);
-     let winOrder=orderByMode(scores,"win",trialHorses);
-     let p2Order=orderByMode(scores,"place2",trialHorses);
-     let p3Order=orderByMode(scores,"place3",trialHorses);
+     const finishOrder=orderByTrialPerformance(scores);
 
-     st[winOrder[0]].w++;
-     p2Order.slice(0,2).forEach(idx=>st[idx].p2++);
-     p3Order.slice(0,3).forEach(idx=>st[idx].p3++);
+     st[finishOrder[0]].w++;
+     finishOrder.slice(0,2).forEach(idx=>st[idx].p2++);
+     finishOrder.slice(0,3).forEach(idx=>st[idx].p3++);
 
-     // 平均着順は勝ち切りモードの全順位で算出
-     winOrder.forEach((idx,j)=>{st[idx].rs+=j+1;});
+     // 平均着順も同じ実着順から算出
+     finishOrder.forEach((idx,j)=>{st[idx].rs+=j+1;});
    }
 
    if(done>=n){
      // 詳細テーブルは検証完了時に1回だけ描画する
      try{
+       const totalWins=st.reduce((sum,x)=>sum+x.w,0);
+       const totalTop2=st.reduce((sum,x)=>sum+x.p2,0);
+       const totalTop3=st.reduce((sum,x)=>sum+x.p3,0);
+       if(totalWins!==n||totalTop2!==n*2||totalTop3!==n*3){
+         throw new Error(`実着順集計の不整合: 勝${totalWins}/${n}, 連対${totalTop2}/${n*2}, 複勝${totalTop3}/${n*3}`);
+       }
        drawResult(st,done,n,true);
      }catch(err){
-       console.error("Result rendering failed",err);
-       lastManyResult={st:st.map(x=>({h:x.h,w:x.w,p2:x.p2,p3:x.p3,rs:x.rs})),done,n,createdAt:new Date().toISOString(),context:activeManyContext?{...activeManyContext}:currentManyContext()};
-       E("result").innerHTML="<div class='small warn'>結果表の表示でエラーが発生しましたが、CSV結果は保存できます。</div>";
+       console.error("Monte Carlo result failed",err);
+       lastManyResult=null;
+       E("result").innerHTML="<div class='small warn'>5000回の実着順集計でエラーが発生しました："+(err?.message||err)+"</div>";
      }finally{
        conditionRankCache=null;
        manyRunning=false;
