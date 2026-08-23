@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0104)file:///C:/Users/admin/Downloads/Eikichi%20Racing%20Simulator%20v8.49.4%20Collapsible%20Input%20Fix.html -->
+<!-- saved from url=(0107)file:///C:/Users/admin/Downloads/Eikichi%20Racing%20Simulator%20v8.49.5%20Persistent%20Race%20Selector.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eikichi Racing Simulator v8.49.4 Collapsible Input Fix</title>
+<title>Eikichi Racing Simulator v8.49.5 Persistent Race Selector</title>
 <style>
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1380px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}.blue{background:#2563a6}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5;transition:left .30s linear,top .30s linear,box-shadow .2s}.horse.move{box-shadow:0 0 14px 5px rgba(255,255,255,.55)}.horse.fade{opacity:.55}.liveBox{background:#081525;border:1px solid #2c4664;border-radius:12px;padding:10px;margin-top:8px}.liveLine{font-size:14px;line-height:1.6}.meter{height:8px;background:#1c3048;border-radius:99px;overflow:hidden;margin:7px 0}.meter>div{height:100%;background:#e1c766;width:0%}#result{overflow-x:auto;padding:2px 0 10px;scrollbar-color:#496986 #0a1727}#result table{min-width:1960px;width:100%;border-collapse:separate;border-spacing:0;font-size:13px}#result th{position:sticky;top:0;z-index:3;background:#0d1b2e;box-shadow:0 1px 0 #334b68}#result td,#result th{padding:8px 7px;border-bottom:1px solid #26364d;text-align:left;white-space:nowrap}#result table.sortable-result th{cursor:pointer;user-select:none}#result table.sortable-result th:hover{background:#172b45;color:#fff0a6}#result table.sortable-result th.sort-asc::after{content:" ▲";color:#8cec7d}#result table.sortable-result th.sort-desc::after{content:" ▼";color:#8cec7d}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}.burst{display:inline-block;padding:2px 7px;border-radius:99px;font-weight:900}.burst-s{background:#7a6410;color:#fff3a6}.burst-m{background:#a94d11;color:#fff}.burst-l{background:#a51d2d;color:#fff}.burst-xl{background:#7b1fa2;color:#fff;box-shadow:0 0 9px rgba(232,121,249,.7)}.training-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.training-grid textarea{height:160px}.changelog-panel{opacity:.88}.changelog-panel h3{font-size:16px;color:#b8cae0}@media(max-width:760px){main{padding:8px}.training-grid{grid-template-columns:1fr}.controls{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .collapsible-panel>h3{cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between;margin:6px 0}.collapsible-panel>h3::after{content:"▲";font-size:13px;color:#9fb0c7}.collapsible-panel.collapsed>h3::after{content:"▼"}.collapsible-panel.collapsed{padding-bottom:8px}.collapsible-panel>[hidden]{display:none!important}
@@ -239,7 +239,11 @@ const E=id=>document.getElementById(id);let horses=[],timer=null,divs=[],path=[]
 function inputPanelByTitle(title){return [...document.querySelectorAll("main>.panel")].find(p=>String(p.firstElementChild?.textContent||"").trim()===title)||null;}
 function setInputPanelCollapsed(title,collapsed){
  const p=inputPanelByTitle(title);if(!p)return;p.classList.add("collapsible-panel");p.classList.toggle("collapsed",!!collapsed);
- [...p.children].forEach((el,i)=>{if(i>0)el.hidden=!!collapsed;});
+ [...p.children].forEach((el,i)=>{
+   // 出馬表はレース選択・レース名・コース・内柵・読込ボタンを常時表示し、貼り付け本文と結果メッセージだけを畳む。
+   const hideTarget=title==="出走表貼り付け"?i>1:i>0;
+   if(hideTarget)el.hidden=!!collapsed;
+ });
  const h=p.firstElementChild;if(h)h.setAttribute("aria-expanded",collapsed?"false":"true");
 }
 function initInputPanel(title){
@@ -257,7 +261,7 @@ function normalizeAbilityGrade(value){
   return normalized||"C";
 }
 const jockey={"ルメール":10,"レーン":9,"川田将雅":8,"武豊":5,"戸崎圭太":4,"坂井瑠星":4,"松山弘平":3,"横山武史":3,"岩田望来":3,"横山和生":3,"丹内祐次":2};
-const ENGINE_VERSION="v8.49.4-collapsible-input-fix";
+const ENGINE_VERSION="v8.49.5-persistent-race-selector";
 let raceLoadSucceeded=false;
 const ANALYSIS_ENGINE_POLICY={mode:"external-analysis-compressed-index", range:[58,91], simulationUsesRawDb:false, cacheOnLoad:true};
 // v8.42.6 厩舎圧縮指数DB。2021〜2025圧縮DBを基礎に、2026/01/04〜08/02の29,008走を追加更新。
