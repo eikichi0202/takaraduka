@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<!-- saved from url=(0099)file:///C:/Users/admin/Downloads/Eikichi%20Racing%20Simulator%20v8.49.3%20Collapsible%20Inputs.html -->
+<!-- saved from url=(0104)file:///C:/Users/admin/Downloads/Eikichi%20Racing%20Simulator%20v8.49.4%20Collapsible%20Input%20Fix.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eikichi Racing Simulator v8.49.3 Collapsible Inputs</title>
+<title>Eikichi Racing Simulator v8.49.4 Collapsible Input Fix</title>
 <style>
 body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-system,"Yu Gothic",sans-serif}main{max-width:1380px;margin:auto;padding:12px}h1{font-size:23px;margin:8px 0}.panel{background:#0d1b2e;border:1px solid #26364d;border-radius:14px;padding:12px;margin:10px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;align-items:end}select,button,input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #34465f;background:#13243a;color:#eef5ff;box-sizing:border-box}textarea{height:190px;font-family:monospace;font-size:12px;white-space:pre;overflow:auto}button{background:#e8465f;border:0;font-weight:800;cursor:pointer}.gray{background:#2b3f59}.green{background:#2f9e44}.blue{background:#2563a6}#track{position:relative;height:390px;background:#10263e;border-radius:14px;overflow:hidden}svg{position:absolute;inset:0;width:100%;height:100%}.horse{position:absolute;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#06101d;border:2px solid white;transform:translate(-50%,-50%);z-index:5;transition:left .30s linear,top .30s linear,box-shadow .2s}.horse.move{box-shadow:0 0 14px 5px rgba(255,255,255,.55)}.horse.fade{opacity:.55}.liveBox{background:#081525;border:1px solid #2c4664;border-radius:12px;padding:10px;margin-top:8px}.liveLine{font-size:14px;line-height:1.6}.meter{height:8px;background:#1c3048;border-radius:99px;overflow:hidden;margin:7px 0}.meter>div{height:100%;background:#e1c766;width:0%}#result{overflow-x:auto;padding:2px 0 10px;scrollbar-color:#496986 #0a1727}#result table{min-width:1960px;width:100%;border-collapse:separate;border-spacing:0;font-size:13px}#result th{position:sticky;top:0;z-index:3;background:#0d1b2e;box-shadow:0 1px 0 #334b68}#result td,#result th{padding:8px 7px;border-bottom:1px solid #26364d;text-align:left;white-space:nowrap}#result table.sortable-result th{cursor:pointer;user-select:none}#result table.sortable-result th:hover{background:#172b45;color:#fff0a6}#result table.sortable-result th.sort-asc::after{content:" ▲";color:#8cec7d}#result table.sortable-result th.sort-desc::after{content:" ▼";color:#8cec7d}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid #26364d;text-align:left}th{color:#e1c766}.small{font-size:12px;color:#9fb0c7;line-height:1.5}.ok{color:#8cec7d}.warn{color:#ffd166}.badge{display:inline-block;padding:2px 7px;border-radius:99px;background:#223653}.burst{display:inline-block;padding:2px 7px;border-radius:99px;font-weight:900}.burst-s{background:#7a6410;color:#fff3a6}.burst-m{background:#a94d11;color:#fff}.burst-l{background:#a51d2d;color:#fff}.burst-xl{background:#7b1fa2;color:#fff;box-shadow:0 0 9px rgba(232,121,249,.7)}.training-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.training-grid textarea{height:160px}.changelog-panel{opacity:.88}.changelog-panel h3{font-size:16px;color:#b8cae0}@media(max-width:760px){main{padding:8px}.training-grid{grid-template-columns:1fr}.controls{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.collapsible-panel>h3{cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between;margin:6px 0}.collapsible-panel>h3::after{content:"▲";font-size:13px;color:#9fb0c7}.collapsible-panel.collapsed>h3::after{content:"▼"}.collapsible-panel.collapsed{padding-bottom:8px}
+.collapsible-panel>h3{cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between;margin:6px 0}.collapsible-panel>h3::after{content:"▲";font-size:13px;color:#9fb0c7}.collapsible-panel.collapsed>h3::after{content:"▼"}.collapsible-panel.collapsed{padding-bottom:8px}.collapsible-panel>[hidden]{display:none!important}
 </style></head><body><script id="embeddedShareState" type="application/json"></script><main>
 <h1 id="title">函館6R 未勝利 / 函館ダ1700</h1>
 <div class="small">CSV/TSV貼り付け対応。能力・血統・騎手を基礎に、調教は2週間指数による最大3.0点の後押し補正。推定タイムは独立ウェイトではなく能力総合の内部補助（標準15%）として扱い、コース・馬場条件に応じて自動調整します。「共有用HTML」で当日の出走表・調教・設定を内蔵した配布用ファイルを保存できます。</div>
-<div class="panel collapsible-panel collapsed" id="raceInputPanel"><h3 data-collapse-ready="1" role="button" tabindex="0" aria-expanded="false">出走表貼り付け</h3><div class="controls" style="display: none;">
+<div class="panel collapsible-panel" id="raceInputPanel"><h3 data-collapse-ready="1" role="button" tabindex="0">出走表貼り付け</h3><div class="controls">
 <div><label>レース選択</label><select id="raceSelect"><option value="613|函館|函6">函館6R 未勝利 ダ1700</option></select></div><div><label>レース名</label><input id="raceName" value="函館6R 未勝利" readonly=""></div>
 <div><label>コース</label><select id="course">
 <optgroup label="札幌">
@@ -167,12 +167,12 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 </select></div>
 <div><label>内柵/コース区分</label><select id="railCourse"><option value="auto" selected="">CSV自動</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></div>
 <button id="load" class="green">全レース一括読込</button>
-</div><textarea id="csvInput" style="display: none;">日付	場所	レース	コース	芝ダ	距離	レース名	馬名	馬番	騎手	種牡馬	父タイプ名	母父タイプ名	父母父タイプ名	母母父タイプ名	前走脚質	斤量	推定タイム評価	最高タイム評価	近3走タイム評価	同コース	同距離	同場所	１走前	2走前	3走前	能力	調教
+</div><textarea id="csvInput">日付	場所	レース	コース	芝ダ	距離	レース名	馬名	馬番	騎手	種牡馬	父タイプ名	母父タイプ名	父母父タイプ名	母母父タイプ名	前走脚質	斤量	推定タイム評価	最高タイム評価	近3走タイム評価	同コース	同距離	同場所	１走前	2走前	3走前	能力	調教
 613	函館	函6		ダ	1700	未勝利	 トーセンアミューズ	1	小崎綾也	ダイワメジャー	サンデーサイレンス系	キングマンボ系	ニアークティック系	ニアークティック系	後	57	113	113	108		-	-	109	113	101	D	A
 613	函館	函6		ダ	1700	未勝利	 オンザムービー	2	横山和生	サンダースノー	ダンチヒ系	サンデーサイレンス系	キングマンボ系	ダンチヒ系	先	57	134	134	129	-	-		125	129	134	A	C
 613	函館	函6		ダ	1700	未勝利	 コイオステソーロ	10	丹内祐次	ナダル	ロイヤルチャージャー系	ネイティヴダンサー系	ナスルーラ系	マンノウォー系	先	57	141	141	137	-			140	131	141	S	C
 613	函館	函6		ダ	1700	未勝利	 キセログラフィカ	11	横山武史	ナダル	ロイヤルチャージャー系	サンデーサイレンス系	ナスルーラ系	キングマンボ系	先	57	131	131	130	-			131	131	127	S	A
-613	函館	函6		ダ	1700	未勝利	 エトワールブルー	12	遠藤汰月	サートゥルナーリア	キングマンボ系	サンデーサイレンス系	サンデーサイレンス系	ニアークティック系	中	54▲	121	121	120	-			118	121	120	D	B</textarea><div id="loadMsg" class="small" style="display: none;"><span class="ok">読込成功：</span>5頭 / 全1レース中 1レース目 / コース自動=函館ダ1700 / 厩舎=条件安定補正 / 2週調教=未読込</div></div>
+613	函館	函6		ダ	1700	未勝利	 エトワールブルー	12	遠藤汰月	サートゥルナーリア	キングマンボ系	サンデーサイレンス系	サンデーサイレンス系	ニアークティック系	中	54▲	121	121	120	-			118	121	120	D	B</textarea><div id="loadMsg" class="small"><span class="ok">読込成功：</span>5頭 / 全1レース中 1レース目 / コース自動=函館ダ1700 / 厩舎=条件安定補正 / 2週調教=未読込</div></div>
 <div class="panel collapsible-panel"><h3 data-collapse-ready="1" role="button" tabindex="0">2週間調教データ</h3><div class="small">坂路とウッドは別データのままでOK。出馬表側の調教時計10列は不要です。血統登録番号を最優先、出馬表に番号がない場合は馬名で自動照合します。直前0〜5日55%＋6〜11日前30%＋12〜14日前15%を固定し、欠損期間は72ニュートラルで補完。各期間は最高点60%＋平均40%で圧縮し、終い1F 11.0〜11.4秒の加速ラップをセッション内で重点評価します。前日坂路4Fは59.9秒以下=強、60.0〜61.9=中、62.0〜65.0=小、65.1秒以上=加点なしを維持します。</div><div class="training-grid">
 <div><label>坂路2週間（0809hhh形式）</label><textarea id="slopeTrainingInput" placeholder="場所,年月日,曜日,時刻,馬名,...,Time1,Time2,Time3,Time4,Lap4,Lap3,Lap2,Lap1,...,血統登録番号,..."></textarea></div>
 <div><label>ウッド2週間（0809ww形式）</label><textarea id="woodTrainingInput" placeholder="場所,コース,回り,年月日,...,馬名,...,6F,5F,4F,3F,2F,1F,...,Lap2,Lap1,血統登録番号,..."></textarea></div>
@@ -236,14 +236,14 @@ body{margin:0;background:#07111f;color:#eef5ff;font-family:system-ui,-apple-syst
 <script>
 (function(){
 const E=id=>document.getElementById(id);let horses=[],timer=null,divs=[],path=[],seg=[],total=0,currentState=null,lastManyResult=null,activeManyContext=null,allRaceRows=[],raceGroups=[],currentRaceKey="",venueSurfaceSettings={},racePaceSettings={};
-function inputPanelByTitle(title){return [...document.querySelectorAll("main>.panel")].find(p=>String(p.querySelector(":scope>h3")?.textContent||"").includes(title))||null;}
+function inputPanelByTitle(title){return [...document.querySelectorAll("main>.panel")].find(p=>String(p.firstElementChild?.textContent||"").trim()===title)||null;}
 function setInputPanelCollapsed(title,collapsed){
  const p=inputPanelByTitle(title);if(!p)return;p.classList.add("collapsible-panel");p.classList.toggle("collapsed",!!collapsed);
- [...p.children].forEach((el,i)=>{if(i>0)el.style.display=collapsed?"none":"";});
- const h=p.querySelector(":scope>h3");if(h)h.setAttribute("aria-expanded",collapsed?"false":"true");
+ [...p.children].forEach((el,i)=>{if(i>0)el.hidden=!!collapsed;});
+ const h=p.firstElementChild;if(h)h.setAttribute("aria-expanded",collapsed?"false":"true");
 }
 function initInputPanel(title){
- const p=inputPanelByTitle(title);if(!p)return;p.classList.add("collapsible-panel");const h=p.querySelector(":scope>h3");if(!h||h.dataset.collapseReady)return;
+ const p=inputPanelByTitle(title);if(!p)return;p.classList.add("collapsible-panel");const h=p.firstElementChild;if(!h||h.dataset.collapseReady)return;
  h.dataset.collapseReady="1";h.setAttribute("role","button");h.setAttribute("tabindex","0");
  const toggle=()=>setInputPanelCollapsed(title,!p.classList.contains("collapsed"));h.addEventListener("click",toggle);h.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();toggle();}});
 }
@@ -257,7 +257,7 @@ function normalizeAbilityGrade(value){
   return normalized||"C";
 }
 const jockey={"ルメール":10,"レーン":9,"川田将雅":8,"武豊":5,"戸崎圭太":4,"坂井瑠星":4,"松山弘平":3,"横山武史":3,"岩田望来":3,"横山和生":3,"丹内祐次":2};
-const ENGINE_VERSION="v8.49.3-collapsible-inputs";
+const ENGINE_VERSION="v8.49.4-collapsible-input-fix";
 let raceLoadSucceeded=false;
 const ANALYSIS_ENGINE_POLICY={mode:"external-analysis-compressed-index", range:[58,91], simulationUsesRawDb:false, cacheOnLoad:true};
 // v8.42.6 厩舎圧縮指数DB。2021〜2025圧縮DBを基礎に、2026/01/04〜08/02の29,008走を追加更新。
@@ -3131,9 +3131,7 @@ function runMany(){
  chunk();
 }
 initInputPanel("出走表貼り付け");initInputPanel("2週間調教データ");
-const loadDataCore=loadData;loadData=function(){const ok=loadDataCore();if(ok)setInputPanelCollapsed("出走表貼り付け",true);return ok;};
-const loadTrainingDataCore=loadTrainingData;loadTrainingData=function(){const out=loadTrainingDataCore();if(trainingDataLoaded)setInputPanelCollapsed("2週間調教データ",true);return out;};
-E("load").addEventListener("click",()=>{allRaceRows=[];raceGroups=[];currentRaceKey="";loadData()});E("loadTraining").addEventListener("click",loadTrainingData);E("raceSelect").addEventListener("change",()=>{saveCurrentRaceSettings();loadData()});E("many").addEventListener("click",runMany);E("exportCsv").addEventListener("click",exportValidationCsv);E("exportShare").addEventListener("click",exportShareSnapshot);E("reset").addEventListener("click",()=>{lastManyResult=null;E("result").innerHTML="<div class='small'>5000回検証を実行してください。</div>";updateWeightModeInfo()});E("course").addEventListener("change",()=>{E("title").textContent=E("raceName").value+" / "+(courses[E("course").value]?.name||"");setup();updateWeightModeInfo()});E("going").addEventListener("change",()=>{saveCurrentRaceSettings();updateWeightModeInfo()});E("bias").addEventListener("change",()=>{saveCurrentRaceSettings();updateWeightModeInfo()});E("pace").addEventListener("change",saveCurrentRaceSettings);E("weight").addEventListener("input",e=>E("wtxt").textContent=e.target.value);organizePageLayout();if(!applyEmbeddedShareState())loadData();
+E("load").addEventListener("click",()=>{allRaceRows=[];raceGroups=[];currentRaceKey="";if(loadData())setInputPanelCollapsed("出走表貼り付け",true);});E("loadTraining").addEventListener("click",()=>{loadTrainingData();if(trainingDataLoaded)setInputPanelCollapsed("2週間調教データ",true);});E("raceSelect").addEventListener("change",()=>{saveCurrentRaceSettings();loadData()});E("many").addEventListener("click",runMany);E("exportCsv").addEventListener("click",exportValidationCsv);E("exportShare").addEventListener("click",exportShareSnapshot);E("reset").addEventListener("click",()=>{lastManyResult=null;E("result").innerHTML="<div class='small'>5000回検証を実行してください。</div>";updateWeightModeInfo()});E("course").addEventListener("change",()=>{E("title").textContent=E("raceName").value+" / "+(courses[E("course").value]?.name||"");setup();updateWeightModeInfo()});E("going").addEventListener("change",()=>{saveCurrentRaceSettings();updateWeightModeInfo()});E("bias").addEventListener("change",()=>{saveCurrentRaceSettings();updateWeightModeInfo()});E("pace").addEventListener("change",saveCurrentRaceSettings);E("weight").addEventListener("input",e=>E("wtxt").textContent=e.target.value);organizePageLayout();if(!applyEmbeddedShareState())loadData();
 })();
 </script>
 
